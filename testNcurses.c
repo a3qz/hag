@@ -72,13 +72,15 @@ void init_wins(WINDOW **wins) //int n)
 {	
 
 	//assuming character size is 15 by 15 pixels
+	// getting the size of the terminal
 	struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
 
 	int x, y, i, width, height;
 	char label[80];
 
-	//HEIGHT WIDTH Y X
+	//HEIGHT WIDTH Y X (order of inputs for newwin)
+	//storing the height and width of the terminal
 	int NLINES = w.ws_row;
 	int NCOLS = w.ws_col;
 
