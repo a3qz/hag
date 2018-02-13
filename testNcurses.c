@@ -52,14 +52,15 @@ int main()
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
-	top = my_panels[2];
+	//top = my_panels[2];
 	while((ch = getch()) != KEY_F(1))
-	{	switch(ch)
-		{	case 9:
-				top = (PANEL *)panel_userptr(top);
-				top_panel(top);
-				break;
+	{
+		waddch(my_wins[1], ch);	
+		wrefresh(my_wins[1]);
+		if (ch == 13) {
+			scrollok(my_wins[1], TRUE);
 		}
+		
 		update_panels();
 		doupdate();
 	}
@@ -73,6 +74,7 @@ void init_wins(WINDOW **wins) //int n)
 
 	//assuming character size is 15 by 15 pixels
 	// getting the size of the terminal
+	// https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
 	struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
 
