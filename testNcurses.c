@@ -55,7 +55,13 @@ int main()
 	//top = my_panels[2];
 	while((ch = getch()) != KEY_F(1))
 	{
-		waddch(my_wins[1], ch);	
+		char* printer;
+		sprintf(printer, "%c", ch);
+		int y, x, NCOLS, NLINES;
+		getyx(my_wins[1], y, x);
+		getbegyx(my_wins[1], NCOLS, NLINES);
+		
+		print_in_window(my_wins[1], y, x, NCOLS, printer, 1, false);	
 		wrefresh(my_wins[1]);
 		if (ch == 13) {
 			scrollok(my_wins[1], TRUE);
@@ -115,7 +121,7 @@ void win_show(WINDOW *win, char *label, int label_color)
 	mvwaddch(win, 2, width - 1, ACS_RTEE); 
 	
 	print_in_window(win, 1, 0, width, label, COLOR_PAIR(label_color), true);
-	print_in_window(win, 6, 1, width, "HELLO", COLOR_PAIR(label_color), false);
+	print_in_window(win, 6, 0, width, "HELLO", COLOR_PAIR(label_color), false);
 }
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)
@@ -137,6 +143,7 @@ void print_in_window(WINDOW *win, int starty, int startx, int width, char *strin
 		temp = (width - length)/ 2;
 	} else {
 		temp = 0;
+		startx = 1;
 	}
 	x = startx + (int)temp;
 	wattron(win, color);
