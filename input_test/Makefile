@@ -1,4 +1,4 @@
-CCFLAGS=-lncursesw
+CCFLAGS=-lncurses
 
 input_test: main.c map.o
 	$(CC) $^ -o $@ $(CCFLAGS)
