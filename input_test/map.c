@@ -2,7 +2,7 @@
 
 #include "map.h"
 
-static char *map = 0;
+static char **map = 0;
 static int width = 0;
 static int height = 0;
 
@@ -10,7 +10,7 @@ static int in_bounds(int y, int x) {
     return y>=0 && x>=0 && y<height && x<width;
 }
 
-void map_load(char *new_map, int w, int h) {
+void map_load(char **new_map, int w, int h) {
     map = new_map;
     width = w;
     height = h; 
@@ -18,13 +18,13 @@ void map_load(char *new_map, int w, int h) {
 
 void map_set(char c, int y, int x) {
     if (in_bounds(y, x) && map) {
-        map[x + y*width] = c;
+        map[y][x] = c;
     }
 }
 
 char map_get(int y, int x) {
     if (in_bounds(y, x) && map) {
-        return map[x + y*width];
+        return map[y][x];
     } else {
         return 0;
     }
@@ -53,7 +53,7 @@ void map_print(WINDOW *win, int y, int x) {
             w -= x1 - width;
         }
         for (; i < h && y0 < height; i++) {
-            mvwaddnstr(win, i, j, map + x0 + y0*width, w);
+            mvwaddnstr(win, i, j, map[y0] + x0, w);
             y0++;
         }
     }
