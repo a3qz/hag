@@ -6,4 +6,7 @@
     void map_set(char c, int y, int x);
     char map_get(int y, int x);
     void map_print(WINDOW *win, int y, int x);
+    int map_width();
+    int map_height();
+
 #endif

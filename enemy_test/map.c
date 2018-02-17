@@ -58,3 +58,11 @@ void map_print(WINDOW *win, int y, int x) {
         }
     }
 }
+
+int map_width() {
+    return width;
+}
+
+int map_height() {
+    return height;
+}

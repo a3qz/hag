@@ -1,6 +1,6 @@
 CCFLAGS=-lncurses
 
-input_test: main.c map.o list.h
+input_test: main.c map.o enemy.o list.o
 	$(CC) $^ -o $@ $(CCFLAGS)
 
 %.o: %.c %.h
