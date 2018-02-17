@@ -14,7 +14,7 @@ enemy_t *enemy_add(int type, char pic, int hp, int y, int x) {
     e->hp = hp;
     e->y = y;
     e->x = x;
-    list_add_tail(enemy_list, e);
+    e->node = list_add_tail(enemy_list, e);
 }
 
 enemy_t *enemy_at(int y, int x) {

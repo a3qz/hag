@@ -62,9 +62,14 @@ int main(int argc, char *argv[]) {
                     break;
             }
         }
+        enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.') {
-            x = xn;
-            y = yn;
+            if (at) {
+                enemy_hurt(at, 1);
+            } else {
+                x = xn;
+                y = yn;
+            }
         } 
     }
 
