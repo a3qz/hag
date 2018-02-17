@@ -1,10 +1,10 @@
-CCFLAGS=-lncurses
+CCFLAGS=-lncurses -g
 
-input_test: main.c map.o enemy.o list.o
+enemy_test: main.c map.o enemy.o list.o
 	$(CC) $^ -o $@ $(CCFLAGS)
 
 %.o: %.c %.h
 	$(CC) -c $< -o $@ $(CCFLAGS)
 
 clean:
-	rm -rf input_test *.o
+	rm -rf enemy_test *.o
