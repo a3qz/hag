@@ -3,8 +3,32 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <stdio.h>
+#include <unistd.h>
+
+#include "map.h"
+#include "list.h"
+#include "enemy.h"
+
+#define W 60
+#define H 13
+
 //#define NLINES 60
 //#define NCOLS 60
+
+char* map[] = {
+"           +++++++++++++++++++++++++++++++++++++++++++++++++",
+"           +................................+..............+",
+"           +...............................................+",
+"           +..+.............................+..............+",
+"++++++++++++..+++++++++++++++++++++++++++++++..............+",
+"+.............+                             +..............+",
+"+..++++++++++++                             +..............+",
+"+..+++++++                                  +..............+",
+"+..++....+                                  +..............+",
+"++..+....+                                  +..............+",
+" +.......+                                  +.....++++.....+",
+" +.......+                                  +.....+........+",
+" +++++++++                                  ++++++++++++++++"};
 
 void init_wins(WINDOW **wins);
 void win_show(WINDOW *win, char *label, int label_color);
@@ -52,10 +76,57 @@ int main()
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
+    int x = 50, y = 4;
+    int max_y = 0, max_x = 0;
+
+    map_load(map, W, H);
+    enemy_add(0, 'X', 5, 9, 51);
+    enemy_add(0, 'X', 5, 2, 49);
+    enemy_add(0, 'X', 5, 11, 8);
+
+    while(1) {
+        refresh();
+        wclear(my_wins[0]);
+        map_print(my_wins[0], y, x);
+        enemy_draw(my_wins[0], y, x);
+        int w0, h0;
+        getmaxyx(my_wins[0], h0, w0); //MACRO, changes w and h
+        mvwprintw(my_wins[0], h0/2, w0/2, "o");
+        wrefresh(my_wins[0]);
+        int xn = x, yn = y;
+        int ch = ERR;
+        if (ch = getch(), ch != ERR) {
+            switch (ch) {
+                case 'j':
+                    yn++;
+                    break;
+                case 'k':
+                    yn--;
+                    break;
+                case 'h':
+                    xn--;
+                    break;
+                case 'l':
+                    xn++;
+                    break;
+            }
+        }
+        enemy_t *at = enemy_at(yn, xn);
+        if (map_get(yn, xn) == '.') {
+            if (at) {
+                enemy_hurt(at, 1);
+            } else {
+                x = xn;
+                y = yn;
+            }
+        } 
+    }
+
+    /*
 	//top = my_panels[2];
 	while((ch = getch()) != KEY_F(1))
 	{
-		char* printer;
+		char printer[100];
 		sprintf(printer, "%c", ch);
 		int y, x, NCOLS, NLINES;
 		getyx(my_wins[1], y, x);
@@ -70,6 +141,7 @@ int main()
 		update_panels();
 		doupdate();
 	}
+    */
 	endwin();
 	return 0;
 }
