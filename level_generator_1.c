@@ -60,12 +60,12 @@ char ** createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y,
         ycenter2 = ycenter;
     }
     
-    for (i = 0; i < BOARD_X; i++){
+    /*for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){
             printf("%c", board[i][j]);
         }
         printf("\n");
-    }
+    }*/
     return board;
 }
 
