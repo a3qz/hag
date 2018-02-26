@@ -4,6 +4,7 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "level_generator_1.h"
 
 #include "map.h"
 #include "list.h"
@@ -40,7 +41,15 @@ int main()
 	PANEL  *my_panels[3];
 	PANEL  *top;
 	int ch;
-
+	 int NUM_ROOMS = 30;
+    int MAX_ROOM_X = 30;
+    int MIN_ROOM_X = 3;
+    int MAX_ROOM_Y = 30;
+    int MIN_ROOM_Y = 3;
+    int BOARD_X = 100;
+    int BOARD_Y = 200;
+    char ** map2 = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_Y, BOARD_X);
+	
 	/* Initialize curses */
 	initscr();
 	start_color();
@@ -76,10 +85,10 @@ int main()
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
-    int x = 50, y = 4;
+    int x = 50, y = 50;
     int max_y = 0, max_x = 0;
 
-    map_load(map, W, H);
+    map_load(map2, BOARD_X, BOARD_Y);
     enemy_add(0, 'X', 5, 9, 51);
     enemy_add(0, 'X', 5, 2, 49);
     enemy_add(0, 'X', 5, 11, 8);
