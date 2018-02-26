@@ -109,6 +109,22 @@ int main()
                 case 'l':
                     xn++;
                     break;
+				case 'b':
+					xn--;
+					yn++;
+					break;
+				case 'n':
+					xn++;
+					yn++;
+					break;	
+				case 'y':
+					xn--;
+					yn--;
+					break;	
+				case 'u':
+					xn++;
+					yn--;
+					break;
             }
         }
         enemy_t *at = enemy_at(yn, xn);
