@@ -5,7 +5,7 @@
 
 static list_t *enemy_list = 0;
 
-enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int range) {
+enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range) {
     if (!enemy_list) {
         enemy_list = list_create();
     }
@@ -15,7 +15,7 @@ enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int range) {
     e->hp = hp;
     e->y = y;
     e->x = x;
-    e->range = range;
+    e->sight_range = sight_range;
     e->node = list_add_tail(enemy_list, e);
 }
 
@@ -96,7 +96,7 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
         // if enemy is in range of the player
         int ydiff = e->y - y;
         int xdiff = e->x - x;
-        if(abs(ydiff) < 15 && abs(xdiff) < 15){
+        if(abs(ydiff) < e->sight_range && abs(xdiff) < e->sight_range){
                 if(ydiff < 0){
                     yn++;
                 } else if (ydiff > 0){
