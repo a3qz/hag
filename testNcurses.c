@@ -91,7 +91,7 @@ int main()
     map_load(map2, BOARD_X, BOARD_Y);
     enemy_add(0, 'X', 5, 9, 51);
     enemy_add(0, 'X', 5, 2, 49);
-    enemy_add(0, 'X', 5, 11, 8);
+    enemy_add(0, 'X', 5, x+2, y+2);
 
     while(1) {
         refresh();
@@ -145,6 +145,8 @@ int main()
                 y = yn;
             }
         } 
+		enemy_turn_driver(my_wins[0], y, x);
+
     }
 
     /*

@@ -1,6 +1,7 @@
 #include "enemy.h"
 #include "list.h"
 #include "map.h"
+#include "stdlib.h"
 
 static list_t *enemy_list = 0;
 
@@ -67,4 +68,58 @@ void enemy_clear() {
         free(t);
     }
     enemy_list->tail = 0;
+}
+
+void enemy_turn_driver(WINDOW *win, int y, int x){
+    list_traverse(enemy_list->head);
+    enemy_t *e;
+    while (e = list_traverse(0)) {
+        enemy_take_turn(e, win, y, x);
+    } 
+}
+
+void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
+    // movement
+    int w, h;
+    getmaxyx(win, h, w); //MACRO, changes w and h
+    int y0 = y - (h/2);
+    int x0 = x - (w/2);
+    int ey = e->y - y0;
+    int ex = e->x - x0;
+    int yn = e->y;
+    int xn = e->x;
+    
+    if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  // if the enemy is on screen
+         // TODO attacking
+        
+        // if enemy is in range of the player
+        int ydiff = e->y - y;
+        int xdiff = e->x - x;
+        if(abs(ydiff) < 15 && abs(xdiff) < 15){
+            
+                if(ydiff < 0){
+                    yn++;
+                } else if (ydiff > 0){
+                    yn--;
+                } else{
+                }
+                if (xdiff < 0){
+                    xn++;
+                } else if (xdiff > 0){
+                    xn--;
+                } else {
+
+                }
+                if(map_get(yn, xn) == '.'){
+                    e->y = yn;
+                    e->x = xn;
+                } else if (map_get(yn, e->x) == '.'){
+                    e->y = yn;
+                } else if (map_get(e->y, xn) == '.'){
+                    e->x = xn;
+                }
+            
+        }
+    }
+   
 }
