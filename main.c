@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "level_generator_1.h"
+#include "player.h"
 
 #include "map.h"
 #include "list.h"
@@ -85,24 +86,24 @@ int main()
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
-    int x = 50, y = 50;
+    int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
     int max_y = 0, max_x = 0;
 
     map_load(map2, BOARD_X, BOARD_Y);
-    enemy_add(0, 'X', 5, 9, 51, 15);
-    enemy_add(0, 'X', 5, 2, 49, 15);
-    enemy_add(0, 'X', 5, x+2, y+2, 15);
-
+    enemy_add(0, 'X', 45, 9, 51, 15, 25);
+    enemy_add(0, 'X', 45, 2, 49, 15, 25);
+    enemy_add(0, 'X', 45, x+2, y+2, 15, 25);
+	player_t * player = get_player_obj();
     while(1) {
         refresh();
         wclear(my_wins[0]);
-        map_print(my_wins[0], y, x);
-        enemy_draw(my_wins[0], y, x);
+        map_print(my_wins[0], player->y, player->x);
+        enemy_draw(my_wins[0], player->y, player->x);
         int w0, h0;
         getmaxyx(my_wins[0], h0, w0); //MACRO, changes w and h
         mvwprintw(my_wins[0], h0/2, w0/2, "@");
         wrefresh(my_wins[0]);
-        int xn = x, yn = y;
+        int xn = player->x, yn = player->y;
         int ch = ERR;
         if (ch = getch(), ch != ERR) {
             switch (ch) {
@@ -134,18 +135,20 @@ int main()
 					xn++;
 					yn--;
 					break;
+				case '.':
+					break;
             }
         }
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.') {
             if (at) {
-                enemy_hurt(at, 1);
+                enemy_hurt(at, player->strength);
             } else {
-                x = xn;
-                y = yn;
+                player->x = xn;
+                player->y = yn;
             }
         } 
-		enemy_turn_driver(my_wins[0], y, x);
+		enemy_turn_driver(my_wins[0], player->y, player->x);
 
     }
 
