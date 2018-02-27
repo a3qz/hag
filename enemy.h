@@ -13,6 +13,7 @@
     } enemy_t;
     enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range);
     enemy_t *enemy_at(int y, int x);
+    void enemy_set(list_t *list) {
     void enemy_hurt(enemy_t *e, int d);
     void enemy_draw(WINDOW *win, int y, int x);
     void enemy_clear();
