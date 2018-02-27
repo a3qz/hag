@@ -36,3 +36,13 @@ void floor_goto(int f) {
 int floor_get() {
     return current_floor;
 }
+
+void floor_down() {
+    floor_goto(current_floor-1);
+    //set player coordinates here
+}
+
+void floor_up() {
+    floor_goto(current_floor+1);
+    //set player coordinates here
+}

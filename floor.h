@@ -17,6 +17,8 @@
 
     void floor_init();
     void floor_goto(int f);
+    void floor_down();
+    void floor_up();
     int floor_get();
 
 #endif
