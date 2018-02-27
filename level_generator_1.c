@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "map.h"
 #include "level_generator_1.h"
 
 int testmain(){
@@ -11,10 +12,10 @@ int testmain(){
     int MIN_ROOM_Y = 3;
     int BOARD_X = 100;
     int BOARD_Y = 200;
-    char ** x = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_X, BOARD_Y);
+    map_t x = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_X, BOARD_Y);
     return 0;
 }
-char ** createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, int MIN_ROOM_Y, int BOARD_X, int BOARD_Y){
+map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, int MIN_ROOM_Y, int BOARD_X, int BOARD_Y){
     srand(time(0)); 
             
     char **board = (char **)malloc(BOARD_X *BOARD_Y * sizeof(char*));

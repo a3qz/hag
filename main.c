@@ -41,14 +41,14 @@ int main()
 	PANEL  *my_panels[3];
 	PANEL  *top;
 	int ch;
-	 int NUM_ROOMS = 30;
+	int NUM_ROOMS = 30;
     int MAX_ROOM_X = 30;
     int MIN_ROOM_X = 3;
     int MAX_ROOM_Y = 30;
     int MIN_ROOM_Y = 3;
     int BOARD_X = 100;
     int BOARD_Y = 200;
-    char ** map2 = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_Y, BOARD_X);
+    map_t map2 = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_Y, BOARD_X);
 	
 	/* Initialize curses */
 	initscr();

@@ -2,7 +2,7 @@
 
 #include "map.h"
 
-static char **map = 0;
+static map_t map = 0;
 static int width = 0;
 static int height = 0;
 
@@ -10,7 +10,7 @@ static int in_bounds(int y, int x) {
     return y>=0 && x>=0 && y<height && x<width;
 }
 
-void map_load(char **new_map, int w, int h) {
+void map_load(map_t new_map, int w, int h) {
     map = new_map;
     width = w;
     height = h; 
