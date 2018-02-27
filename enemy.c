@@ -5,7 +5,7 @@
 
 static list_t *enemy_list = 0;
 
-enemy_t *enemy_add(int type, char pic, int hp, int y, int x) {
+enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int range) {
     if (!enemy_list) {
         enemy_list = list_create();
     }
@@ -15,6 +15,7 @@ enemy_t *enemy_add(int type, char pic, int hp, int y, int x) {
     e->hp = hp;
     e->y = y;
     e->x = x;
+    e->range = range;
     e->node = list_add_tail(enemy_list, e);
 }
 
@@ -96,12 +97,12 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
         int ydiff = e->y - y;
         int xdiff = e->x - x;
         if(abs(ydiff) < 15 && abs(xdiff) < 15){
-            
                 if(ydiff < 0){
                     yn++;
                 } else if (ydiff > 0){
                     yn--;
                 } else{
+
                 }
                 if (xdiff < 0){
                     xn++;
@@ -118,7 +119,6 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
                 } else if (map_get(e->y, xn) == '.'){
                     e->x = xn;
                 }
-            
         }
     }
    

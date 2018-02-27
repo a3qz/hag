@@ -89,9 +89,9 @@ int main()
     int max_y = 0, max_x = 0;
 
     map_load(map2, BOARD_X, BOARD_Y);
-    enemy_add(0, 'X', 5, 9, 51);
-    enemy_add(0, 'X', 5, 2, 49);
-    enemy_add(0, 'X', 5, x+2, y+2);
+    enemy_add(0, 'X', 5, 9, 51, 15);
+    enemy_add(0, 'X', 5, 2, 49, 15);
+    enemy_add(0, 'X', 5, x+2, y+2, 15);
 
     while(1) {
         refresh();
