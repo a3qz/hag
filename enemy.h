@@ -8,11 +8,14 @@
         int hp;
         int y;
         int x;
+        int sight_range;
         node_t *node;
     } enemy_t;
-    enemy_t *enemy_add(int type, char pic, int hp, int y, int x);
+    enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range);
     enemy_t *enemy_at(int y, int x);
     void enemy_hurt(enemy_t *e, int d);
     void enemy_draw(WINDOW *win, int y, int x);
     void enemy_clear();
+    void enemy_turn_driver(WINDOW *win, int y, int x);
+    void enemy_take_turn(enemy_t *e, WINDOW *win, int player_y, int player_x);
 #endif
