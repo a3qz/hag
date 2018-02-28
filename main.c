@@ -4,10 +4,10 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "level_generator_1.h"
 #include "player.h"
 
 #include "map.h"
+#include "floor.h"
 #include "list.h"
 #include "enemy.h"
 
@@ -42,14 +42,8 @@ int main()
 	PANEL  *my_panels[3];
 	PANEL  *top;
 	int ch;
-	int NUM_ROOMS = 30;
-    int MAX_ROOM_X = 30;
-    int MIN_ROOM_X = 3;
-    int MAX_ROOM_Y = 30;
-    int MIN_ROOM_Y = 3;
-    int BOARD_X = 100;
-    int BOARD_Y = 200;
-    map_t map2 = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_Y, BOARD_X);
+
+    floor_down();
 	
 	/* Initialize curses */
 	initscr();
@@ -89,14 +83,13 @@ int main()
     int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
     int max_y = 0, max_x = 0;
 
-    map_load(map2, BOARD_X, BOARD_Y);
     enemy_add(0, 'X', 45, 9, 51, 15, 25);
     enemy_add(0, 'X', 45, 2, 49, 15, 25);
     enemy_add(0, 'X', 45, x+2, y+2, 15, 25);
 	player_t * player = get_player_obj();
     while(1) {
         refresh();
-        wclear(my_wins[0]);
+        werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
         int w0, h0;
@@ -135,12 +128,22 @@ int main()
 					xn++;
 					yn--;
 					break;
+				case '>':
+                    if (map_get(player->y, player->x) == '>') {
+                        floor_down();
+                    }
+					break;
+				case '<':
+                    if (map_get(player->y, player->x) == '<') {
+                        floor_up();
+                    }
+					break;
 				case '.':
 					break;
             }
         }
         enemy_t *at = enemy_at(yn, xn);
-        if (map_get(yn, xn) == '.') {
+        if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
                 enemy_hurt(at, player->strength);
             } else {

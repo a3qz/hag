@@ -6,9 +6,13 @@
 
 static list_t *enemy_list = 0;
 
+void enemy_set(list_t *list) {
+    enemy_list = list;
+}
+
 enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range, int strength) {
     if (!enemy_list) {
-        enemy_list = list_create();
+        return 0;
     }
     enemy_t *e = (enemy_t*)malloc(sizeof(*e));
     e->type = type;
@@ -19,6 +23,7 @@ enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range, in
     e->sight_range = sight_range;
     e->node = list_add_tail(enemy_list, e);
     e->strength = strength;
+    return e;
 }
 
 enemy_t *enemy_at(int y, int x) {
