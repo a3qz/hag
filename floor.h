@@ -4,10 +4,11 @@
     #define FLOOR_COUNT 10
     
     #include "list.h"
+    #include "map.h"
 
     typedef struct floor {
         int loaded;
-        list_t enemy_list;
+        list_t *enemy_list;
         map_t map;
         int down_y;
         int down_x;
