@@ -2,10 +2,11 @@
 #include "list.h"
 #include "map.h"
 #include "stdlib.h"
+#include "player.h"
 
 static list_t *enemy_list = 0;
 
-enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range) {
+enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range, int strength) {
     if (!enemy_list) {
         enemy_list = list_create();
     }
@@ -17,6 +18,7 @@ enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range) {
     e->x = x;
     e->sight_range = sight_range;
     e->node = list_add_tail(enemy_list, e);
+    e->strength = strength;
 }
 
 enemy_t *enemy_at(int y, int x) {
@@ -80,7 +82,7 @@ void enemy_turn_driver(WINDOW *win, int y, int x){
 }
 
 void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
-    // movement
+    
     int w, h;
     getmaxyx(win, h, w); //MACRO, changes w and h
     int y0 = y - (h/2);
@@ -92,7 +94,17 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
     
     if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  // if the enemy is on screen
          // TODO attacking
-        
+        int i, j;
+        for (i = e->x-1; i <= e->x+1; i++){
+            for(j = e->y-1; j <= e->y+1; j++){
+                if(i == get_player_x() && j == get_player_y()){
+                    player_hurt(e->strength);
+                    return;
+                }
+            }
+        }
+
+        // movement
         // if enemy is in range of the player
         int ydiff = e->y - y;
         int xdiff = e->x - x;
