@@ -3,6 +3,7 @@
 #include "list.h"
 #include "enemy.h"
 #include "level_generator_1.h"
+#include "player.h"
 
 static const int NUM_ROOMS = 30;
 static const int MAX_ROOM_X = 30;
@@ -41,10 +42,12 @@ int floor_get() {
 
 void floor_down() {
     floor_goto(current_floor+1);
-    //set player coordinates here
+    set_player_y(floors[current_floor].up_y);
+    set_player_x(floors[current_floor].up_x);
 }
 
 void floor_up() {
     floor_goto(current_floor-1);
-    //set player coordinates here
+    set_player_y(floors[current_floor].down_y);
+    set_player_x(floors[current_floor].down_x);
 }

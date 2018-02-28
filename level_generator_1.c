@@ -36,6 +36,10 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
     int xcenter2 = 0;
     int ycenter2 = 0;
     int room_iterator;
+    int up_y;
+    int up_x;
+    int down_y;
+    int down_x;
     
     for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
         int xlen = rand()%MAX_ROOM_X;
@@ -61,27 +65,27 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
         ycenter2 = ycenter;
 
         if (room_iterator == 0) {
-            int up_x = xpos + rand()%xlen;
-            int up_y = ypos + rand()%ylen;
+            up_y = xpos + rand()%(xlen+1);
+            up_x = ypos + rand()%(ylen+1);
             if (UP_X) {
                 *UP_X = up_x;
             }
             if (UP_Y) {
                 *UP_Y = up_y;
             }
-            board[up_y][up_x] = '<';
         } else if (room_iterator == NUM_ROOMS-1) {
-            int down_x = xpos + rand()%xlen;
-            int down_y = ypos + rand()%ylen;
+            down_y = xpos + rand()%(xlen+1);
+            down_x = ypos + rand()%(ylen+1);
             if (DOWN_X) {
                 *DOWN_X = down_x;
             }
             if (DOWN_Y) {
                 *DOWN_Y = down_y;
             }
-            board[down_y][down_x] = '>';
         }
     }
+    board[down_y][down_x] = '>';
+    board[up_y][up_x] = '<';
     
     /*for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){

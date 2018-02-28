@@ -1,6 +1,6 @@
 # Declaration of variables
 CC = gcc 
-CC_FLAGS=-lpanel -lncurses
+CC_FLAGS=-lpanel -lncurses -g
  
 # File names
 EXEC = fortnite.exe
@@ -9,7 +9,7 @@ OBJECTS = $(SOURCES:.c=.o)
  
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC) $(CC_FLAGS)
+	$(CC) $^ -o $@ $(CC_FLAGS)
  
 # To obtain object files
 %.o: %.c
