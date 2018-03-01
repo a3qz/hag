@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "map.h"
+#include "colors.h"
 #include "level_generator_1.h"
 #include "enemy.h"
 #include "floor.h"
@@ -32,7 +33,7 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
 
     for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){
-            board[i][j] = '#' | COLOR_GREEN << 8;
+            board[i][j] = '#' | COLORS_YELLOW;
         }
     }
 
@@ -100,8 +101,8 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
             }
         }
     }
-    board[down_y][down_x] = '>' | A_BOLD | COLOR_BLUE << 8;
-    board[up_y][up_x] = '<' | A_BOLD | COLOR_BLUE << 8;
+    board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
+    board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
     
     /*for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){
