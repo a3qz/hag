@@ -12,7 +12,11 @@ void enemy_set(list_t *list) {
 
 enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength) {
     if (!floor_enemy_list) {
-        return 0;
+        if (enemy_list) {
+            floor_enemy_list = enemy_list;
+        } else {
+            return 0;
+        }
     }
     enemy_t *e = (enemy_t*)malloc(sizeof(*e));
     e->type = type;
