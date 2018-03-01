@@ -4,8 +4,9 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "player.h"
 
+#include "player.h"
+#include "colors.h"
 #include "map.h"
 #include "floor.h"
 #include "list.h"
@@ -36,17 +37,12 @@ int main()
 	
 	/* Initialize curses */
 	initscr();
-	start_color();
 	cbreak();
 	noecho();
 	curs_set(0);
 	keypad(stdscr, TRUE);
 
-	/* Initialize all the colors */
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+    colors_init();
 
 	init_wins(my_wins, w);
 	
