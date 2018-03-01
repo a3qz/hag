@@ -71,9 +71,9 @@ int main()
     int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
     int max_y = 0, max_x = 0;
 
-    enemy_add(0, 'X', 45, 9, 51, 15, 25);
-    enemy_add(0, 'X', 45, 2, 49, 15, 25);
-    enemy_add(0, 'X', 45, x+2, y+2, 15, 25);
+    //enemy_add(0, 'X', 45, 2, 49, 15, 25);
+    //enemy_add(0, 'X', 45, x+2, y+2, 15, 25);
+    //enemy_add(0, 'X', 45, 9, 51, 15, 25);
 	player_t * player = get_player_obj();
     while(1) {
         refresh();
