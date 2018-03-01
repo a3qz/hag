@@ -123,6 +123,6 @@ int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx,
             board[realx][realy] = '.';
         }
     }
-    
+	return 0;  
 }
 
