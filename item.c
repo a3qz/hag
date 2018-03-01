@@ -1,0 +1,74 @@
+#include <ncurses.h>
+#include "list.h"
+#include "item.h"
+#include "colors.h"
+
+static list_t *item_list = 0;
+static item_t *held = 0;
+
+item_t *item_add(int y, int x) {
+    if (!item_list) {
+        return 0;
+    }
+    
+    item_t *item = malloc(sizeof(*item));
+    item->y = y;
+    item->x = x;
+    item->power = 0;
+    item->node = list_add_tail(item_list, item);
+}
+
+item_t *item_at(int y, int x) {
+    if (!item_list) {
+        return 0;
+    }
+    list_traverse(item_list->head);
+    item_t *t;
+    while (t = list_traverse(0)) {
+        if (t->y == y && t->x == x) {
+            return t;
+        }
+    } 
+    return 0;
+}
+
+void item_set_list(list_t *list) {
+    item_list = list;
+}
+
+void item_swap(item_t* item) {
+    if (item && held) {
+        held->y = item->y;
+        held->x = item->x;
+        held->node = list_add_tail(item_list, item);
+        list_remove(item_list, item->node);
+        item->node = 0;
+        held = item;
+    }
+}
+
+void item_give() {
+    if (held) {
+        free(held);
+    }
+    held = malloc(sizeof(*item));
+    item->power = 1;
+    item->node = 0;
+}
+
+void item_draw(WINDOW *win, int y, int x) {
+    if (!item_list) return;
+    int w, h;
+    getmaxyx(win, h, w); //MACRO, changes w and h
+    int y0 = y - (h/2);
+    int x0 = x - (w/2);
+    list_traverse(item_list->head);
+    item_t *e;
+    while (e = list_traverse(0)) {
+        int ey = e->y - y0;
+        int ex = e->x - x0;
+        if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
+            mvwaddch(win, ey, ex, '/'|COLORS_WHITE|A_BOLD);
+        }
+    } 
+}

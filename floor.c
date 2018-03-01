@@ -17,9 +17,10 @@ static floor_t floors[FLOOR_COUNT] = {0};
 
 static int current_floor = -1;
 
-void floor_init() {
+static void floor_init() {
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
         floors[current_floor].enemy_list = list_create();
+        floors[current_floor].item_list = list_create();
         floors[current_floor].map = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_Y, BOARD_X,
                                               &floors[current_floor].down_y, &floors[current_floor].down_x,
                                               &floors[current_floor].up_y, &floors[current_floor].up_x);
@@ -31,6 +32,7 @@ void floor_goto(int f) {
     if (f < FLOOR_COUNT && f >= 0) {
         current_floor = f;
         floor_init();
+        item_set_list(floors[current_floor].item_list);
         enemy_set(floors[current_floor].enemy_list);
         map_load(floors[current_floor].map, BOARD_X, BOARD_Y);
     }
