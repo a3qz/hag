@@ -62,6 +62,8 @@ void print_stats(WINDOW *win, struct player *p){
 	print_in_window(win, 3, 1, y, str, 2, false);
 	sprintf(str, "Intelligence: %d\n", p->intelligence);
 	print_in_window(win, 4, 1, y, str, 2, false);
+	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
+	print_in_window(win, 5, 1, y, str, 2, false);
 }
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)

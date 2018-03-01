@@ -8,6 +8,8 @@ typedef struct player {
         int strength;
         int dexterity;
         int intelligence;
+		int current_exp;
+		int max_exp;
     } player_t;
 
 player_t * get_player_obj();

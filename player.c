@@ -1,7 +1,7 @@
 #include "player.h"
 #include <stdlib.h>
 
-static player_t player = {100, 100, 50, 50, 25, 25, 25};
+static player_t player = {100, 100, 50, 50, 25, 25, 25, 0, 100};
 player_t * get_player_obj(){
     return &player;
 }
