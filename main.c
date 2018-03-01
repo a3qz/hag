@@ -4,8 +4,9 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "player.h"
 
+#include "player.h"
+#include "colors.h"
 #include "map.h"
 #include "floor.h"
 #include "list.h"
@@ -42,17 +43,12 @@ int main()
 	
 	/* Initialize curses */
 	initscr();
-	start_color();
 	cbreak();
 	noecho();
 	curs_set(0);
 	keypad(stdscr, TRUE);
 
-	/* Initialize all the colors */
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+    colors_init();
 
 	init_wins(my_wins, w);
 	
@@ -77,9 +73,6 @@ int main()
     int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
     int max_y = 0, max_x = 0;
 
-    enemy_add(0, 'X', 45, 9, 51, 15, 25);
-    enemy_add(0, 'X', 45, 2, 49, 15, 25);
-    enemy_add(0, 'X', 45, x+2, y+2, 15, 25);
 	player_t * player = get_player_obj();
     while(1) {
         refresh();
@@ -138,7 +131,7 @@ int main()
 				case '.':
 					break;
 				case 't':
-    				enemy_add(0, 'X', 45, player->y+1, player->x+1, 15, 10);
+    				enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
 					break;
             }
         }

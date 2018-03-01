@@ -69,8 +69,6 @@ void print_stats(WINDOW *win, struct player *p){
 }
 
 void print_action(WINDOW *win, char * str[]){
-
-
 	int x, y;
 	getmaxyx(win, y, x);
 	int i;
@@ -97,7 +95,8 @@ void initialize_actions(char * str[], int n){
 }
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)
-{	int length, x, y;
+{	
+  int length, x, y;
 	float temp;
 
 	if(win == NULL)
