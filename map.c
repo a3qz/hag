@@ -53,7 +53,11 @@ void map_print(WINDOW *win, int y, int x) {
             w -= x1 - width;
         }
         for (; i < h && y0 < height; i++) {
-            mvwaddnstr(win, i, j, map[y0] + x0, w);
+            int k;
+            for (k = 0; k < w && x0+k<width; k++) {
+                mvwaddch(win, i, j + k, map[y0][x0+k]);
+            }
+            //mvwaddnstr(win, i, j, map[y0] + x0, w);
             y0++;
         }
     }

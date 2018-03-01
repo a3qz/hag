@@ -10,8 +10,8 @@ static const int MAX_ROOM_X = 30;
 static const int MIN_ROOM_X = 3;
 static const int MAX_ROOM_Y = 30;
 static const int MIN_ROOM_Y = 3;
-static const int BOARD_X = 100;
-static const int BOARD_Y = 200;
+static const int BOARD_X = 400;
+static const int BOARD_Y = 400;
 
 static floor_t floors[FLOOR_COUNT] = {0};
 
