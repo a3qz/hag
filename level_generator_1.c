@@ -18,16 +18,16 @@ int testmain(){
 map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, int MIN_ROOM_Y, int BOARD_X, int BOARD_Y, int* DOWN_Y, int* DOWN_X, int* UP_Y, int* UP_X){
     srand(time(0)); 
             
-    char **board = (char **)malloc(BOARD_X *BOARD_Y * sizeof(char*));
+    map_t board = (map_t)malloc(BOARD_X * sizeof(map_row_t));
     int i, j;
 
     for(i = 0; i < BOARD_X; i++){
-        board[i] = (char *)malloc(BOARD_Y * sizeof(char));
+        board[i] = (map_row_t)malloc(BOARD_Y * sizeof(map_space_t));
     }
 
     for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){
-            board[i][j] = '#';
+            board[i][j] = '#' | COLOR_GREEN << 8;
         }
     }
 
@@ -53,7 +53,7 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
 
         for(i = 0; i < xlen; i++){
             for(j=0; j < ylen; j++){
-                board[i+xpos][j+ypos] = '.';
+                board[i+xpos][j+ypos] = '.' | A_DIM;
             }
         }
 
@@ -84,8 +84,8 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
             }
         }
     }
-    board[down_y][down_x] = '>';
-    board[up_y][up_x] = '<';
+    board[down_y][down_x] = '>' | A_BOLD | COLOR_BLUE << 8;
+    board[up_y][up_x] = '<' | A_BOLD | COLOR_BLUE << 8;
     
     /*for (i = 0; i < BOARD_X; i++){
         for(j = 0; j < BOARD_Y; j++){
@@ -96,7 +96,7 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
     return board;
 }
 
-int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx, int oldcentery){
+int connectpoints(map_t board, int newcenterx, int newcentery, int oldcenterx, int oldcentery){
     int xdiff = newcenterx-oldcenterx;
     int ydiff = newcentery-oldcentery;
     int realx = newcenterx;
@@ -111,7 +111,7 @@ int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx,
                 xdiff += 1;
                 realx += 1;
             }
-            board[realx][realy] = '.';
+            board[realx][realy] = '.' | A_DIM;
         } else {
             if(ydiff > 0){
                 ydiff -= 1;
@@ -120,7 +120,7 @@ int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx,
                 ydiff += 1;
                 realy += 1;
             }
-            board[realx][realy] = '.';
+            board[realx][realy] = '.' | A_DIM;
         }
     }
     

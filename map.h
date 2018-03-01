@@ -2,7 +2,9 @@
 #define MAP_H
     #include <ncurses.h>
 
-    typedef char** map_t;
+    typedef int          map_space_t;
+    typedef map_space_t* map_row_t;
+    typedef map_row_t*   map_t;
 
     void map_load(map_t new_map, int w, int h);
     void map_set(char c, int y, int x);
