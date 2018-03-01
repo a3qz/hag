@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include "level_generator_1.h"
 #include "gui.h"
+#include "player.h"
+
 
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
@@ -45,6 +47,21 @@ void win_show(WINDOW *win, char *label, int label_color)
 	mvwaddch(win, 2, 0, ACS_LTEE); 
 	mvwaddch(win, 2, width - 1, ACS_RTEE); 
 	
+}
+
+void print_stats(WINDOW *win, struct player *p){
+	int x, y;
+	getmaxyx(win, y, x);
+	char c[y];
+	char * str = c ;
+	sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
+	print_in_window(win, 1, 1, y, str, 2, false);
+	sprintf(str, "Strength: %d\n", p->strength);
+	print_in_window(win, 2, 1, y, str, 2, false);
+	sprintf(str, "Dexterity: %d\n", p->dexterity);
+	print_in_window(win, 3, 1, y, str, 2, false);
+	sprintf(str, "Intelligence: %d\n", p->intelligence);
+	print_in_window(win, 4, 1, y, str, 2, false);
 }
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)

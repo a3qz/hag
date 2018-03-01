@@ -27,8 +27,6 @@ int main()
 	struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
 
-
-
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
 	PANEL  *top;
@@ -62,12 +60,11 @@ int main()
 	set_panel_userptr(my_panels[1], my_panels[2]);
 	set_panel_userptr(my_panels[2], my_panels[0]);
 
-	/* Update the stacking order. 2nd panel will be on top */
+	/*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE*/
 	update_panels();
 
 	/* Show it on the screen */
 	attron(COLOR_PAIR(4));
-	mvprintw(LINES - 2, 0, "Use tab to browse through the windows (F1 to Exit)");
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
@@ -80,6 +77,8 @@ int main()
 	player_t * player = get_player_obj();
     while(1) {
         refresh();
+		print_stats(my_wins[2], player);
+		update_panels();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
@@ -130,6 +129,9 @@ int main()
                     }
 					break;
 				case '.':
+					break;
+				case 't':
+    				enemy_add(0, 'X', 45, player->y+1, player->x+1, 15, 10);
 					break;
             }
         }
