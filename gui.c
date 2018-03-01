@@ -66,6 +66,11 @@ void print_stats(WINDOW *win, struct player *p){
 	print_in_window(win, 5, 1, y, str, 2, false);
 }
 
+void print_action(WINDOW *win, char * str[]){
+
+}
+
+
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)
 {	int length, x, y;
 	float temp;
