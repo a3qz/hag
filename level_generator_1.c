@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include "map.h"
 #include "level_generator_1.h"
+#include "enemy.h"
+#include "floor.h"
+#include "list.h"
+
+int period_count = 0;
 
 int testmain(){
     int NUM_ROOMS = 30;
@@ -12,7 +17,7 @@ int testmain(){
     int MIN_ROOM_Y = 3;
     int BOARD_X = 100;
     int BOARD_Y = 200;
-    map_t x = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_X, BOARD_Y, 0, 0, 0, 0);
+    //map_t x = createmap(NUM_ROOMS, MAX_ROOM_X, MIN_ROOM_X, MAX_ROOM_Y, MIN_ROOM_Y, BOARD_X, BOARD_Y, 0, 0, 0, 0);
     return 0;
 }
 map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, int MIN_ROOM_Y, int BOARD_X, int BOARD_Y, int* DOWN_Y, int* DOWN_X, int* UP_Y, int* UP_X){
@@ -41,6 +46,12 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
     int down_y;
     int down_x;
     
+    int num_enemies = 3*(floor_get()+4);
+
+    
+    list_t *enemies = list_create();
+
+
     for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
         int xlen = rand()%MAX_ROOM_X;
         int ylen = rand()%MAX_ROOM_Y;
@@ -50,10 +61,14 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
 
         xcenter = xpos+xlen/2;
         ycenter = ypos+ylen/2;
-
+        
         for(i = 0; i < xlen; i++){
             for(j=0; j < ylen; j++){
                 board[i+xpos][j+ypos] = '.';
+                period_count++;
+                if(rand()%(2000+1) <= floor_get()+5){
+                    enemy_add(enemies, 0, 'X', 20, i+xpos, j+ypos, 10, 5);
+                }
             }
         }
 
@@ -93,6 +108,8 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
         }
         printf("\n");
     }*/
+    floor_add_enemy_list(enemies);
+    
     return board;
 }
 
@@ -112,6 +129,7 @@ int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx,
                 realx += 1;
             }
             board[realx][realy] = '.';
+            period_count++;
         } else {
             if(ydiff > 0){
                 ydiff -= 1;
@@ -121,6 +139,7 @@ int connectpoints(char ** board, int newcenterx, int newcentery, int oldcenterx,
                 realy += 1;
             }
             board[realx][realy] = '.';
+            period_count++;
         }
     }
     
