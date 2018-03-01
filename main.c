@@ -27,6 +27,12 @@ int main()
 	struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
 
+	//actions strings declaration
+	int numRows = w.ws_row * .25;
+	char * actions[numRows];
+	initialize_actions(actions, numRows);
+
+
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
 	PANEL  *top;
@@ -78,6 +84,7 @@ int main()
     while(1) {
         refresh();
 		print_stats(my_wins[2], player);
+		print_action(my_wins[1], actions);
 		update_panels();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
@@ -145,7 +152,7 @@ int main()
             }
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
-
+		add_action(actions, "my new action");
     }
 
 	endwin();
