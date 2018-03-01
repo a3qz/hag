@@ -66,7 +66,7 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
             for(j=0; j < ylen; j++){
                 board[i+xpos][j+ypos] = '.';
                 period_count++;
-                if(rand()%(2000+1) <= floor_get()+5){
+                if(rand()%(2000+1) <= 2*(floor_get()+5)){
                     enemy_add(enemies, 0, 'X', 20, i+xpos, j+ypos, 10, 5);
                 }
             }
