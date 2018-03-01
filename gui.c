@@ -55,15 +55,15 @@ void print_stats(WINDOW *win, struct player *p){
 	char c[y];
 	char * str = c ;
 	sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
-	print_in_window(win, 1, 1, y-2, str, 2, false);
+	print_in_window(win, 1, 1, y-2, str, 0, false);
 	sprintf(str, "Strength: %d\n", p->strength);
-	print_in_window(win, 2, 1, y-2, str, 2, false);
+	print_in_window(win, 2, 1, y-2, str, 0, false);
 	sprintf(str, "Dexterity: %d\n", p->dexterity);
-	print_in_window(win, 3, 1, y-2, str, 2, false);
+	print_in_window(win, 3, 1, y-2, str, 0, false);
 	sprintf(str, "Intelligence: %d\n", p->intelligence);
-	print_in_window(win, 4, 1, y-2, str, 2, false);
+	print_in_window(win, 4, 1, y-2, str, 0, false);
 	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
-	print_in_window(win, 5, 1, y-2, str, 2, false);
+	print_in_window(win, 5, 1, y-2, str, 0, false);
 	box(win, 0, 0);
 }
 
