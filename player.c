@@ -22,7 +22,6 @@ void player_hurt(int enemy_strength){
         player.current_hp = player.current_hp - enemy_strength;
     } else{
         player.current_hp = 0;
-        exit(1);
     }
 
 }
