@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "floor.h"
 #include "list.h"
+#include "enemy_rulebook.h"
 
 int period_count = 0;
 
@@ -69,7 +70,7 @@ map_t createmap(int NUM_ROOMS, int MAX_ROOM_X, int MIN_ROOM_X, int MAX_ROOM_Y, i
                 board[i+xpos][j+ypos] = '.' | A_DIM;
                 period_count++;
                 if(rand()%(2000+1) <= 2*(floor_get()+5)){
-                    enemy_add(enemies, 0, 'X', 20, i+xpos, j+ypos, 10, 5);
+                    enemy_add(enemies, 0, get_rulebook()[0].pic, 20, i+xpos, j+ypos, 10, 5);
                 }
             }
         }
