@@ -21,5 +21,5 @@
     void floor_down();
     void floor_up();
     int floor_get();
-
+    void floor_add_enemy_list(list_t * enemies);
 #endif
