@@ -54,5 +54,4 @@ void floor_up() {
 
 void floor_add_enemy_list(list_t * enemies){
     floors[current_floor].enemy_list = enemies;
-    system("echo Hello > asdf");
 }
