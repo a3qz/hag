@@ -10,7 +10,7 @@ void enemy_set(list_t *list) {
     enemy_list = list;
 }
 
-enemy_t *enemy_add(int type, char pic, int hp, int y, int x, int sight_range, int strength) {
+enemy_t *enemy_add(int type, int pic, int hp, int y, int x, int sight_range, int strength) {
     if (!enemy_list) {
         return 0;
     }
