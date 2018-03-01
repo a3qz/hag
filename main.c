@@ -36,8 +36,6 @@ int main()
 
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
-	PANEL  *top;
-	int ch;
 
     floor_down();
 	
@@ -69,9 +67,6 @@ int main()
 	attron(COLOR_PAIR(4));
 	attroff(COLOR_PAIR(4));
 	doupdate();
-
-    int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
-    int max_y = 0, max_x = 0;
 
 	player_t * player = get_player_obj();
     while(1) {
