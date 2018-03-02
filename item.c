@@ -45,7 +45,7 @@ void item_swap(item_t* item) {
     if (item && held) {
         held->y = item->y;
         held->x = item->x;
-        held->node = list_add_tail(item_list, item);
+        held->node = list_add_tail(item_list, held);
         list_remove(item->node);
         item->node = 0;
         held = item;
