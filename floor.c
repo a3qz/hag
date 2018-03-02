@@ -50,8 +50,8 @@ void floor_init() {
         int down_x;
         
         for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
-            int ylen = rand()%MAX_ROOM_Y;
-            int xlen = rand()%MAX_ROOM_X;
+            int ylen = rand()%MAX_ROOM_Y+1;
+            int xlen = rand()%MAX_ROOM_X+1;
 
             int ypos = rand()%(BOARD_Y-ylen-2)+1;
             int xpos = rand()%(BOARD_X-xlen-2)+1;
@@ -60,7 +60,7 @@ void floor_init() {
             ycenter = ypos+ylen/2;
             
             for(i = 0; i < ylen; i++){
-                for(j=0; j < xlen; j++){
+                for(j = 0; j < xlen; j++){
                     board[i+ypos][j+xpos] = '.' | A_DIM;
                     board[i+ypos][j+xpos] = '.' | A_DIM;
                     if(rand()%(2000+1) <= 2*(floor_get()+5)){
@@ -76,11 +76,11 @@ void floor_init() {
             ycenter2 = ycenter;
 
             if (room_iterator == 0) {
-                up_x = xpos + rand()%(xlen+1);
-                up_y = ypos + rand()%(ylen+1);
+                up_x = xpos + rand()%(xlen);
+                up_y = ypos + rand()%(ylen);
             } else if (room_iterator == NUM_ROOMS-1) {
-                down_x = xpos + rand()%(xlen+1);
-                down_y = ypos + rand()%(ylen+1);
+                down_x = xpos + rand()%(xlen);
+                down_y = ypos + rand()%(ylen);
             }
         }
         board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
@@ -91,6 +91,7 @@ void floor_init() {
         floors[current_floor].up_y = up_y;
         floors[current_floor].down_x = down_x;
         floors[current_floor].down_y = down_y;
+        fprintf(stderr, "%d: (%d, %d)\n", current_floor, up_y, up_x);
         floors[current_floor].enemy_list = enemies;
         floors[current_floor].loaded = 1;
     }
@@ -113,6 +114,7 @@ void floor_down() {
     floor_goto(current_floor+1);
     set_player_y(floors[current_floor].up_y);
     set_player_x(floors[current_floor].up_x);
+    fprintf(stderr, "%d: (%d, %d)\n", current_floor, get_player_y(), get_player_x());
 }
 
 void floor_up() {
