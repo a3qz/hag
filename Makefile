@@ -1,6 +1,6 @@
 # Declaration of variables
 CC = gcc 
-CC_FLAGS=-lpanel -lncurses -g
+CC_FLAGS=-lpanel -lncurses -g -Wall
  
 # File names
 EXEC = fortnite.exe

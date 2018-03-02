@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include "enemy_rulebook.h"
 #include "list.h"
 #include "map.h"
 #include "stdlib.h"
@@ -36,7 +37,7 @@ enemy_t *enemy_at(int y, int x) {
     }
     list_traverse(enemy_list->head);
     enemy_t *e;
-    while (e = list_traverse(0)) {
+    while ((e = list_traverse(0))) {
         if (e->y == y && e->x == x) {
             return e;
         }
@@ -62,7 +63,7 @@ void enemy_draw(WINDOW *win, int y, int x) {
     int x0 = x - (w/2);
     list_traverse(enemy_list->head);
     enemy_t *e;
-    while (e = list_traverse(0)) {
+    while ((e = list_traverse(0))) {
         int ey = e->y - y0;
         int ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
@@ -85,62 +86,8 @@ void enemy_clear() {
 void enemy_turn_driver(WINDOW *win, int y, int x){
     list_traverse(enemy_list->head);
     enemy_t *e;
-    while (e = list_traverse(0)) {
+    while ((e = list_traverse(0))) {
         enemy_take_turn(e, win, y, x);
     } 
 }
 
-void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
-    
-    int w, h;
-    getmaxyx(win, h, w); //MACRO, changes w and h
-    int y0 = y - (h/2);
-    int x0 = x - (w/2);
-    int ey = e->y - y0;
-    int ex = e->x - x0;
-    int yn = e->y;
-    int xn = e->x;
-    
-    if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  // if the enemy is on screen
-         // TODO attacking
-        int i, j;
-        for (i = e->x-1; i <= e->x+1; i++){
-            for(j = e->y-1; j <= e->y+1; j++){
-                if(i == get_player_x() && j == get_player_y()){
-                    player_hurt(e->strength);
-                    return;
-                }
-            }
-        }
-
-        // movement
-        // if enemy is in range of the player
-        int ydiff = e->y - y;
-        int xdiff = e->x - x;
-        if(abs(ydiff) < e->sight_range && abs(xdiff) < e->sight_range){
-                if(ydiff < 0){
-                    yn++;
-                } else if (ydiff > 0){
-                    yn--;
-                } else{
-
-                }
-                if (xdiff < 0){
-                    xn++;
-                } else if (xdiff > 0){
-                    xn--;
-                } else {
-
-                }
-                if(map_get(yn, xn) == '.'){
-                    e->y = yn;
-                    e->x = xn;
-                } else if (map_get(yn, e->x) == '.'){
-                    e->y = yn;
-                } else if (map_get(e->y, xn) == '.'){
-                    e->x = xn;
-                }
-        }
-    }
-   
-}

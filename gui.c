@@ -4,16 +4,15 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "level_generator_1.h"
 #include "gui.h"
 #include "player.h"
 
+int junk;
 int nelems;
 
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
 {	
-	int x, y, i, width, height;
 	char label[80];
 
 	//HEIGHT WIDTH Y X (order of inputs for newwin)
@@ -39,10 +38,9 @@ void init_wins(WINDOW **wins, struct winsize w) //int n)
 
 /* Show the window with a border and a label */
 void win_show(WINDOW *win, char *label, int label_color)
-{	int startx, starty, height, width;
-
-	getbegyx(win, starty, startx);
-	getmaxyx(win, height, width);
+{
+    int width;
+	getmaxyx(win, junk, width);
 
 	box(win, 0, 0);
 	mvwaddch(win, 2, 0, ACS_LTEE); 
@@ -51,8 +49,8 @@ void win_show(WINDOW *win, char *label, int label_color)
 }
 
 void print_stats(WINDOW *win, struct player *p){
-	int x, y;
-	getmaxyx(win, y, x);
+	int y;
+	getmaxyx(win, y, junk);
 	char c[y];
 	char * str = c ;
 	sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
@@ -69,8 +67,8 @@ void print_stats(WINDOW *win, struct player *p){
 }
 
 void print_action(WINDOW *win, char * str[]){
-	int x, y;
-	getmaxyx(win, y, x);
+	int y;
+	getmaxyx(win, y, junk);
 	int i;
 	for (i = 0; i < nelems; i++){ 
 		print_in_window(win, i+1, 1, y, str[i], 0, false);

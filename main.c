@@ -8,6 +8,7 @@
 #include "player.h"
 #include "colors.h"
 #include "map.h"
+#include "item.h"
 #include "floor.h"
 #include "list.h"
 #include "enemy.h"
@@ -36,8 +37,6 @@ int main()
 
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
-	PANEL  *top;
-	int ch;
 
     floor_down();
 	
@@ -70,10 +69,8 @@ int main()
 	attroff(COLOR_PAIR(4));
 	doupdate();
 
-    int x = 50, y = 50;  // BAD DONT USE, only here for legacy reasons
-    int max_y = 0, max_x = 0;
-
 	player_t * player = get_player_obj();
+    item_give();
     while(1) {
         refresh();
 		print_stats(my_wins[2], player);
@@ -82,12 +79,14 @@ int main()
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
+        item_draw(my_wins[0], player->y, player->x);
         int w0, h0;
         getmaxyx(my_wins[0], h0, w0); //MACRO, changes w and h
         mvwprintw(my_wins[0], h0/2, w0/2, "@");
         wrefresh(my_wins[0]);
         int xn = player->x, yn = player->y;
         int ch = ERR;
+        item_t *item;
         if (ch = getch(), ch != ERR) {
             switch (ch) {
                 case 'j':
@@ -128,6 +127,16 @@ int main()
                         floor_up();
                     }
 					break;
+				case 'e':
+                    item = item_at(player->y, player->x);
+                    if (item) {
+                        if (item->power == 0) {
+                            item->power = 100;
+                        }
+                        add_action(actions, "picked up a sword");
+                        item_swap(item);
+                    }
+					break;
 				case '.':
 					break;
 				case 't':
@@ -138,7 +147,7 @@ int main()
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
-                enemy_hurt(at, player->strength);
+                enemy_hurt(at, item_power());
             } else {
                 player->x = xn;
                 player->y = yn;

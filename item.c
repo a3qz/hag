@@ -6,16 +6,21 @@
 static list_t *item_list = 0;
 static item_t *held = 0;
 
-item_t *item_add(int y, int x) {
-    if (!item_list) {
-        return 0;
+item_t *item_add(list_t *list, int y, int x) {
+    if (!list) {
+        if (item_list) {
+            list = item_list;
+        } else {
+            return 0;
+        }
     }
     
     item_t *item = malloc(sizeof(*item));
     item->y = y;
     item->x = x;
     item->power = 0;
-    item->node = list_add_tail(item_list, item);
+    item->node = list_add_tail(list, item);
+    return item;
 }
 
 item_t *item_at(int y, int x) {
@@ -24,7 +29,7 @@ item_t *item_at(int y, int x) {
     }
     list_traverse(item_list->head);
     item_t *t;
-    while (t = list_traverse(0)) {
+    while ((t = list_traverse(0))) {
         if (t->y == y && t->x == x) {
             return t;
         }
@@ -41,7 +46,7 @@ void item_swap(item_t* item) {
         held->y = item->y;
         held->x = item->x;
         held->node = list_add_tail(item_list, item);
-        list_remove(item_list, item->node);
+        list_remove(item->node);
         item->node = 0;
         held = item;
     }
@@ -51,9 +56,9 @@ void item_give() {
     if (held) {
         free(held);
     }
-    held = malloc(sizeof(*item));
-    item->power = 1;
-    item->node = 0;
+    held = malloc(sizeof(*held));
+    held->power = 10;
+    held->node = 0;
 }
 
 void item_draw(WINDOW *win, int y, int x) {
@@ -64,7 +69,7 @@ void item_draw(WINDOW *win, int y, int x) {
     int x0 = x - (w/2);
     list_traverse(item_list->head);
     item_t *e;
-    while (e = list_traverse(0)) {
+    while ((e = list_traverse(0))) {
         int ey = e->y - y0;
         int ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
@@ -72,3 +77,11 @@ void item_draw(WINDOW *win, int y, int x) {
         }
     } 
 }
+
+int item_power() {
+    if (held) {
+        return held->power;
+    } else {
+        return 0;
+    }
+}   
