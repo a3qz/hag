@@ -1,7 +1,7 @@
 #include "player.h"
 #include <stdlib.h>
 
-static player_t player = {100, 100, 50, 50, 25, 25, 25, 0, 100};
+static player_t player = {200, 200, 50, 50, 25, 25, 25, 0, 100, 1};
 player_t * get_player_obj(){
     return &player;
 }
@@ -24,4 +24,18 @@ void player_hurt(int enemy_strength){
         player.current_hp = 0;
     }
 
+}
+void player_gain_exp(int xp){
+	player.current_exp += xp;
+	if (player.current_exp >= player.max_exp){
+		player.current_exp -= player.max_exp;
+		player_levelup();
+	}
+}
+
+void player_levelup(){
+	player.current_level++;
+	player.max_hp += player.max_hp/4;
+	player.current_hp = player.max_hp;
+	// call prompt to increase stats here
 }
