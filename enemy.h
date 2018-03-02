@@ -20,5 +20,4 @@
     void enemy_draw(WINDOW *win, int y, int x);
     void enemy_clear();
     void enemy_turn_driver(WINDOW *win, int y, int x);
-    void enemy_take_turn(enemy_t *e, WINDOW *win, int player_y, int player_x);
 #endif
