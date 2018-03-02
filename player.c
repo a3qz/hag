@@ -1,5 +1,6 @@
 #include "player.h"
 #include <stdlib.h>
+#include "gui.h"
 
 static player_t player = {200, 200, 50, 50, 25, 25, 25, 0, 100, 1};
 player_t * get_player_obj(){
@@ -39,4 +40,16 @@ void player_levelup(){
 	player.max_hp += player.max_hp/4;
 	player.current_hp = player.max_hp;
 	// call prompt to increase stats here
+	char res = gui_prompt("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?", "sdi");
+	switch(res){
+		case 's':
+			player.strength += 5;
+			break;
+		case 'd':
+			player.dexterity += 5;
+			break;
+		case 'i':
+			player.intelligence += 5;
+			break;
+	}
 }
