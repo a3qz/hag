@@ -79,7 +79,10 @@ void print_action(WINDOW *win){
 void add_action(char * s){	
 	int i;
 	for (i = 1; i < nelems; i++){
+		actions[i-1] = "";
+		//strncpy(actions[i-1],actions[i],sizeof(actions[i]));
 		actions[i-1] = actions[i];
+
 	}
 	actions[nelems - 1] = s;
 }

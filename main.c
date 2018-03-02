@@ -153,7 +153,6 @@ int main()
             }
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
-		add_action("my new action");
     }
 
 	endwin();
