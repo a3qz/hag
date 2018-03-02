@@ -17,6 +17,7 @@ void generate_enemies(){
 	rulebook[book_length].pic = 'r'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 30;
 	rulebook[book_length].base_sight_range = 10;
+	rulebook[book_length].base_exp = 10;
 	rulebook[book_length].base_strength = 5;
 	book_length++;
 
@@ -26,7 +27,7 @@ void generate_enemies(){
 	rulebook[book_length].base_hp = 50;
 	rulebook[book_length].base_sight_range = 15;
 	rulebook[book_length].base_strength = 10;
-	rulebook[book_length].base_exp = 10;
+	rulebook[book_length].base_exp = 15;
 	book_length++;
 
 	// goblin

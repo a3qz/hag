@@ -11,7 +11,7 @@ void enemy_set(list_t *list) {
     enemy_list = list;
 }
 
-enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength) {
+enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength, int xp) {
     if (!floor_enemy_list) {
         if (enemy_list) {
             floor_enemy_list = enemy_list;
@@ -27,6 +27,7 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
     e->x = x;
     e->sight_range = sight_range;
     e->strength = strength;
+	e->xp = xp;
     e->node = list_add_tail(floor_enemy_list, e);
     return e;
 }
@@ -50,6 +51,7 @@ void enemy_hurt(enemy_t *e, int d) {
 
     e->hp -= d;
     if (e->hp <= 0) {
+		player_gain_exp(e->xp);
         list_remove(e->node);
         free(e);
     }

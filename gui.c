@@ -63,6 +63,8 @@ void print_stats(WINDOW *win, struct player *p){
 	print_in_window(win, 4, 1, y, str, 0, false);
 	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
 	print_in_window(win, 5, 1, y, str, 0, false);
+	sprintf(str, "Current Level: %d\n", p->current_level);
+	print_in_window(win, 6, 1, y, str, 0, false);
 	box(win, 0, 0);
 }
 

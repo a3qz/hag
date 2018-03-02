@@ -139,7 +139,7 @@ int main()
 				case '.':
 					break;
 				case 't':
-    				enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
+    				//enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
 					break;
             }
         }
