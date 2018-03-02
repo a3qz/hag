@@ -10,7 +10,6 @@ static item_t *held = 0;
 
 
 item_t *item_add(list_t *list, int y, int x) {
-    srand(time(0)); 
 	if (!list) {
         if (item_list) {
             list = item_list;
