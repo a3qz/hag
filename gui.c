@@ -6,10 +6,12 @@
 #include <unistd.h>
 #include "gui.h"
 #include "player.h"
+#include "item.h"
 
 int junk;
 int nelems;
 char * actions[20];
+char * statslist = " sdi";
 WINDOW * prompt_window = 0;
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
@@ -66,6 +68,8 @@ void print_stats(WINDOW *win, struct player *p){
 	print_in_window(win, 5, 1, y, str, 0, false);
 	sprintf(str, "Current Level: %d\n", p->current_level);
 	print_in_window(win, 6, 1, y, str, 0, false);
+	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
+	print_in_window(win, 7, 1, y, str, 0, false);
 	box(win, 0, 0);
 }
 

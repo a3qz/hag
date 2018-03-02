@@ -21,4 +21,5 @@ void set_player_x(int x);
 void player_hurt(int enemy_strength);
 void player_gain_exp(int xp);
 void player_levelup();
+int player_damage_dealt();
 #endif
