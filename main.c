@@ -31,8 +31,7 @@ int main()
 
 	//actions strings declaration
 	int numRows = w.ws_row * .25;
-	char * actions[numRows];
-	initialize_actions(actions, numRows);
+	initialize_actions(numRows);
 
 
 	WINDOW *my_wins[3];
@@ -74,7 +73,7 @@ int main()
     while(1) {
         refresh();
 		print_stats(my_wins[2], player);
-		print_action(my_wins[1], actions);
+		print_action(my_wins[1]);
 		update_panels();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
@@ -133,7 +132,7 @@ int main()
                         if (item->power == 0) {
                             item->power = 100;
                         }
-                        add_action(actions, "picked up a sword");
+                        add_action("picked up a sword");
                         item_swap(item);
                     }
 					break;
@@ -154,7 +153,7 @@ int main()
             }
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
-		add_action(actions, "my new action");
+		add_action("my new action");
     }
 
 	endwin();
