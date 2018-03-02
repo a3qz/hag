@@ -36,7 +36,6 @@ void map_print(WINDOW *win, int y, int x) {
         getmaxyx(win, h, w); //MACRO, changes w and h
         int y0 = y - (h/2);
         int x0 = x - (w/2);
-        int y1 = y + (h/2);
         int x1 = x + (w/2);
         int i = 0;
         int j = 0;
