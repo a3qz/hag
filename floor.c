@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <stdio.h>
 #include "floor.h"
 #include "list.h"
 #include "time.h"
@@ -75,11 +76,11 @@ void floor_init() {
             ycenter2 = ycenter;
 
             if (room_iterator == 0) {
-                up_y = xpos + rand()%(xlen+1);
-                up_x = ypos + rand()%(ylen+1);
+                up_x = xpos + rand()%(xlen+1);
+                up_y = ypos + rand()%(ylen+1);
             } else if (room_iterator == NUM_ROOMS-1) {
-                down_y = xpos + rand()%(xlen+1);
-                down_x = ypos + rand()%(ylen+1);
+                down_x = xpos + rand()%(xlen+1);
+                down_y = ypos + rand()%(ylen+1);
             }
         }
         board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
