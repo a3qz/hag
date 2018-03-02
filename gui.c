@@ -9,7 +9,7 @@
 
 int junk;
 int nelems;
-
+char * actions[20];
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
 {	
@@ -66,29 +66,32 @@ void print_stats(WINDOW *win, struct player *p){
 	box(win, 0, 0);
 }
 
-void print_action(WINDOW *win, char * str[]){
+void print_action(WINDOW *win){
 	int y;
 	getmaxyx(win, y, junk);
 	int i;
 	for (i = 0; i < nelems; i++){ 
-		print_in_window(win, i+1, 1, y, str[i], 0, false);
+		print_in_window(win, i+1, 1, y, actions[i], 0, false);
 	}
 	box(win, 0, 0);
 }
 
-void add_action(char * str[], char * s){	
+void add_action(char * s){	
 	int i;
 	for (i = 1; i < nelems; i++){
-		str[i-1] = str[i];
+		actions[i-1] = "";
+		//strncpy(actions[i-1],actions[i],sizeof(actions[i]));
+		actions[i-1] = actions[i];
+
 	}
-	str[nelems - 1] = s;
+	actions[nelems - 1] = s;
 }
 
-void initialize_actions(char * str[], int n){
+void initialize_actions(int n){
 	nelems = n;
 	int i;
 	for (i = 0; i < nelems; i++){
-		str[i] = "  ";
+		actions[i] = "  ";
 	}
 }
 
