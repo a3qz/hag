@@ -1,8 +1,9 @@
 #include "player.h"
 #include <stdlib.h>
 #include "gui.h"
+#include "item.h"
 
-static player_t player = {200, 200, 50, 50, 25, 25, 25, 0, 100, 1};
+static player_t player = {200, 200, 50, 50, 10, 10, 10, 0, 100, 1};
 player_t * get_player_obj(){
     return &player;
 }
@@ -24,8 +25,8 @@ void player_hurt(int enemy_strength){
     } else{
         player.current_hp = 0;
     }
-
 }
+
 void player_gain_exp(int xp){
 	player.current_exp += xp;
 	if (player.current_exp >= player.max_exp){
@@ -39,7 +40,6 @@ void player_levelup(){
 	player.current_level++;
 	player.max_hp += player.max_hp/4;
 	player.current_hp = player.max_hp;
-	// call prompt to increase stats here
 	char res = gui_prompt("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?", "sdi");
 	switch(res){
 		case 's':
@@ -52,4 +52,22 @@ void player_levelup(){
 			player.intelligence += 5;
 			break;
 	}
+}
+
+int player_damage_dealt(){
+	int max= 0, current;
+	int *start;
+	start = &player.strength;
+	int i;
+	for(i = 1; i <= 3; i++){
+		if(item_stat() == i){
+			current = item_power();
+		} else{
+			current = 0;
+		}
+		if (current + start[i-1] > max){
+			max = current+ start[i-1];
+		}
+	}
+	return max;
 }
