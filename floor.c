@@ -4,6 +4,7 @@
 #include "list.h"
 #include "time.h"
 #include "colors.h"
+#include "item.h"
 #include "enemy.h"
 #include "enemy_rulebook.h"
 #include "player.h"
@@ -20,13 +21,13 @@ static floor_t floors[FLOOR_COUNT] = {0};
 
 static int current_floor = -1;
 
-void floor_init() {
+static void floor_init() {
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
-        floors[current_floor].enemy_list = list_create();
         srand(time(0)); 
                 
         map_t board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         list_t *enemies = list_create();
+        list_t *items = list_create();
         int i, j;
 
         for(i = 0; i < BOARD_Y; i++){
@@ -66,6 +67,9 @@ void floor_init() {
                     if(rand()%(2000+1) <= 2*(floor_get()+5)){
                         enemy_add(enemies, 0, get_rulebook()[0].pic, 20, i+ypos, j+xpos, 10, 5);
                     }
+                    if(rand()%(8000+1) <= 2*(floor_get()+5)){
+                        item_add(items, i+ypos, j+xpos);
+                    }
                 }
             }
 
@@ -93,6 +97,7 @@ void floor_init() {
         floors[current_floor].down_y = down_y;
         fprintf(stderr, "%d: (%d, %d)\n", current_floor, up_y, up_x);
         floors[current_floor].enemy_list = enemies;
+        floors[current_floor].item_list = items;
         floors[current_floor].loaded = 1;
     }
 }
@@ -101,6 +106,7 @@ void floor_goto(int f) {
     if (f < FLOOR_COUNT && f >= 0) {
         current_floor = f;
         floor_init();
+        item_set_list(floors[current_floor].item_list);
         enemy_set(floors[current_floor].enemy_list);
         map_load(floors[current_floor].map, BOARD_X, BOARD_Y);
     }

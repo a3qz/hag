@@ -9,6 +9,7 @@
     typedef struct floor {
         int loaded;
         list_t *enemy_list;
+        list_t *item_list;
         map_t map;
         int down_y;
         int down_x;
@@ -16,7 +17,6 @@
         int up_x;
     } floor_t;
 
-    void floor_init();
     void floor_goto(int f);
     void floor_down();
     void floor_up();
