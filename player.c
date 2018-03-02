@@ -29,6 +29,7 @@ void player_gain_exp(int xp){
 	player.current_exp += xp;
 	if (player.current_exp >= player.max_exp){
 		player.current_exp -= player.max_exp;
+		player.max_exp += player.max_exp/5;
 		player_levelup();
 	}
 }
