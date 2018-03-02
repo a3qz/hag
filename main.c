@@ -147,7 +147,7 @@ int main()
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
-                enemy_hurt(at, item_power());
+                enemy_hurt(at, player_damage_dealt());
             } else {
                 player->x = xn;
                 player->y = yn;
