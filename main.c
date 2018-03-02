@@ -30,7 +30,7 @@ int main()
     ioctl(0, TIOCGWINSZ, &w);
 
 	//actions strings declaration
-	int numRows = w.ws_row * .25;
+	int numRows = w.ws_row * .25 - 2;
 	initialize_actions(numRows);
 
 
@@ -69,6 +69,7 @@ int main()
 	doupdate();
 
 	player_t * player = get_player_obj();
+    gui_set_prompt_window(my_wins[1]);
     item_give();
     while(1) {
         refresh();

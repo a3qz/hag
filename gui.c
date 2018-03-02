@@ -10,6 +10,7 @@
 int junk;
 int nelems;
 char * actions[20];
+WINDOW * prompt_window = 0;
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
 {	
@@ -76,6 +77,25 @@ void print_action(WINDOW *win){
 		print_in_window(win, i+1, 1, y, actions[i], 0, false);
 	}
 	box(win, 0, 0);
+}
+
+char gui_prompt(char * prompt, char * answer){	
+    if (!prompt_window || !answer) {
+        return 0;
+    }
+    char response = -1;
+    while (!strchr(answer, response)) {
+        add_action(prompt);
+		print_action(prompt_window);
+		update_panels();
+        refresh();
+        response = getch();
+    }
+    return response;
+}
+
+void gui_set_prompt_window(WINDOW *win) {
+    prompt_window = win;
 }
 
 void add_action(char * s){	
