@@ -15,4 +15,6 @@
 	void print_action(WINDOW *win);
 	void add_action(char * s);
 	void initialize_actions(int n);
+    char gui_prompt(char * prompt, char * answer);
+    void gui_set_prompt_window(WINDOW *win);
 #endif
