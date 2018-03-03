@@ -160,3 +160,16 @@ static int connectpoints(map_t board, int newcentery, int newcenterx, int oldcen
     }
 	return 0;  
 }
+
+	int floor_up_xcoord(){
+		return floors[current_floor].up_x;
+	}
+	int floor_up_ycoord(){
+		return floors[current_floor].up_y;
+	}
+	int floor_down_xcoord(){
+		return floors[current_floor].down_x;
+	}
+	int floor_down_ycoord(){
+		return floors[current_floor].down_y;
+	}

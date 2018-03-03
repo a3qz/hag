@@ -13,6 +13,7 @@
 #include "list.h"
 #include "enemy.h"
 #include "gui.h"
+#include "key.h"
 
 #define W 60
 #define H 13
@@ -78,6 +79,7 @@ int main()
 		update_panels();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
+        key_checker(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
         item_draw(my_wins[0], player->y, player->x);
         int w0, h0;
