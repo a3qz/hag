@@ -27,7 +27,7 @@ int main()
 	// getting the size of the terminal
 	// https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
 	struct winsize w;
-    ioctl(0, TIOCGWINSZ, &w);
+  ioctl(0, TIOCGWINSZ, &w);
 
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
@@ -57,7 +57,7 @@ int main()
 	set_panel_userptr(my_panels[2], my_panels[0]);
 
 	//actions strings declaration
-	int numRows = w.ws_row * .25;
+	int numRows = w.ws_row * .25 - 2;
 	initialize_actions(numRows, my_wins[1]);
 	add_action("actions window");
 
@@ -70,6 +70,7 @@ int main()
 	doupdate();
 
 	player_t * player = get_player_obj();
+    gui_set_prompt_window(my_wins[1]);
     item_give();
     while(1) {
         refresh();
@@ -140,14 +141,14 @@ int main()
 				case '.':
 					break;
 				case 't':
-    				enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
+    				//enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
 					break;
             }
         }
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
-                enemy_hurt(at, item_power());
+                enemy_hurt(at, player_damage_dealt());
             } else {
                 player->x = xn;
                 player->y = yn;

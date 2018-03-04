@@ -2,12 +2,15 @@
 #include "list.h"
 #include "item.h"
 #include "colors.h"
+#include "floor.h"
+#include <time.h>
 
 static list_t *item_list = 0;
 static item_t *held = 0;
 
+
 item_t *item_add(list_t *list, int y, int x) {
-    if (!list) {
+	if (!list) {
         if (item_list) {
             list = item_list;
         } else {
@@ -18,7 +21,8 @@ item_t *item_add(list_t *list, int y, int x) {
     item_t *item = malloc(sizeof(*item));
     item->y = y;
     item->x = x;
-    item->power = 0;
+    item->power = rand()%(10*(floor_get()+1));
+	item->stat = rand()%3 + 1;
     item->node = list_add_tail(list, item);
     return item;
 }
@@ -45,7 +49,7 @@ void item_swap(item_t* item) {
     if (item && held) {
         held->y = item->y;
         held->x = item->x;
-        held->node = list_add_tail(item_list, item);
+        held->node = list_add_tail(item_list, held);
         list_remove(item->node);
         item->node = 0;
         held = item;
@@ -58,6 +62,7 @@ void item_give() {
     }
     held = malloc(sizeof(*held));
     held->power = 10;
+	held->stat = 0;
     held->node = 0;
 }
 
@@ -73,7 +78,7 @@ void item_draw(WINDOW *win, int y, int x) {
         int ey = e->y - y0;
         int ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
-            mvwaddch(win, ey, ex, '/'|COLORS_WHITE|A_BOLD);
+            mvwaddch(win, ey, ex, '/'|COLORS_GREEN|A_BOLD);
         }
     } 
 }
@@ -85,3 +90,11 @@ int item_power() {
         return 0;
     }
 }   
+
+int item_stat(){
+	if (held) {
+        return held->stat;
+    } else {
+        return 0;
+    }
+}

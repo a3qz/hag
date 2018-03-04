@@ -7,9 +7,12 @@
 #include <stdlib.h>
 #include "gui.h"
 #include "player.h"
+#include "item.h"
 
 int junk;
 int nelems;
+char * statslist = " sdi";
+WINDOW * prompt_window = 0;
 char **actions;
 char * str;
 WINDOW * win;
@@ -90,7 +93,11 @@ void print_stats(struct player *p, WINDOW * win2){
 	print_in_window(win2, 4, 1, y, str, 0, false);
 	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
 	print_in_window(win2, 5, 1, y, str, 0, false);
-	box(win2, 0, 0);
+	sprintf(str, "Current Level: %d\n", p->current_level);
+	print_in_window(win2, 6, 1, y, str, 0, false);
+	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
+	print_in_window(win2, 7, 1, y, str, 0, false);
+	box(win, 0, 0);
 }
 
 void print_action(){
@@ -103,6 +110,24 @@ void print_action(){
 	box(win, 0, 0);
 }
 
+char gui_prompt(char * prompt, char * answer){	
+    if (!prompt_window || !answer) {
+        return 0;
+    }
+    char response = -1;
+    while (!strchr(answer, response)) {
+        add_action(prompt);
+		print_action(prompt_window);
+		update_panels();
+        refresh();
+        response = getch();
+    }
+    return response;
+}
+
+void gui_set_prompt_window(WINDOW *win) {
+    prompt_window = win;
+}
 
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)

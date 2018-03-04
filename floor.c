@@ -65,7 +65,9 @@ static void floor_init() {
                     board[i+ypos][j+xpos] = '.' | A_DIM;
                     board[i+ypos][j+xpos] = '.' | A_DIM;
                     if(rand()%(2000+1) <= 2*(floor_get()+5)){
-                        enemy_add(enemies, 0, get_rulebook()[0].pic, 20, i+ypos, j+xpos, 10, 5);
+						int type = rand()%((floor_get()<3)? 2:floor_get() );
+						enemy_template_t en = get_rulebook()[type];
+                        enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp);
                     }
                     if(rand()%(8000+1) <= 2*(floor_get()+5)){
                         item_add(items, i+ypos, j+xpos);

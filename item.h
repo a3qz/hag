@@ -6,6 +6,7 @@
         int y;
         int x;
         int power;
+		int stat; 
         node_t *node;
     } item_t;
 
@@ -16,4 +17,5 @@
     void item_draw(WINDOW *win, int y, int x);
     void item_give();
     int item_power();
+	int item_stat();
 #endif
