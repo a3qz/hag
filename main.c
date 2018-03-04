@@ -91,32 +91,25 @@ int main()
             switch (ch) {
                 case 'j':
                     yn++;
-                    add_action("MOVED");
                     break;
                 case 'k':
                     yn--;
-                    add_action("MOVED");
                     break;
                 case 'h':
-                    add_action("MOVED");
                     xn--;
                     break;
                 case 'l':
                     xn++;
-                    add_action("MOVED");
                     break;
 				case 'b':
 					xn--;
 					yn++;
-                    add_action("MOVED");
 					break;
 				case 'n':
 					xn++;
 					yn++;
-                    add_action("MOVED");
 					break;	
 				case 'y':
-                    add_action("MOVED");
 					xn--;
 					yn--;
 					break;	
