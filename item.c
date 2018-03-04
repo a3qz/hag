@@ -98,3 +98,7 @@ int item_stat(){
         return 0;
     }
 }
+
+list_t * get_item_list(){
+	return item_list;
+}

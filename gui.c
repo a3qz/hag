@@ -78,14 +78,7 @@ void print_stats(WINDOW *win, struct player *p){
 	sprintf(str, "Key:\n");
 	print_in_window(win, 9, 1, y, str, 0, false);
 	int i = 10;
-	key_setup();
-	list_traverse(key_get_list()->head);
-    key_item_t *e;
-    while ((e = list_traverse(0))) {
-        sprintf(str, " : %s, %s\n", e->name, e->extra_info);
-		print_in_window(win, i, 1, y, str, 0, false);
-		mvwaddch(win, i, 1, e->pic);
-    } 
+	
 	box(win, 0, 0);
 }
 

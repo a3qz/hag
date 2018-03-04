@@ -93,3 +93,6 @@ void enemy_turn_driver(WINDOW *win, int y, int x){
     } 
 }
 
+list_t * get_enemy_list(){
+	return enemy_list;
+}

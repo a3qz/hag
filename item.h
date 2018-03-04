@@ -18,4 +18,5 @@
     void item_give();
     int item_power();
 	int item_stat();
+	list_t * get_item_list();
 #endif
