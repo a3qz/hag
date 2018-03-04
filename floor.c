@@ -97,16 +97,15 @@ static void floor_init() {
         } else {
             up_x = 150;
             up_y = 150;
-            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
             down_x = up_x;
-            down_y = up_y + 100;
+            down_y = up_y + 40;
             int type = enemy_index_hag();
             enemy_template_t en = get_rulebook()[type];
             enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x, en.base_sight_range, en.base_strength, en.base_exp);
-            int xpos = down_x - 30;
-            int ypos = down_y- 30;
-            int xlen = 60;
-            int ylen = 60;
+            int xpos = down_x - 10;
+            int ypos = down_y - 10;
+            int xlen = 20;
+            int ylen = 20;
             for(i = 0; i < ylen; i++){
                 for(j = 0; j < xlen; j++){
                     board[i+ypos][j+xpos] = '.' | A_DIM;
@@ -114,6 +113,7 @@ static void floor_init() {
                 }
             }
             connectpoints(board, down_y, down_x, up_y, up_x);
+            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
         }
 
         floors[current_floor].map = board;

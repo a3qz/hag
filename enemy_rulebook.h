@@ -15,4 +15,5 @@
     void enemy_take_turn(enemy_t *e, WINDOW *win, int player_y, int player_x);
     int enemy_index_hag();
     int enemy_index_snek();
+    int enemy_index_fake_hag();
 #endif
