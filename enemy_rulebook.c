@@ -4,12 +4,14 @@
 #include "colors.h"
 #include "player.h"
 #include "map.h"
+#include "main.h"
 
 static enemy_template_t rulebook[100];
 int book_length = 0;
 int called = 0;
 
 int hag = 0;
+int snek = 0;
 
 void generate_enemies(){
 	called = 1;
@@ -48,6 +50,7 @@ void generate_enemies(){
 	rulebook[book_length].base_sight_range = 15;
 	rulebook[book_length].base_strength = 15;
 	rulebook[book_length].base_exp = 15;
+    snek = book_length;
 	book_length++;
 
 	// slime
@@ -128,6 +131,11 @@ int enemy_index_hag() {
     return hag;
 }
 
+int enemy_index_snek() {
+    return snek;
+}
+
+
 void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
     
     int w, h;
@@ -138,6 +146,8 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
     int ex = e->x - x0;
     int yn = e->y;
     int xn = e->x;
+    int ydiff = e->y - y;
+    int xdiff = e->x - x;
     
     if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  // if the enemy is on screen
          // TODO attacking
@@ -151,10 +161,15 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
             }
         }
 
+        if ((e->pic & A_CHARTEXT) == 'H') {
+            if (tick % 24 == 0) {
+                    enemy_template_t en = get_rulebook()[snek];
+                    enemy_add(0, snek, en.pic, en.base_hp, e->y, e->x+xdiff, en.base_sight_range, en.base_strength, en.base_exp);
+            }
+        }
+
         // movement
         // if enemy is in range of the player
-        int ydiff = e->y - y;
-        int xdiff = e->x - x;
         if(abs(ydiff) < e->sight_range && abs(xdiff) < e->sight_range){
                 if(ydiff < 0){
                     yn++;

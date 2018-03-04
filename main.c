@@ -20,6 +20,7 @@
 //#define NLINES 60
 //#define NCOLS 60
 
+int tick = 0;
 
 int main()
 {
@@ -72,6 +73,7 @@ int main()
     gui_set_prompt_window(my_wins[1]);
     item_give();
     while(1) {
+        tick++;
         refresh();
 		print_stats(my_wins[2], player);
 		print_action(my_wins[1]);
