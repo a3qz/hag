@@ -28,7 +28,12 @@ static void floor_init() {
         map_t board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         list_t *enemies = list_create();
         list_t *items = list_create();
+
         int i, j;
+        int up_y;
+        int up_x;
+        int down_y;
+        int down_x;
 
         for(i = 0; i < BOARD_Y; i++){
             board[i] = (map_row_t)malloc(BOARD_X * sizeof(map_space_t));
@@ -40,64 +45,82 @@ static void floor_init() {
             }
         }
 
-        int xcenter = 0;
-        int ycenter = 0;
-        int xcenter2 = 0;
-        int ycenter2 = 0;
-        int room_iterator;
-        int up_y;
-        int up_x;
-        int down_y;
-        int down_x;
-        
-        for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
-            int ylen = rand()%MAX_ROOM_Y+1;
-            int xlen = rand()%MAX_ROOM_X+1;
-
-            int ypos = rand()%(BOARD_Y-ylen-2)+1;
-            int xpos = rand()%(BOARD_X-xlen-2)+1;
-
-            xcenter = xpos+xlen/2;
-            ycenter = ypos+ylen/2;
+        if (floor_get() != FLOOR_COUNT - 1) {
+            int xcenter = 0;
+            int ycenter = 0;
+            int xcenter2 = 0;
+            int ycenter2 = 0;
+            int room_iterator;
             
+            for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
+                int ylen = rand()%MAX_ROOM_Y+1;
+                int xlen = rand()%MAX_ROOM_X+1;
+
+                int ypos = rand()%(BOARD_Y-ylen-2)+1;
+                int xpos = rand()%(BOARD_X-xlen-2)+1;
+
+                xcenter = xpos+xlen/2;
+                ycenter = ypos+ylen/2;
+                
+                for(i = 0; i < ylen; i++){
+                    for(j = 0; j < xlen; j++){
+                        board[i+ypos][j+xpos] = '.' | A_DIM;
+                        board[i+ypos][j+xpos] = '.' | A_DIM;
+                        if(rand()%(2000+1) <= 2*(floor_get()+5)){
+                            int type = rand()%((floor_get()<3)? 2:floor_get() );
+                            enemy_template_t en = get_rulebook()[type];
+                            enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp);
+                        }
+                        if(rand()%(8000+1) <= 2*(floor_get()+5)){
+                            item_add(items, i+ypos, j+xpos);
+                        }
+                    }
+                }
+
+                if(xcenter2 != 0){
+                    connectpoints(board, ycenter, xcenter, ycenter2, xcenter2);
+                }
+                xcenter2 = xcenter;
+                ycenter2 = ycenter;
+
+                if (room_iterator == 0) {
+                    up_x = xpos + rand()%(xlen);
+                    up_y = ypos + rand()%(ylen);
+                } else if (room_iterator == NUM_ROOMS-1) {
+                    down_x = xpos + rand()%(xlen);
+                    down_y = ypos + rand()%(ylen);
+                }
+            }
+
+            board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
+            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+        } else {
+            up_x = 150;
+            up_y = 150;
+            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+            down_x = up_x;
+            down_y = up_y + 100;
+            int type = enemy_index_hag();
+            enemy_template_t en = get_rulebook()[type];
+            enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x, en.base_sight_range, en.base_strength, en.base_exp);
+            int xpos = down_x - 30;
+            int ypos = down_y- 30;
+            int xlen = 60;
+            int ylen = 60;
             for(i = 0; i < ylen; i++){
                 for(j = 0; j < xlen; j++){
                     board[i+ypos][j+xpos] = '.' | A_DIM;
                     board[i+ypos][j+xpos] = '.' | A_DIM;
-                    if(rand()%(2000+1) <= 2*(floor_get()+5)){
-						int type = rand()%((floor_get()<3)? 2:floor_get() );
-						enemy_template_t en = get_rulebook()[type];
-                        enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp);
-                    }
-                    if(rand()%(8000+1) <= 2*(floor_get()+5)){
-                        item_add(items, i+ypos, j+xpos);
-                    }
                 }
             }
-
-            if(xcenter2 != 0){
-                connectpoints(board, ycenter, xcenter, ycenter2, xcenter2);
-            }
-            xcenter2 = xcenter;
-            ycenter2 = ycenter;
-
-            if (room_iterator == 0) {
-                up_x = xpos + rand()%(xlen);
-                up_y = ypos + rand()%(ylen);
-            } else if (room_iterator == NUM_ROOMS-1) {
-                down_x = xpos + rand()%(xlen);
-                down_y = ypos + rand()%(ylen);
-            }
+            connectpoints(board, down_y, down_x, up_y, up_x);
         }
-        board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
-        board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
 
         floors[current_floor].map = board;
         floors[current_floor].up_x = up_x;
         floors[current_floor].up_y = up_y;
         floors[current_floor].down_x = down_x;
         floors[current_floor].down_y = down_y;
-        fprintf(stderr, "%d: (%d, %d)\n", current_floor, up_y, up_x);
         floors[current_floor].enemy_list = enemies;
         floors[current_floor].item_list = items;
         floors[current_floor].loaded = 1;
@@ -122,7 +145,6 @@ void floor_down() {
     floor_goto(current_floor+1);
     set_player_y(floors[current_floor].up_y);
     set_player_x(floors[current_floor].up_x);
-    fprintf(stderr, "%d: (%d, %d)\n", current_floor, get_player_y(), get_player_x());
 }
 
 void floor_up() {

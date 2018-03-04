@@ -13,4 +13,5 @@
 	void generate_enemies();
 	enemy_template_t * get_rulebook();
     void enemy_take_turn(enemy_t *e, WINDOW *win, int player_y, int player_x);
+    int enemy_index_hag();
 #endif

@@ -2,6 +2,7 @@
 #include "enemy_rulebook.h"
 #include "list.h"
 #include "map.h"
+#include "gui.h"
 #include "stdlib.h"
 #include "player.h"
 
@@ -49,11 +50,25 @@ enemy_t *enemy_at(int y, int x) {
 void enemy_hurt(enemy_t *e, int d) {
     if (!e) return;
 
-    e->hp -= d;
-    if (e->hp <= 0) {
-		player_gain_exp(e->xp);
-        list_remove(e->node);
-        free(e);
+    if ((e->pic & A_CHARTEXT) == 'H') {
+        e->hp -= 1;
+        if (e->hp % 3 == 0) {
+            add_action("In a flash, the old hag manages to blink across the room.");
+            e->x += (rand()%2*2-1)*((rand() % 4) + 5);
+            e->y += (rand()%2*2-1)*((rand() % 4) + 5);
+        }
+        if (e->hp <= 0) {
+            player_gain_exp(e->xp);
+            list_remove(e->node);
+            free(e);
+        }
+    } else {
+        e->hp -= d;
+        if (e->hp <= 0) {
+            player_gain_exp(e->xp);
+            list_remove(e->node);
+            free(e);
+        }
     }
 }
 

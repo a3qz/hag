@@ -117,6 +117,18 @@ int main()
 					xn++;
 					yn--;
 					break;
+				case 'c':
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+					break;
 				case '>':
                     if (map_get(player->y, player->x) == '>') {
                         floor_down();

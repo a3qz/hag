@@ -9,6 +9,8 @@ static enemy_template_t rulebook[100];
 int book_length = 0;
 int called = 0;
 
+int hag = 0;
+
 void generate_enemies(){
 	called = 1;
 
@@ -101,6 +103,17 @@ void generate_enemies(){
 	rulebook[book_length].base_strength = 50;
 	rulebook[book_length].base_exp = 40;
 	book_length++;
+
+	// hag
+	rulebook[book_length].name = "Hag";
+	rulebook[book_length].pic = 'H'|A_BOLD| COLORS_RED;
+	rulebook[book_length].base_hp = 30;
+	rulebook[book_length].base_sight_range = 0;
+	rulebook[book_length].base_strength = 50;
+	rulebook[book_length].base_exp = 70;
+    hag = book_length;
+	book_length++;
+	
 	
 
 }
@@ -109,6 +122,10 @@ enemy_template_t * get_rulebook(){
 		generate_enemies();
 	}
 	return rulebook;
+}
+
+int enemy_index_hag() {
+    return hag;
 }
 
 void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
