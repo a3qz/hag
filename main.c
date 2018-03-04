@@ -73,7 +73,7 @@ int main()
 	player_t * player = get_player_obj();
     gui_set_prompt_window(my_wins[1]);
     item_give();
-    while(1) {
+    while(player->current_hp > 0) {
         tick++;
         refresh();
 		print_stats(player, my_wins[2]);
@@ -170,6 +170,8 @@ int main()
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
     }
+    print_stats(player, my_wins[2]);
+    gui_prompt("You have died! Press space to exit.", " ");
 
 	endwin();
 	return 0;
