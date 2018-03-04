@@ -207,12 +207,12 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
                 } else {
 
                 }
-                if(map_get(yn, xn) == '.'){
+                if(map_get(yn, xn) == '.' && !enemy_at(yn,xn)){
                     e->y = yn;
                     e->x = xn;
-                } else if (map_get(yn, e->x) == '.'){
+                } else if (map_get(yn, e->x) == '.' && !enemy_at(yn,e->x)){
                     e->y = yn;
-                } else if (map_get(e->y, xn) == '.'){
+                } else if (map_get(e->y, xn) == '.' && !enemy_at(e->y,xn)){
                     e->x = xn;
                 }
         }
