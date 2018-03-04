@@ -131,5 +131,5 @@ void key_add_stair(int dir, int pic){
 			}
 		}
 
-
+		box(win, 0, 0);
  }
