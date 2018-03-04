@@ -173,6 +173,9 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
             for(j = e->y-1; j <= e->y+1; j++){
                 if(i == get_player_x() && j == get_player_y()){
                     player_hurt(e->strength);
+                    char msg[80];
+                    sprintf(msg, "The %s hurts you for %d life.", rulebook[e->type].name, e->strength);
+                    add_action(msg);
                     return;
                 }
             }

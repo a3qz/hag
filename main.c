@@ -11,6 +11,7 @@
 #include "item.h"
 #include "floor.h"
 #include "list.h"
+#include "enemy_rulebook.h"
 #include "enemy.h"
 #include "gui.h"
 
@@ -121,6 +122,7 @@ int main()
 					yn--;
 					break;
 				case 'c':
+                    add_action("You lame cheater.");
                     floor_down();
                     floor_down();
                     floor_down();
@@ -134,12 +136,16 @@ int main()
 					break;
 				case '>':
                     if (map_get(player->y, player->x) == '>') {
+                        add_action("You climb down the ladder.");
                         floor_down();
+                        continue;
                     }
 					break;
 				case '<':
                     if (map_get(player->y, player->x) == '<') {
+                        add_action("You climb up the ladder.");
                         floor_up();
+                        continue;
                     }
 					break;
 				case 'e':
@@ -162,11 +168,16 @@ int main()
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
+                char msg[80];
+                sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt());
+                add_action(msg);
                 enemy_hurt(at, player_damage_dealt());
             } else {
                 player->x = xn;
                 player->y = yn;
             }
+        } else {
+            add_action("You can't walk through walls.");
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
     }
