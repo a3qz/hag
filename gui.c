@@ -4,15 +4,42 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "gui.h"
 #include "player.h"
 #include "item.h"
 
 int junk;
 int nelems;
-char * actions[20];
 char * statslist = " sdi";
 WINDOW * prompt_window = 0;
+char **actions;
+char * str;
+WINDOW * win;
+
+void add_action(char * s){	
+	int i;
+	for (i = 1; i < nelems; i++){
+		memset(actions[i-1], '\0', 50);
+		strcpy(actions[i-1], actions[i]);
+
+	}
+	strcpy(actions[nelems - 1], s);
+	wclear(win);
+	print_action();
+}
+
+void initialize_actions(int n, WINDOW * w){
+	nelems = n;
+	int i;
+	win = w;
+	actions = (char**)malloc(n*sizeof(char*));
+	for (i = 0; i < nelems; i++){
+		actions[i] = (char*)malloc(50*sizeof(char));
+		memset(actions[i], '\0', strlen(actions[i]));
+	}
+}
+
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
 {	
@@ -51,29 +78,29 @@ void win_show(WINDOW *win, char *label, int label_color)
 	
 }
 
-void print_stats(WINDOW *win, struct player *p){
+void print_stats(struct player *p, WINDOW * win2){
 	int y;
-	getmaxyx(win, y, junk);
+	getmaxyx(win2, y, junk);
 	char c[y];
 	char * str = c ;
 	sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
-	print_in_window(win, 1, 1, y, str, 0, false);
+	print_in_window(win2, 1, 1, y, str, 0, false);
 	sprintf(str, "Strength: %d\n", p->strength);
-	print_in_window(win, 2, 1, y, str, 0, false);
+	print_in_window(win2, 2, 1, y, str, 0, false);
 	sprintf(str, "Dexterity: %d\n", p->dexterity);
-	print_in_window(win, 3, 1, y, str, 0, false);
+	print_in_window(win2, 3, 1, y, str, 0, false);
 	sprintf(str, "Intelligence: %d\n", p->intelligence);
-	print_in_window(win, 4, 1, y, str, 0, false);
+	print_in_window(win2, 4, 1, y, str, 0, false);
 	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
-	print_in_window(win, 5, 1, y, str, 0, false);
+	print_in_window(win2, 5, 1, y, str, 0, false);
 	sprintf(str, "Current Level: %d\n", p->current_level);
-	print_in_window(win, 6, 1, y, str, 0, false);
+	print_in_window(win2, 6, 1, y, str, 0, false);
 	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
-	print_in_window(win, 7, 1, y, str, 0, false);
+	print_in_window(win2, 7, 1, y, str, 0, false);
 	box(win, 0, 0);
 }
 
-void print_action(WINDOW *win){
+void print_action(){
 	int y;
 	getmaxyx(win, y, junk);
 	int i;
@@ -102,24 +129,6 @@ void gui_set_prompt_window(WINDOW *win) {
     prompt_window = win;
 }
 
-void add_action(char * s){	
-	int i;
-	for (i = 1; i < nelems; i++){
-		actions[i-1] = "";
-		//strncpy(actions[i-1],actions[i],sizeof(actions[i]));
-		actions[i-1] = actions[i];
-
-	}
-	actions[nelems - 1] = s;
-}
-
-void initialize_actions(int n){
-	nelems = n;
-	int i;
-	for (i = 0; i < nelems; i++){
-		actions[i] = "  ";
-	}
-}
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)
 {	
