@@ -9,6 +9,8 @@
 #include "player.h"
 #include "item.h"
 
+#define ACTION_LENGTH 80
+
 int junk;
 int nelems;
 char * statslist = " sdi";
@@ -20,7 +22,7 @@ WINDOW * win;
 void add_action(char * s){	
 	int i;
 	for (i = 1; i < nelems; i++){
-		memset(actions[i-1], '\0', 50);
+		memset(actions[i-1], '\0', ACTION_LENGTH);
 		strcpy(actions[i-1], actions[i]);
 
 	}
@@ -35,7 +37,7 @@ void initialize_actions(int n, WINDOW * w){
 	win = w;
 	actions = (char**)malloc(n*sizeof(char*));
 	for (i = 0; i < nelems; i++){
-		actions[i] = (char*)malloc(50*sizeof(char));
+		actions[i] = (char*)malloc(ACTION_LENGTH*sizeof(char));
 		memset(actions[i], '\0', strlen(actions[i]));
 	}
 }
