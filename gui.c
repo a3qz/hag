@@ -103,15 +103,15 @@ void print_stats(struct player *p, WINDOW * win2){
 	print_in_window(win2, 6, 1, y, str, 0, false);
 	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
 
-	print_in_window(win, 7, 1, y, str, 0, false);
+	print_in_window(win2, 7, 1, y, str, 0, false);
 	sprintf(str, "\n");
-	print_in_window(win, 8, 1, y, str, 0, false);
+	print_in_window(win2, 8, 1, y, str, 0, false);
 	sprintf(str, "Key:\n");
-	print_in_window(win, 9, 1, y, str, 0, false);
+	print_in_window(win2, 9, 1, y, str, 0, false);
 	int i = 10;
 	
 
-	box(win, 0, 0);
+	box(win2, 0, 0);
 }
 
 void print_action(){
