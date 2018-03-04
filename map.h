@@ -12,5 +12,6 @@
     void map_print(WINDOW *win, int y, int x);
     int map_width();
     int map_height();
+    void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx);
 
 #endif

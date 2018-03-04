@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <stdlib.h>
 
 #include "map.h"
 
@@ -68,4 +69,33 @@ int map_width() {
 
 int map_height() {
     return height;
+}
+
+void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
+    int xdiff = newcenterx-oldcenterx;
+    int ydiff = newcentery-oldcentery;
+    int realx = newcenterx;
+    int realy = newcentery;
+    
+    while(abs(xdiff) > 0 || abs(ydiff) > 0){
+        if(abs(xdiff) > abs(ydiff)){
+            if(xdiff > 0){
+                xdiff -= 1;
+                realx -= 1;
+            } else if(xdiff < 0){
+                xdiff += 1;
+                realx += 1;
+            }
+            map[realy][realx] = '.' | A_DIM;
+        } else {
+            if(ydiff > 0){
+                ydiff -= 1;
+                realy -= 1;
+            } else if(ydiff < 0){
+                ydiff += 1;
+                realy += 1;
+            }
+            map[realy][realx] = '.' | A_DIM;
+        }
+    }
 }

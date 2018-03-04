@@ -27,7 +27,7 @@ void add_action(char * s){
 
 	}
 	strcpy(actions[nelems - 1], s);
-	wclear(win);
+	werase(win);
 	print_action();
 }
 
