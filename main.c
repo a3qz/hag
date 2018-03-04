@@ -146,6 +146,7 @@ int main()
 					break;
             }
         }
+
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
@@ -156,6 +157,7 @@ int main()
             }
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
+				key_checker(my_wins[2], player->y, player->x);
     }
 
 	endwin();
