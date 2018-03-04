@@ -21,6 +21,7 @@
 //#define NLINES 60
 //#define NCOLS 60
 
+int tick = 0;
 
 int main()
 {
@@ -28,15 +29,11 @@ int main()
 	// getting the size of the terminal
 	// https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
 	struct winsize w;
-    ioctl(0, TIOCGWINSZ, &w);
-
-	//actions strings declaration
-	int numRows = w.ws_row * .25 - 2;
-	initialize_actions(numRows);
-
+  ioctl(0, TIOCGWINSZ, &w);
 
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
+
 
     floor_down();
 	
@@ -61,6 +58,11 @@ int main()
 	set_panel_userptr(my_panels[1], my_panels[2]);
 	set_panel_userptr(my_panels[2], my_panels[0]);
 
+	//actions strings declaration
+	int numRows = w.ws_row * .25 - 2;
+	initialize_actions(numRows, my_wins[1]);
+	add_action("actions window");
+
 	/*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE*/
 	update_panels();
 
@@ -73,10 +75,11 @@ int main()
     gui_set_prompt_window(my_wins[1]);
     item_give();
     while(1) {
+        tick++;
         refresh();
-		print_stats(my_wins[2], player);
-		print_action(my_wins[1]);
+		print_stats(player, my_wins[2]);
 		update_panels();
+		print_action();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
         key_checker(my_wins[2], player->y, player->x);
@@ -118,6 +121,18 @@ int main()
 				case 'u':
 					xn++;
 					yn--;
+					break;
+				case 'c':
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
+                    floor_down();
 					break;
 				case '>':
                     if (map_get(player->y, player->x) == '>') {
