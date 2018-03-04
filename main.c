@@ -29,13 +29,9 @@ int main()
 	struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
 
-	//actions strings declaration
-	int numRows = w.ws_row * .25;
-	initialize_actions(numRows);
-
-
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
+
 
     floor_down();
 	
@@ -60,6 +56,11 @@ int main()
 	set_panel_userptr(my_panels[1], my_panels[2]);
 	set_panel_userptr(my_panels[2], my_panels[0]);
 
+	//actions strings declaration
+	int numRows = w.ws_row * .25;
+	initialize_actions(numRows, my_wins[1]);
+	add_action("actions window");
+
 	/*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE*/
 	update_panels();
 
@@ -72,9 +73,9 @@ int main()
     item_give();
     while(1) {
         refresh();
-		print_stats(my_wins[2], player);
-		print_action(my_wins[1]);
+		print_stats(player, my_wins[2]);
 		update_panels();
+		print_action();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
@@ -90,25 +91,32 @@ int main()
             switch (ch) {
                 case 'j':
                     yn++;
+                    add_action("MOVED");
                     break;
                 case 'k':
                     yn--;
+                    add_action("MOVED");
                     break;
                 case 'h':
+                    add_action("MOVED");
                     xn--;
                     break;
                 case 'l':
                     xn++;
+                    add_action("MOVED");
                     break;
 				case 'b':
 					xn--;
 					yn++;
+                    add_action("MOVED");
 					break;
 				case 'n':
 					xn++;
 					yn++;
+                    add_action("MOVED");
 					break;	
 				case 'y':
+                    add_action("MOVED");
 					xn--;
 					yn--;
 					break;	
