@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 #include "map.h"
+#include "key.h"
+#include "colors.h"
 
 static map_t map = 0;
 static int width = 0;
@@ -57,7 +59,6 @@ void map_print(WINDOW *win, int y, int x) {
             for (k = 0; k < w && x0+k<width; k++) {
                 mvwaddch(win, i, j + k, map[y0][x0+k]);
             }
-            //mvwaddnstr(win, i, j, map[y0] + x0, w);
             y0++;
         }
     }

@@ -21,4 +21,8 @@
     void floor_down();
     void floor_up();
     int floor_get();
+	int floor_up_xcoord();
+	int floor_up_ycoord();
+	int floor_down_xcoord();
+	int floor_down_ycoord();
 #endif

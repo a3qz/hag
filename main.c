@@ -14,6 +14,7 @@
 #include "enemy_rulebook.h"
 #include "enemy.h"
 #include "gui.h"
+#include "key.h"
 
 #define W 60
 #define H 13
@@ -82,6 +83,7 @@ int main()
 		print_action();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
+        key_checker(my_wins[2], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
         item_draw(my_wins[0], player->y, player->x);
         int w0, h0;
@@ -165,6 +167,7 @@ int main()
 					break;
             }
         }
+
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
@@ -180,6 +183,7 @@ int main()
             add_action("You can't walk through walls.");
         } 
 		enemy_turn_driver(my_wins[0], player->y, player->x);
+				key_checker(my_wins[2], player->y, player->x);
     }
     print_stats(player, my_wins[2]);
     gui_prompt("You have died! Press space to exit.", " ");

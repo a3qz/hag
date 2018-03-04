@@ -8,6 +8,8 @@
 #include "gui.h"
 #include "player.h"
 #include "item.h"
+#include "list.h"
+#include "key.h"
 
 #define ACTION_LENGTH 80
 
@@ -15,6 +17,7 @@ int junk;
 int nelems;
 char * statslist = " sdi";
 WINDOW * prompt_window = 0;
+
 char **actions;
 char * str;
 WINDOW * win;
@@ -41,6 +44,7 @@ void initialize_actions(int n, WINDOW * w){
 		memset(actions[i], '\0', strlen(actions[i]));
 	}
 }
+
 
 /* Put all the windows */
 void init_wins(WINDOW **wins, struct winsize w) //int n)
@@ -98,8 +102,16 @@ void print_stats(struct player *p, WINDOW * win2){
 	sprintf(str, "Current Level: %d\n", p->current_level);
 	print_in_window(win2, 6, 1, y, str, 0, false);
 	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
+
 	print_in_window(win2, 7, 1, y, str, 0, false);
-	box(win, 0, 0);
+	sprintf(str, "\n");
+	print_in_window(win2, 8, 1, y, str, 0, false);
+	sprintf(str, "Key:\n");
+	print_in_window(win2, 9, 1, y, str, 0, false);
+	int i = 10;
+	
+
+	box(win2, 0, 0);
 }
 
 void print_action(){
