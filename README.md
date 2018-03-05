@@ -4,14 +4,23 @@ An ncurses procedurally generated dungeon crawler
 
 ## Controls:
 
-Movement:	h = left
+Movement:	
+			h = left
+
 			j = down
+
 			k = up
+
 			l = right
+
 			y = up left
+
 			u = up right
+
 			b = down left
+
 			n = down right
+
 
 Combat:		walk into the enemy you want to attack
 
