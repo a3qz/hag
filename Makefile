@@ -3,7 +3,7 @@ CC = gcc
 CC_FLAGS=-lpanel -lncurses -g -Wall -std=c89
  
 # File names
-EXEC = fortnite.exe
+EXEC = hag
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
  

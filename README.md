@@ -1,6 +1,14 @@
 # hag
 An ncurses procedurally generated dungeon crawler 
 
+## Installation
+
+If you don't have `libncurses5-dev`, install it
+
+Then, clone this repo and run `make`
+
+Finally, run the executable `./hag`
+
 
 ## Controls:
 
