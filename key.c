@@ -44,7 +44,6 @@ void key_add_stair(int dir, int pic){
  }
 
  void key_checker(WINDOW *win, int y, int x){
-
 	int starting_number = 10;
 	int width = map_width();
 	int height = map_height();
