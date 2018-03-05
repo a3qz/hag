@@ -40,7 +40,7 @@ An ncurses procedurally generated dungeon crawler
 
 ### Leveling:	
 			
-			on levelup, press:
+		on levelup, press:
 
 			s to increase strength
 
@@ -51,4 +51,4 @@ An ncurses procedurally generated dungeon crawler
 
 ### Death:		
 
-			on death, press space to exit
+		on death, press space to exit
