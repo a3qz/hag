@@ -119,9 +119,10 @@ void key_add_stair(int dir, int pic){
 		while ((it = list_traverse(0))) {
 			if (it->x > i+x0 && it->x < w+x0){
 				if(it->y > j+y0 && it->y < h+y0){
-					sprintf(str, " : Weapon\n");
+					
+					sprintf(str, " : %s Weapon\n", weapontypes[it->stat]);
 					print_in_window(win, starting_number, 1, y, str, 0, false);
-					mvwaddch(win, starting_number, 1, ('/'|COLORS_GREEN|A_BOLD));
+					mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
 					starting_number++;
 				}else{
 					print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
