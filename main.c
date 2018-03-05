@@ -156,9 +156,6 @@ int main()
 				case 'e':
                     item = item_at(player->y, player->x);
                     if (item) {
-                        if (item->power == 0) {
-                            item->power = 100;
-                        }
                         add_action("picked up a sword");
                         item_swap(item);
                     }
