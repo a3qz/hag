@@ -118,10 +118,10 @@ void enemy_clear() {
 }
 
 void enemy_turn_driver(WINDOW *win, int y, int x){
-    list_traverse(enemy_list->head);
-    enemy_t *e;
-    while ((e = list_traverse(0))) {
-        enemy_take_turn(e, win, y, x);
+    node_t *e = enemy_list->head;
+    while (e) {
+        enemy_take_turn(e->data, win, y, x);
+        e = e->next;
     } 
 }
 
