@@ -49,7 +49,7 @@ void key_add_stair(int dir, int pic){
 	int width = map_width();
 	int height = map_height();
  	 int w, h;
-     getmaxyx(win, h, w); //MACRO, changes w and h
+     getmaxyx(win, h, w); /*MACRO, changes w and h */
 	 int y0 = y - (h/2);
         int x0 = x - (w/2);
         int x1 = x + (w/2);
@@ -68,7 +68,7 @@ void key_add_stair(int dir, int pic){
             w -= x1 - width;
         }
 		char str[100];
-		//fprintf(stderr, "x %d y %d h %d w %d i %d j %d \n",floor_up_xcoord(), floor_up_ycoord(),y0, x0, i, j);
+		/*fprintf(stderr, "x %d y %d h %d w %d i %d j %d \n",floor_up_xcoord(), floor_up_ycoord(),y0, x0, i, j); */
 
 		if (floor_up_xcoord() > i+x0 && floor_up_xcoord() < w+x0){
 			if(floor_up_ycoord() > j+y0 && floor_up_ycoord() < h+y0){
@@ -78,12 +78,12 @@ void key_add_stair(int dir, int pic){
 				starting_number++;
 			}else{
 				print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
-				//exit(1);
+				/*exit(1); */
 			}
 		} else{
 						print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
 
-			//exit(2);
+			/*exit(2); */
 		}
         if (floor_down_xcoord() > i+x0 && floor_down_xcoord() < w+x0){
 			if(floor_down_ycoord() > j+y0 && floor_down_ycoord() < h+y0){

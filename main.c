@@ -19,8 +19,8 @@
 #define W 60
 #define H 13
 
-//#define NLINES 60
-//#define NCOLS 60
+/*#define NLINES 60 */
+/*#define NCOLS 60 */
 
 #define KEY_F(n)        (KEY_F0+(n))
 
@@ -28,9 +28,9 @@ int tick = 0;
 
 int main()
 {
-	//assuming character size is 15 by 15 pixels
-	// getting the size of the terminal
-	// https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
+	/*assuming character size is 15 by 15 pixels */
+	/* getting the size of the terminal */
+	/* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
 	struct winsize w;
   ioctl(0, TIOCGWINSZ, &w);
 
@@ -61,7 +61,7 @@ int main()
 	set_panel_userptr(my_panels[1], my_panels[2]);
 	set_panel_userptr(my_panels[2], my_panels[0]);
 
-	//actions strings declaration
+	/*actions strings declaration */
 	int numRows = w.ws_row * .25 - 2;
 	initialize_actions(numRows, my_wins[1]);
 	add_action("actions window");
@@ -80,7 +80,7 @@ int main()
     while(player->current_hp > 0) {
         tick++;
         refresh();
-//		werase(my_wins[2]);
+/*		werase(my_wins[2]); */
 		print_stats(player, my_wins[2]);
         key_checker(my_wins[2], player->y, player->x);
 		update_panels();
@@ -90,7 +90,7 @@ int main()
         enemy_draw(my_wins[0], player->y, player->x);
         item_draw(my_wins[0], player->y, player->x);
         int w0, h0;
-        getmaxyx(my_wins[0], h0, w0); //MACRO, changes w and h
+        getmaxyx(my_wins[0], h0, w0); /*MACRO, changes w and h */
         mvwprintw(my_wins[0], h0/2, w0/2, "@");
         wrefresh(my_wins[0]);
         int xn = player->x, yn = player->y;
@@ -163,7 +163,7 @@ int main()
 				case '.':
 					break;
 				case 't':
-    				//enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
+    				/*enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10); */
 					break;
 				case KEY_F(4):
 					endwin();
