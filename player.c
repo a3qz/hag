@@ -3,7 +3,7 @@
 #include "gui.h"
 #include "item.h"
 
-static player_t player = {200, 200, 50, 50, 10, 10, 10, 0, 100, 1};
+static player_t player = {150, 200, 50, 50, 10, 10, 10, 0, 200, 1};
 player_t * get_player_obj(){
     return &player;
 }
