@@ -80,7 +80,7 @@ int main()
     while(player->current_hp > 0) {
         tick++;
         refresh();
-//		werase(my_wins[2]);
+		werase(my_wins[2]);
 		print_stats(player, my_wins[2]);
         key_checker(my_wins[2], player->y, player->x);
 		update_panels();
