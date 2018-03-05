@@ -78,7 +78,6 @@ int main()
     while(player->current_hp > 0) {
         tick++;
         refresh();
-//		werase(my_wins[2]);
 		print_stats(player, my_wins[2]);
         key_checker(my_wins[2], player->y, player->x);
 		update_panels();
@@ -165,7 +164,9 @@ int main()
 					break;
 				case 't':
     				//enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
+					player_gain_exp(600);
 					break;
+				
             }
         }
 

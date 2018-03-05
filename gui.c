@@ -11,7 +11,7 @@
 #include "list.h"
 #include "key.h"
 
-#define ACTION_LENGTH 80
+#define ACTION_LENGTH 120
 
 int junk;
 int nelems;
@@ -129,12 +129,14 @@ char gui_prompt(char * prompt, char * answer){
         return 0;
     }
     char response = -1;
-    while (strchr(answer, response) == NULL) {
+	char * selection = strchr(answer, response);
+    while (selection == NULL) {
         add_action(prompt);
-		print_action(prompt_window);
+		print_action();
 		update_panels();
         refresh();
         response = getch();
+		selection = strchr(answer, response);
     }
     return response;
 }
