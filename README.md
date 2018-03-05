@@ -23,10 +23,11 @@ An ncurses procedurally generated dungeon crawler
 			n = down right
 
 
-###Combat:		
+###Combat:		###
 : walk into the enemy you want to attack
 
-###Item:		
+###Item:		###	
+
 :	e = pickup/swap with item on ground
 
 ###Stairs:		
