@@ -11,7 +11,7 @@
 #include "list.h"
 #include "key.h"
 
-#define ACTION_LENGTH 80
+#define ACTION_LENGTH 120
 
 int junk;
 int nelems;
