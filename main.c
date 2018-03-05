@@ -22,6 +22,8 @@
 //#define NLINES 60
 //#define NCOLS 60
 
+#define KEY_F(n)        (KEY_F0+(n))
+
 int tick = 0;
 
 int main()
@@ -164,6 +166,10 @@ int main()
 					break;
 				case 't':
     				//enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10);
+					break;
+				case KEY_F(4):
+					endwin();
+					return 0;
 					break;
             }
         }
