@@ -47,7 +47,6 @@ void key_add_stair(int dir, int pic){
 
 	int starting_number = 10;
 	int width = map_width();
-	int height = map_height();
  	 int w, h;
      getmaxyx(win, h, w); //MACRO, changes w and h
 	 int y0 = y - (h/2);
