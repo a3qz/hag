@@ -77,7 +77,7 @@ void item_give() {
 void item_draw(WINDOW *win, int y, int x) {
     if (!item_list) return;
     int w, h;
-    getmaxyx(win, h, w); //MACRO, changes w and h
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
     int y0 = y - (h/2);
     int x0 = x - (w/2);
     list_traverse(item_list->head);

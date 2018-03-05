@@ -18,7 +18,7 @@ int snek = 0;
 void generate_enemies(){
 	called = 1;
 
-	// rat
+	/* rat */
 	rulebook[book_length].name = "rat";
 	rulebook[book_length].pic = 'r'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 30;
@@ -27,7 +27,7 @@ void generate_enemies(){
 	rulebook[book_length].base_strength = 5;
 	book_length++;
 
-	// kobold
+	/* kobold */
 	rulebook[book_length].name = "kobold";
 	rulebook[book_length].pic = 'k'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 50;
@@ -36,7 +36,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 15;
 	book_length++;
 
-	// goblin
+	/* goblin */
 	rulebook[book_length].name = "goblin";
 	rulebook[book_length].pic = 'g'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 50;
@@ -45,7 +45,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 15;
 	book_length++;
 
-	// snake
+	/* snake */
 	rulebook[book_length].name = "snek";
 	rulebook[book_length].pic = 's'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 50;
@@ -55,7 +55,7 @@ void generate_enemies(){
     snek = book_length;
 	book_length++;
 
-	// slime
+	/* slime */
 	rulebook[book_length].name = "slime";
 	rulebook[book_length].pic = 'm'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 75;
@@ -64,7 +64,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 20;
 	book_length++;
 
-	// orc
+	/* orc */
 	rulebook[book_length].name = "orc";
 	rulebook[book_length].pic = 'o'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 75;
@@ -73,7 +73,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 20;
 	book_length++;
 
-	// wolf
+	/* wolf */
 	rulebook[book_length].name = "wolf";
 	rulebook[book_length].pic = 'w'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 50;
@@ -82,7 +82,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 30;
 	book_length++;
 
-	// imp
+	/* imp */
 	rulebook[book_length].name = "imp";
 	rulebook[book_length].pic = 'i'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 75;
@@ -91,7 +91,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 35;
 	book_length++;
 
-	// griffin
+	/* griffin */
 	rulebook[book_length].name = "griffin";
 	rulebook[book_length].pic = 'G'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 100;
@@ -100,7 +100,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 40;
 	book_length++;
 
-	// grue
+	/* grue */
 	rulebook[book_length].name = "grue";
 	rulebook[book_length].pic = 'U'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 60;
@@ -109,7 +109,7 @@ void generate_enemies(){
 	rulebook[book_length].base_exp = 40;
 	book_length++;
 
-	// fake hag
+	/* fake hag */
 	rulebook[book_length].name = "Hag";
 	rulebook[book_length].pic = 'H'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 1;
@@ -119,7 +119,7 @@ void generate_enemies(){
     fake_hag = book_length;
 	book_length++;
 
-	// hag
+	/* hag */
 	rulebook[book_length].name = "Hag";
 	rulebook[book_length].pic = 'H'|A_BOLD| COLORS_RED;
 	rulebook[book_length].base_hp = 30;
@@ -156,7 +156,7 @@ int enemy_index_snek() {
 void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
     
     int w, h;
-    getmaxyx(win, h, w); //MACRO, changes w and h
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
     int y0 = y - (h/2);
     int x0 = x - (w/2);
     int ey = e->y - y0;
@@ -166,8 +166,8 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
     int ydiff = e->y - y;
     int xdiff = e->x - x;
     
-    if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  // if the enemy is on screen
-         // TODO attacking
+    if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  /* if the enemy is on screen */
+         /* TODO attacking */
         int i, j;
         for (i = e->x-1; i <= e->x+1; i++){
             for(j = e->y-1; j <= e->y+1; j++){
@@ -190,8 +190,8 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
             }
         }
 
-        // movement
-        // if enemy is in range of the player
+        /* movement */
+        /* if enemy is in range of the player */
         if(abs(ydiff) < e->sight_range && abs(xdiff) < e->sight_range){
                 if(ydiff < 0){
                     yn++;

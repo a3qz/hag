@@ -92,7 +92,7 @@ void enemy_hurt(enemy_t *e, int d) {
 void enemy_draw(WINDOW *win, int y, int x) {
     if (!enemy_list) return;
     int w, h;
-    getmaxyx(win, h, w); //MACRO, changes w and h
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
     int y0 = y - (h/2);
     int x0 = x - (w/2);
     list_traverse(enemy_list->head);

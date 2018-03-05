@@ -47,26 +47,26 @@ void initialize_actions(int n, WINDOW * w){
 
 
 /* Put all the windows */
-void init_wins(WINDOW **wins, struct winsize w) //int n)
+void init_wins(WINDOW **wins, struct winsize w) /*int n) */
 {	
 	char label[80];
 
-	//HEIGHT WIDTH Y X (order of inputs for newwin)
-	//storing the height and width of the terminal
+	/*HEIGHT WIDTH Y X (order of inputs for newwin) */
+	/*storing the height and width of the terminal */
 	int NLINES = w.ws_row;
 	int NCOLS = w.ws_col;
 
-	//top left	
+	/*top left	 */
 	wins[0] = newwin(NLINES*.75, NCOLS/2, 0, 0);
 	sprintf(label, "Window Number %d", 1);
 	win_show(wins[0], label, 1);
 	
-	//bottom 
+	/*bottom  */
 	wins[1] = newwin(NLINES*.25, NCOLS, NLINES*.75, 0);
 	sprintf(label, "%i %i", (int)(NLINES*.75)*15, 0);
 	win_show(wins[1], label, 2);
 	
-	//top right
+	/*top right */
 	wins[2] = newwin(NLINES*.75, NCOLS/2, 0, NCOLS*.5);
 	sprintf(label, "%i %f", 0, ((int)NCOLS*.5*15));
 	win_show(wins[2], label, 3);
