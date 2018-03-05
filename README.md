@@ -4,7 +4,8 @@ An ncurses procedurally generated dungeon crawler
 
 ## Controls:
 
-Movement:	
+###Movement:	
+
 			h = left
 
 			j = down
@@ -22,16 +23,32 @@ Movement:
 			n = down right
 
 
-Combat:		walk into the enemy you want to attack
+###Combat:		
 
-Item:		e = pickup/swap with item on ground
+			walk into the enemy you want to attack
 
-Stairs:		< = go up an up staircase
+###Item:		
+			
+			e = pickup/swap with item on ground
+
+###Stairs:		
+
+			< = go up an up staircase
+
 			> = do down a down staircase
 
-Leveling:	on levelup, press:
+
+###Leveling:	
+			
+			on levelup, press:
+
 			s to increase strength
+
 			d to increase dexterity
+
 			i to increase intelligence
 
-Death:		on death, press space to exit
+
+###Death:		
+
+			on death, press space to exit
