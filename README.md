@@ -52,3 +52,7 @@ An ncurses procedurally generated dungeon crawler
 ### Death:		
 
 		on death, press space to exit
+
+### Exit:
+
+		to exit, press F4
