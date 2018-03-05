@@ -23,6 +23,13 @@ item_t *item_add(list_t *list, int y, int x) {
     item->x = x;
     item->power = rand()%(10*(floor_get()+1));
 	item->stat = rand()%3 + 1;
+	if(item->stat == 1){
+		item->pic = '/'|COLORS_GREEN|A_BOLD;
+	} else if(item->stat == 2){
+		item->pic = ')'|COLORS_GREEN|A_BOLD;
+	} else{
+		item->pic = '%'|COLORS_GREEN|A_BOLD;
+	}
     item->node = list_add_tail(list, item);
     return item;
 }
@@ -61,8 +68,9 @@ void item_give() {
         free(held);
     }
     held = malloc(sizeof(*held));
-    held->power = 10;
-	held->stat = 0;
+    held->power = 0;
+	held->pic = '/'|COLORS_GREEN|A_BOLD;
+	held->stat = 1;
     held->node = 0;
 }
 
@@ -78,7 +86,7 @@ void item_draw(WINDOW *win, int y, int x) {
         int ey = e->y - y0;
         int ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
-            mvwaddch(win, ey, ex, '/'|COLORS_GREEN|A_BOLD);
+            mvwaddch(win, ey, ex, e->pic);
         }
     } 
 }

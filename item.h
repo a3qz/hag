@@ -7,6 +7,7 @@
         int x;
         int power;
 		int stat; 
+		int pic;
         node_t *node;
     } item_t;
 
