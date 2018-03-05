@@ -78,12 +78,13 @@ int main()
     while(player->current_hp > 0) {
         tick++;
         refresh();
+//		werase(my_wins[2]);
 		print_stats(player, my_wins[2]);
+        key_checker(my_wins[2], player->y, player->x);
 		update_panels();
 		print_action();
         werase(my_wins[0]);
         map_print(my_wins[0], player->y, player->x);
-        key_checker(my_wins[2], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
         item_draw(my_wins[0], player->y, player->x);
         int w0, h0;

@@ -129,7 +129,7 @@ char gui_prompt(char * prompt, char * answer){
         return 0;
     }
     char response = -1;
-    while (!strchr(answer, response)) {
+    while (strchr(answer, response) == NULL) {
         add_action(prompt);
 		print_action(prompt_window);
 		update_panels();
