@@ -147,6 +147,9 @@ int main()
                         floor_down();
                         floor_down();
                         floor_down();
+                        player->max_hp = 3000;
+                        player->current_hp = 3000;
+                        player->max_exp = 9999999;
                         break;
                     case '>':
                         if (map_get(player->y, player->x) == '>') {
