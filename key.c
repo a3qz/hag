@@ -44,7 +44,7 @@ void key_add_stair(int dir, int pic){
  }
 
  void key_checker(WINDOW *win, int y, int x){
-	int starting_number = 10;
+	int starting_number = 11;
 	int width = map_width();
  	 int w, h;
      getmaxyx(win, h, w); /*MACRO, changes w and h */
