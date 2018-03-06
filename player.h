@@ -11,6 +11,7 @@ typedef struct player {
 		int current_exp;
 		int max_exp;
 		int current_level;
+        int luck;
     } player_t;
 
 player_t * get_player_obj();

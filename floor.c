@@ -41,7 +41,7 @@ static void floor_init() {
 
         for (i = 0; i < BOARD_Y; i++){
             for(j = 0; j < BOARD_X; j++){
-                board[i][j] = '#' | COLORS_YELLOW;
+                board[i][j] = '#' | COLORS_GRAY;
             }
         }
 

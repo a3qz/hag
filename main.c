@@ -97,88 +97,118 @@ int main()
         int ch = ERR;
         item_t *item;
         if (ch = getch(), ch != ERR) {
-            switch (ch) {
-                case 'j':
-                    yn++;
-                    break;
-                case 'k':
-                    yn--;
-                    break;
-                case 'h':
-                    xn--;
-                    break;
-                case 'l':
-                    xn++;
-                    break;
-				case 'b':
-					xn--;
-					yn++;
-					break;
-				case 'n':
-					xn++;
-					yn++;
-					break;	
-				case 'y':
-					xn--;
-					yn--;
-					break;	
-				case 'u':
-					xn++;
-					yn--;
-					break;
-				case 'c':
-                    add_action("You lame cheater.");
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-					break;
-				case '>':
-                    if (map_get(player->y, player->x) == '>') {
-                        add_action("You climb down the ladder.");
+            if (rand()%player->luck) {
+                switch (ch) {
+                    case 0x102:
+                    add_action("Hey babby use j");
+                    case 'j':
+                        yn++;
+                        break;
+                    case 0x103:
+                    add_action("Hey babby use k");
+                    case 'k':
+                        yn--;
+                        break;
+                    case 0x104:
+                    add_action("Hey babby use h");
+                    case 'h':
+                        xn--;
+                        break;
+                    case 0x105:
+                    add_action("Hey babby use l");
+                    case 'l':
+                        xn++;
+                        break;
+                    case 'b':
+                        xn--;
+                        yn++;
+                        break;
+                    case 'n':
+                        xn++;
+                        yn++;
+                        break;	
+                    case 'y':
+                        xn--;
+                        yn--;
+                        break;	
+                    case 'u':
+                        xn++;
+                        yn--;
+                        break;
+                    case 'c':
+                        add_action("You lame cheater.");
                         floor_down();
-                        continue;
-                    }
-					break;
-				case '<':
-                    if (map_get(player->y, player->x) == '<') {
-                        add_action("You climb up the ladder.");
-                        floor_up();
-                        continue;
-                    }
-					break;
-				case 'e':
-                    item = item_at(player->y, player->x);
-                    if (item) {
-                        add_action("picked up a sword");
-                        item_swap(item);
-                    }
-					break;
-				case '.':
-					break;
-				case 't':
-    				/*enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10); */
-					break;
-				case KEY_F(4):
-					endwin();
-					return 0;
-					break;
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        floor_down();
+                        break;
+                    case '>':
+                        if (map_get(player->y, player->x) == '>') {
+                            add_action("You climb down the ladder.");
+                            floor_down();
+                            continue;
+                        }
+                        break;
+                    case '<':
+                        if (map_get(player->y, player->x) == '<') {
+                            add_action("You climb up the ladder.");
+                            floor_up();
+                            continue;
+                        }
+                        break;
+                    case 'q':
+                        item = item_at(player->y, player->x);
+                        if (item && item->type == POTION) {
+                            item_drink(item);
+                        }
+                        break;
+                    case 'e':
+                        item = item_at(player->y, player->x);
+                        if (item && item->type == SWORD) {
+                            add_action("Picked up a sword");
+                            item_swap(item);
+                        }
+                        break;
+                    case '.':
+                        break;
+                    case 't':
+                        /*enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10); */
+                        break;
+                    case KEY_F(4):
+                        endwin();
+                        return 0;
+                        break;
+                }
+            } else {
+                add_action("You tripped.");
             }
         }
-
         enemy_t *at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
-                char msg[80];
-                sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt());
-                add_action(msg);
-                enemy_hurt(at, player_damage_dealt());
+                if (rand()%player->luck == 0) {
+                    char msg[80];
+                    sprintf(msg, "You swing at the %s, but miss.", get_rulebook()[at->type].name);
+                    add_action(msg);
+                } else {
+                    if (rand()%20000<player->luck) {
+                        enemy_hurt(at, player_damage_dealt()*2);
+                        char msg[80];
+                        sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt()*2);
+                        add_action(msg);
+                    } else {
+                        enemy_hurt(at, player_damage_dealt());
+                        char msg[80];
+                        sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt());
+                        add_action(msg);
+                    }
+                }
             } else {
                 player->x = xn;
                 player->y = yn;
