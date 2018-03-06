@@ -150,6 +150,7 @@ int main()
                         player->max_hp = 3000;
                         player->current_hp = 3000;
                         player->max_exp = 9999999;
+                        item_swap(item_add(0, 0, 0));
                         break;
                     case '>':
                         if (map_get(player->y, player->x) == '>') {
