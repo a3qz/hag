@@ -198,15 +198,15 @@ int main()
                     add_action(msg);
                 } else {
                     if (rand()%20000<player->luck) {
-                        enemy_hurt(at, player_damage_dealt()*2);
                         char msg[80];
                         sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt()*2);
                         add_action(msg);
+                        enemy_hurt(at, player_damage_dealt()*2);
                     } else {
-                        enemy_hurt(at, player_damage_dealt());
                         char msg[80];
                         sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt());
                         add_action(msg);
+                        enemy_hurt(at, player_damage_dealt());
                     }
                 }
             } else {

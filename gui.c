@@ -41,7 +41,7 @@ void initialize_actions(int n, WINDOW * w){
 	actions = (char**)malloc(n*sizeof(char*));
 	for (i = 0; i < nelems; i++){
 		actions[i] = (char*)malloc(ACTION_LENGTH*sizeof(char));
-		memset(actions[i], '\0', strlen(actions[i]));
+		memset(actions[i], '\0', ACTION_LENGTH);
 	}
 }
 
