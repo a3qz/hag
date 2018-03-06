@@ -41,7 +41,7 @@ static void floor_init() {
 
         for (i = 0; i < BOARD_Y; i++){
             for(j = 0; j < BOARD_X; j++){
-                board[i][j] = '#' | COLORS_YELLOW;
+                board[i][j] = '#' | COLORS_GRAY;
             }
         }
 
@@ -69,7 +69,7 @@ static void floor_init() {
                         if(rand()%(2000+1) <= 2*(floor_get()+5)){
                             int type = rand()%((floor_get()<3)? 2:floor_get() );
                             enemy_template_t en = get_rulebook()[type];
-                            enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp);
+                            enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp, en.name);
                         }
                         if(rand()%(8000+1) <= 2*(floor_get()+5)){
                             item_add(items, i+ypos, j+xpos);
@@ -101,7 +101,7 @@ static void floor_init() {
             down_y = up_y + 40;
             int type = enemy_index_hag();
             enemy_template_t en = get_rulebook()[type];
-            enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x, en.base_sight_range, en.base_strength, en.base_exp);
+            enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x, en.base_sight_range, en.base_strength, en.base_exp, en.name);
             int xpos = down_x - 10;
             int ypos = down_y - 10;
             int xlen = 20;
