@@ -69,7 +69,7 @@ static void floor_init() {
                         if(rand()%(2000+1) <= 2*(floor_get()+5)){
                             int type = rand()%((floor_get()<3)? 2:floor_get() );
                             enemy_template_t en = get_rulebook()[type];
-                            enemy_add(enemies, type, en.pic, en.base_hp, i+ypos, j+xpos, en.base_sight_range, en.base_strength, en.base_exp, en.name);
+                            enemy_add(enemies, type, en.pic, en.base_hp + (((floor_get()))*en.base_hp)/4, i+ypos, j+xpos, en.base_sight_range, en.base_strength + rand()%(floor_get()+1), en.base_exp, en.name);
                         }
                         if(rand()%(8000+1) <= 2*(floor_get()+5)){
                             item_add(items, i+ypos, j+xpos);

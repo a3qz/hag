@@ -128,7 +128,6 @@ void item_drink(item_t* item) {
                 }
             break;
             case 4: /* luck */
-                add_action("It changed your luck");
                 if (item->power > 0) {
                     sprintf(msg, "It increased your luck by %d points", item->power);
                     add_action(msg);
@@ -138,7 +137,10 @@ void item_drink(item_t* item) {
                 } else {
                     add_action("It did nothing.");
                 }
-                get_player_obj()->luck += item->power*2;
+                get_player_obj()->luck += item->power*100;
+				if(get_player_obj()->luck < 2){
+					get_player_obj()->luck = 2;
+				}
             break;
             case 5: /* exp */
             default:
