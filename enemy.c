@@ -12,7 +12,7 @@ void enemy_set(list_t *list) {
     enemy_list = list;
 }
 
-enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength, int xp) {
+enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength, int xp, char *name) {
     if (!floor_enemy_list) {
         if (enemy_list) {
             floor_enemy_list = enemy_list;
@@ -29,6 +29,7 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
     e->sight_range = sight_range;
     e->strength = strength;
 	e->xp = xp;
+    e->name = name;
     e->node = list_add_tail(floor_enemy_list, e);
     return e;
 }
@@ -70,7 +71,7 @@ void enemy_hurt(enemy_t *e, int d) {
                 if (e->hp <= 15) {
                     add_action("The old hag uses her magic to cast a doppleganger of herself!");
                     enemy_template_t en = get_rulebook()[enemy_index_fake_hag()];
-                    enemy_add(0, enemy_index_fake_hag(), en.pic, en.base_hp, ny, nx, en.base_sight_range, en.base_strength, en.base_exp);
+                    enemy_add(0, enemy_index_fake_hag(), en.pic, en.base_hp, ny, nx, en.base_sight_range, en.base_strength, en.base_exp, "Fake");
                     nx += (rand()%2*2-1)*((rand() % 4) + 5);
                     ny += (rand()%2*2-1)*((rand() % 4) + 5);
                     map_line(e->y, e->x, ny, nx);
@@ -82,6 +83,9 @@ void enemy_hurt(enemy_t *e, int d) {
     } else {
         e->hp -= d;
         if (e->hp <= 0) {
+            char msg[80];
+            sprintf(msg, "You defeat the %s and gain %d experience.", e->name, e->xp);
+            add_action(msg);
             player_gain_exp(e->xp);
             list_remove(e->node);
             free(e);
