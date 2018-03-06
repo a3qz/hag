@@ -185,7 +185,7 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
             if (tick % 24 == 0) {
                     enemy_template_t en = get_rulebook()[snek];
                     add_action("The old hag summons a dangerous snek!");
-                    enemy_t *n = enemy_add(0, snek, en.pic, en.base_hp, e->y, e->x+xdiff, en.base_sight_range, en.base_strength, en.base_exp);
+                    enemy_t *n = enemy_add(0, snek, en.pic, en.base_hp, e->y, e->x+xdiff, en.base_sight_range, en.base_strength, en.base_exp, "dangerous snek");
                     map_line(e->y, e->x, n->y, n->x);
             }
         }

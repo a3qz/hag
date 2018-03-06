@@ -41,7 +41,7 @@ void initialize_actions(int n, WINDOW * w){
 	actions = (char**)malloc(n*sizeof(char*));
 	for (i = 0; i < nelems; i++){
 		actions[i] = (char*)malloc(ACTION_LENGTH*sizeof(char));
-		memset(actions[i], '\0', strlen(actions[i]));
+		memset(actions[i], '\0', ACTION_LENGTH);
 	}
 }
 
@@ -97,17 +97,18 @@ void print_stats(struct player *p, WINDOW * win2){
 	print_in_window(win2, 3, 1, y, str, 0, false);
 	sprintf(str, "Intelligence: %d\n", p->intelligence);
 	print_in_window(win2, 4, 1, y, str, 0, false);
-	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
+	sprintf(str, "Luck: %d\n", p->luck);
 	print_in_window(win2, 5, 1, y, str, 0, false);
-	sprintf(str, "Current Level: %d\n", p->current_level);
+	sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
 	print_in_window(win2, 6, 1, y, str, 0, false);
-	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
-
+	sprintf(str, "Current Level: %d\n", p->current_level);
 	print_in_window(win2, 7, 1, y, str, 0, false);
-	sprintf(str, "\n");
+	sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
 	print_in_window(win2, 8, 1, y, str, 0, false);
-	sprintf(str, "Key:\n");
+	sprintf(str, "\n");
 	print_in_window(win2, 9, 1, y, str, 0, false);
+	sprintf(str, "Key:\n");
+	print_in_window(win2, 10, 1, y, str, 0, false);
 	box(win2, 0, 0);
 }
 
