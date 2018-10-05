@@ -3,16 +3,18 @@ CC = gcc
 CC_FLAGS=-lpanel -lncurses -g -Wall -std=c89
  
 # File names
-EXEC = hag
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:.c=.o)
+EXEC = build/hag
+OBJDIR  = build/objects/
+SRCDIR  = src/
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
  
 # Main target
 $(EXEC): $(OBJECTS)
 	$(CC) $^ -o $@ $(CC_FLAGS)
  
 # To obtain object files
-%.o: %.c
+$(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) -c $< -o $@ $(CC_FLAGS)
  
 # To remove generated files
