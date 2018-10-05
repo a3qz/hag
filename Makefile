@@ -3,8 +3,8 @@ CC = gcc
 CC_FLAGS=-lpanel -lncurses -g -Wall -std=c89
  
 # File names
-EXEC = build/hag
-OBJDIR  = build/objects/
+EXEC = out/hag
+OBJDIR  = out/objects/
 SRCDIR  = src/
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
