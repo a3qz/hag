@@ -15,6 +15,7 @@ $(EXEC): $(OBJECTS)
 
 # To obtain object files
 $(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p $(OBJDIR)
 	$(CC) -c $< -o $@ $(CC_FLAGS)
 
 # To remove generated files
