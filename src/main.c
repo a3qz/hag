@@ -25,6 +25,7 @@
 #define KEY_F(n)        (KEY_F0+(n))
 
 int tick = 0;
+extern int current_floor;
 
 int main()
 {
@@ -161,8 +162,12 @@ int main()
                         break;
                     case '<':
                         if (map_get(player->y, player->x) == '<') {
-                            add_action("You climb up the ladder.");
-                            floor_up();
+                            if (current_floor - 1 <= FLOOR_START_VAL) {
+                                add_action("You cannot climb this ladder.");
+                            } else {
+                                add_action("You climb up the ladder.");
+                                floor_up();
+                            }
                             continue;
                         }
                         break;

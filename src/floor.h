@@ -2,6 +2,7 @@
 #define FLOOR_H
 
     #define FLOOR_COUNT 10
+    #define FLOOR_START_VAL -1
     
     #include "list.h"
     #include "map.h"

@@ -19,7 +19,7 @@ static const int BOARD_Y = 400;
 
 static floor_t floors[FLOOR_COUNT] = {0};
 
-static int current_floor = -1;
+int current_floor = FLOOR_START_VAL;
 
 static void floor_init() {
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
