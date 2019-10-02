@@ -9,6 +9,7 @@
 #include "colors.h"
 #include "map.h"
 #include "item.h"
+#include "flavortext.h"
 #include "floor.h"
 #include "list.h"
 #include "enemy_rulebook.h"
@@ -39,6 +40,7 @@ int main()
 
 
     floor_down();
+    /* add_action(flavortext_from_floor()); */
 	
 	/* Initialize curses */
 	initscr();
@@ -64,7 +66,6 @@ int main()
 	/*actions strings declaration */
 	int numRows = w.ws_row * .25 - 2;
 	initialize_actions(numRows, my_wins[1]);
-	add_action("actions window");
 
 	/*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE*/
 	update_panels();
@@ -77,6 +78,7 @@ int main()
 	player_t * player = get_player_obj();
     gui_set_prompt_window(my_wins[1]);
     item_give();
+    add_action(flavortext_from_floor());
     while(player->current_hp > 0) {
         tick++;
         refresh();
@@ -156,6 +158,7 @@ int main()
                         if (map_get(player->y, player->x) == '>') {
                             add_action("You climb down the ladder.");
                             floor_down();
+                            add_action(flavortext_from_floor());
                             continue;
                         }
                         break;
