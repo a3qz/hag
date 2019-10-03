@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "floor.h"
 #include "list.h"
-#include "time.h"
 #include "colors.h"
 #include "item.h"
 #include "enemy.h"
@@ -23,8 +22,6 @@ static int current_floor = -1;
 
 static void floor_init() {
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
-        srand(time(0)); 
-                
         map_t board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         list_t *enemies = list_create();
         list_t *items = list_create();
