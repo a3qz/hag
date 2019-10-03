@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "args.h"
 #include "player.h"
 #include "colors.h"
 #include "map.h"
@@ -26,8 +27,10 @@
 
 int tick = 0;
 
-int main()
+int main(int argc, char **argv)
 {
+    parse_args(argc, argv);
+
 	/*assuming character size is 15 by 15 pixels */
 	/* getting the size of the terminal */
 	/* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
