@@ -1,3 +1,3 @@
 #ifndef MAIN_H
-    extern int tick;
+extern int tick;
 #endif
