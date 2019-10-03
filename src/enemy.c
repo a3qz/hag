@@ -28,7 +28,7 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
     e->x = x;
     e->sight_range = sight_range;
     e->strength = strength;
-	e->xp = xp;
+    e->xp = xp;
     e->name = name;
     e->node = list_add_tail(floor_enemy_list, e);
     return e;
@@ -130,5 +130,5 @@ void enemy_turn_driver(WINDOW *win, int y, int x){
 }
 
 list_t * get_enemy_list(){
-	return enemy_list;
+    return enemy_list;
 }

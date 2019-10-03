@@ -18,8 +18,8 @@ const int COLORS_WHITE  = COLOR_PAIR(COLORS_PAIR_WHITE);
 const int COLORS_GRAY   = COLOR_PAIR(COLORS_PAIR_GRAY) | A_DIM;
 
 void colors_init() {
-	/* Initialize all the colors */
-	start_color();
+    /* Initialize all the colors */
+    start_color();
 
     init_color(COLOR_RED,     1000,    0,    0);
     init_color(COLOR_GREEN,      0, 1000,    0);
@@ -29,11 +29,11 @@ void colors_init() {
     init_color(COLOR_WHITE,   1000, 1000, 1000);
     init_color(9,   900, 900, 900);
 
-	init_pair(COLORS_PAIR_RED,    COLOR_RED,    COLOR_BLACK);
-	init_pair(COLORS_PAIR_GREEN,  COLOR_GREEN,  COLOR_BLACK);
-	init_pair(COLORS_PAIR_BLUE,   COLOR_BLUE,   COLOR_BLACK);
-	init_pair(COLORS_PAIR_CYAN,   COLOR_CYAN,   COLOR_BLACK);
-	init_pair(COLORS_PAIR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(COLORS_PAIR_WHITE,  COLOR_WHITE,  COLOR_BLACK);
-	init_pair(COLORS_PAIR_GRAY,   COLOR_BLACK,  COLOR_BLACK);
+    init_pair(COLORS_PAIR_RED,    COLOR_RED,    COLOR_BLACK);
+    init_pair(COLORS_PAIR_GREEN,  COLOR_GREEN,  COLOR_BLACK);
+    init_pair(COLORS_PAIR_BLUE,   COLOR_BLUE,   COLOR_BLACK);
+    init_pair(COLORS_PAIR_CYAN,   COLOR_CYAN,   COLOR_BLACK);
+    init_pair(COLORS_PAIR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(COLORS_PAIR_WHITE,  COLOR_WHITE,  COLOR_BLACK);
+    init_pair(COLORS_PAIR_GRAY,   COLOR_BLACK,  COLOR_BLACK);
 }

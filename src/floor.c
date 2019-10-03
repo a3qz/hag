@@ -48,7 +48,7 @@ static void floor_init() {
             int xcenter2 = 0;
             int ycenter2 = 0;
             int room_iterator;
-            
+
             for(room_iterator=0; room_iterator < NUM_ROOMS; room_iterator++){
                 int ylen = rand()%MAX_ROOM_Y+1;
                 int xlen = rand()%MAX_ROOM_X+1;
@@ -58,7 +58,7 @@ static void floor_init() {
 
                 xcenter = xpos+xlen/2;
                 ycenter = ypos+ylen/2;
-                
+
                 for(i = 0; i < ylen; i++){
                     for(j = 0; j < xlen; j++){
                         board[i+ypos][j+xpos] = '.' | A_DIM;
@@ -123,7 +123,7 @@ static void floor_init() {
         floors[current_floor].loaded = 1;
     }
 }
- 
+
 void floor_goto(int f) {
     if (f < FLOOR_COUNT && f >= 0) {
         current_floor = f;
@@ -155,7 +155,7 @@ static int connectpoints(map_t board, int newcentery, int newcenterx, int oldcen
     int ydiff = newcentery-oldcentery;
     int realx = newcenterx;
     int realy = newcentery;
-    
+
     while(abs(xdiff) > 0 || abs(ydiff) > 0){
         if(abs(xdiff) > abs(ydiff)){
             if(xdiff > 0){
@@ -177,18 +177,18 @@ static int connectpoints(map_t board, int newcentery, int newcenterx, int oldcen
             board[realy][realx] = '.' | A_DIM;
         }
     }
-	return 0;  
+    return 0;  
 }
 
-	int floor_up_xcoord(){
-		return floors[current_floor].up_x;
-	}
-	int floor_up_ycoord(){
-		return floors[current_floor].up_y;
-	}
-	int floor_down_xcoord(){
-		return floors[current_floor].down_x;
-	}
-	int floor_down_ycoord(){
-		return floors[current_floor].down_y;
-	}
+int floor_up_xcoord(){
+    return floors[current_floor].up_x;
+}
+int floor_up_ycoord(){
+    return floors[current_floor].up_y;
+}
+int floor_down_xcoord(){
+    return floors[current_floor].down_x;
+}
+int floor_down_ycoord(){
+    return floors[current_floor].down_y;
+}

@@ -11,8 +11,8 @@ typedef struct key_item {
     node_t *node;
 } key_item_t;
 
- void key_setup();
- void key_add_stair(int dir, int pic);
- list_t* key_get_list();
-  void key_checker(WINDOW *win, int y, int x);
+    void key_setup();
+    void key_add_stair(int dir, int pic);
+    list_t* key_get_list();
+    void key_checker(WINDOW *win, int y, int x);
 #endif

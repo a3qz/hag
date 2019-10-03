@@ -12,14 +12,14 @@ static item_t *held = 0;
 
 
 item_t *item_add(list_t *list, int y, int x) {
-	if (!list) {
+    if (!list) {
         if (item_list) {
             list = item_list;
         } else {
             return 0;
         }
     }
-    
+
     item_t *item = malloc(sizeof(*item));
     item->y = y;
     item->x = x;
@@ -82,7 +82,7 @@ void item_drink(item_t* item) {
                 if (get_player_obj()->strength < 1) {
                     get_player_obj()->strength = 1;
                 }
-            break;
+                break;
             case 1: /* dex */
                 if (item->power > 0) {
                     sprintf(msg, "It increased your dexterity by %d points", item->power);
@@ -97,7 +97,7 @@ void item_drink(item_t* item) {
                 if (get_player_obj()->dexterity < 1) {
                     get_player_obj()->dexterity = 1;
                 }
-            break;
+                break;
             case 2: /* int */
                 if (item->power > 0) {
                     sprintf(msg, "It increased your intelligence by %d points", item->power);
@@ -112,7 +112,7 @@ void item_drink(item_t* item) {
                 if (get_player_obj()->intelligence < 1) {
                     get_player_obj()->intelligence = 1;
                 }
-            break;
+                break;
             case 3: /* hp */
                 item->power /= 3;
                 get_player_obj()->max_hp += item->power;
@@ -126,7 +126,7 @@ void item_drink(item_t* item) {
                 } else {
                     add_action("It did nothing.");
                 }
-            break;
+                break;
             case 4: /* luck */
                 if (item->power > 0) {
                     sprintf(msg, "It increased your luck by %d points", item->power);
@@ -138,10 +138,10 @@ void item_drink(item_t* item) {
                     add_action("It did nothing.");
                 }
                 get_player_obj()->luck += item->power*100;
-				if(get_player_obj()->luck < 2){
-					get_player_obj()->luck = 2;
-				}
-            break;
+                if(get_player_obj()->luck < 2){
+                    get_player_obj()->luck = 2;
+                }
+                break;
             case 5: /* exp */
             default:
                 add_action("It gave you new life experiences");
@@ -150,7 +150,7 @@ void item_drink(item_t* item) {
                 } else {
                     player_gain_exp(item->power*-2 + 1);
                 }
-            break;
+                break;
         }
     }
 }
@@ -172,8 +172,8 @@ void item_give() {
     }
     held = malloc(sizeof(*held));
     held->power = 0;
-	held->pic = '/'|COLORS_GREEN|A_BOLD;
-	held->stat = 1;
+    held->pic = '/'|COLORS_GREEN|A_BOLD;
+    held->stat = 1;
     held->node = 0;
 }
 
@@ -203,7 +203,7 @@ int item_power() {
 }   
 
 int item_stat(){
-	if (held) {
+    if (held) {
         return held->stat;
     } else {
         return 0;
@@ -211,5 +211,5 @@ int item_stat(){
 }
 
 list_t * get_item_list(){
-	return item_list;
+    return item_list;
 }

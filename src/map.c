@@ -46,7 +46,7 @@ void map_print(WINDOW *win, int y, int x) {
             i -= y0;
             y0 = 0;
         }
-       if (x0 < 0) {
+        if (x0 < 0) {
             j -= x0;
             w -= j;
             x0 = 0;
@@ -77,7 +77,7 @@ void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
     int ydiff = newcentery-oldcentery;
     int realx = newcenterx;
     int realy = newcentery;
-    
+
     while(abs(xdiff) > 0 || abs(ydiff) > 0){
         if(abs(xdiff) > abs(ydiff)){
             if(xdiff > 0){
