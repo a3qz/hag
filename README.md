@@ -1,5 +1,5 @@
 # hag
-An ncurses procedurally generated dungeon crawler 
+An ncurses procedurally generated dungeon crawler
 
 ## Story and History
 
@@ -14,12 +14,14 @@ If you don't have `libncurses5-dev`, install it
 
 Then, clone this repo and run `make`
 
-Finally, run the executable `./hag`
+Finally, run the executable `./out/hag`
 
 
 ## Controls:
 
-### Movement:	
+Press `ESC` to shows controls in game.
+
+### Movement:
 
 			h = left
 
@@ -38,23 +40,23 @@ Finally, run the executable `./hag`
 			n = down right
 
 
-### Combat:		
+### Combat:
 
 			walk into the enemy you want to attack
 
-### Item:		
-			
+### Item:
+
 			e = pickup/swap with item on ground
 
-### Stairs:		
+### Stairs:
 
 			< = go up an up staircase
 
 			> = do down a down staircase
 
 
-### Leveling:	
-			
+### Leveling:
+
 		on levelup, press:
 
 			s to increase strength
@@ -64,7 +66,7 @@ Finally, run the executable `./hag`
 			i to increase intelligence
 
 
-### Death:		
+### Death:
 
 		on death, press space to exit
 
