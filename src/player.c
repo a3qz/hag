@@ -2,17 +2,6 @@
 #include <stdlib.h>
 #include "gui.h"
 #include "item.h"
-        int current_hp;
-        int max_hp;
-        int y;
-        int x;
-        int strength;
-        int dexterity;
-        int intelligence;
-		int current_exp;
-		int max_exp;
-		int current_level;
-        int luck;
 
 static player_t player = {
     current_hp:    175, 
