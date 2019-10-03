@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "args.h"
 #include "player.h"
 #include "colors.h"
 #include "map.h"
@@ -19,6 +20,7 @@
 
 #define W 60
 #define H 13
+#define ESC 27
 
 /*#define NLINES 60 */
 /*#define NCOLS 60 */
@@ -27,8 +29,10 @@
 
 int tick = 0;
 
-int main()
+int main(int argc, char **argv)
 {
+    parse_args(argc, argv);
+
 	/*assuming character size is 15 by 15 pixels */
 	/* getting the size of the terminal */
 	/* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
@@ -40,8 +44,6 @@ int main()
 
 
     floor_down();
-    /* add_action(flavortext_from_floor()); */
-	
 	/* Initialize curses */
 	initscr();
 	cbreak();
@@ -49,10 +51,10 @@ int main()
 	curs_set(0);
 	keypad(stdscr, TRUE);
 
-    colors_init();
+  colors_init();
 
 	init_wins(my_wins, w);
-	
+
 	/* Attach a panel to each window */ 	/* Order is bottom up */
 	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
 	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
@@ -128,11 +130,11 @@ int main()
                     case 'n':
                         xn++;
                         yn++;
-                        break;	
+                        break;
                     case 'y':
                         xn--;
                         yn--;
-                        break;	
+                        break;
                     case 'u':
                         xn++;
                         yn--;
@@ -191,6 +193,16 @@ int main()
                         endwin();
                         return 0;
                         break;
+                    case ESC:
+                        add_action("Babby Manual:");
+                        add_action("    h|j|k|l -> Left, Down, Up, Right");
+                        add_action("    y|u|b|n -> Up Left, Up Right, Down Left, Down Right");
+                        add_action("    Combat: walk into the enemy you want to attack");
+                        add_action("    e -> pickup/swap with item on ground");
+                        add_action("    <|> -> go up an up staircase|down a down staircase");
+                        add_action("    s|d|i -> increase strength|dexterity|intelligence on levelup" );
+                        add_action("    F4 -> quit the game" );
+                        break;
                 }
             } else {
                 add_action("You tripped.");
@@ -222,7 +234,7 @@ int main()
             }
         } else {
             add_action("You can't walk through walls.");
-        } 
+        }
 		enemy_turn_driver(my_wins[0], player->y, player->x);
 				key_checker(my_wins[2], player->y, player->x);
     }
