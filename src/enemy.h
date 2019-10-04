@@ -20,7 +20,7 @@ enemy_t *enemy_at(int y, int x);
 void enemy_set(list_t *list);
 void enemy_hurt(enemy_t *e, int d);
 void enemy_draw(WINDOW *win, int y, int x);
-void enemy_clear();
+void enemy_clear(void);
 void enemy_turn_driver(WINDOW *win, int y, int x);
-list_t * get_enemy_list();
+list_t * get_enemy_list(void);
 #endif

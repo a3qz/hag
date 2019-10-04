@@ -14,7 +14,7 @@ typedef struct list {
     struct node *tail;
 } list_t;
 
-struct list *list_create();
+struct list *list_create(void);
 struct node *list_add_tail(struct list *list, void *data);
 struct node *list_add_head(struct list *list, void *data);
 struct node *list_add_after(struct node *node, void *data);

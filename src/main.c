@@ -31,16 +31,24 @@ int tick = 0;
 
 int main(int argc, char **argv)
 {
+    int w0;
+    int h0;
+    int xn;
+    int yn;
+    int ch;
+    int numRows;
+    struct winsize w;
+    item_t *item;
+    player_t * player;
+    enemy_t *at;
+    WINDOW *my_wins[3];
+    PANEL  *my_panels[3];
     parse_args(argc, argv);
 
     /*assuming character size is 15 by 15 pixels */
     /* getting the size of the terminal */
     /* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
-    struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
-
-    WINDOW *my_wins[3];
-    PANEL  *my_panels[3];
 
 
     floor_down();
@@ -66,7 +74,7 @@ int main(int argc, char **argv)
     set_panel_userptr(my_panels[2], my_panels[0]);
 
     /*actions strings declaration */
-    int numRows = w.ws_row * .25 - 2;
+    numRows = w.ws_row * .25 - 2;
     initialize_actions(numRows, my_wins[1]);
 
     /*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE*/
@@ -77,7 +85,7 @@ int main(int argc, char **argv)
     attroff(COLOR_PAIR(4));
     doupdate();
 
-    player_t * player = get_player_obj();
+    player = get_player_obj();
     gui_set_prompt_window(my_wins[1]);
     item_give();
     add_action(flavortext_from_floor());
@@ -93,33 +101,36 @@ int main(int argc, char **argv)
         map_print(my_wins[0], player->y, player->x);
         enemy_draw(my_wins[0], player->y, player->x);
         item_draw(my_wins[0], player->y, player->x);
-        int w0, h0;
         getmaxyx(my_wins[0], h0, w0); /*MACRO, changes w and h */
         mvwprintw(my_wins[0], h0/2, w0/2, "@");
         wrefresh(my_wins[0]);
-        int xn = player->x, yn = player->y;
-        int ch = ERR;
-        item_t *item;
+        xn = player->x;
+        yn = player->y;
+        ch = ERR;
         if (ch = getch(), ch != ERR) {
             if (rand()%player->luck) {
                 switch (ch) {
                     case 0x102:
                         add_action("Hey babby use j");
+                       __attribute__ ((fallthrough)); 
                     case 'j':
                         yn++;
                         break;
                     case 0x103:
                         add_action("Hey babby use k");
+                       __attribute__ ((fallthrough)); 
                     case 'k':
                         yn--;
                         break;
                     case 0x104:
                         add_action("Hey babby use h");
+                       __attribute__ ((fallthrough)); 
                     case 'h':
                         xn--;
                         break;
                     case 0x105:
                         add_action("Hey babby use l");
+                       __attribute__ ((fallthrough)); 
                     case 'l':
                         xn++;
                         break;
@@ -208,7 +219,7 @@ int main(int argc, char **argv)
                 add_action("You tripped.");
             }
         }
-        enemy_t *at = enemy_at(yn, xn);
+        at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
             if (at) {
                 if (rand()%player->luck == 0) {

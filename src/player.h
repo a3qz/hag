@@ -14,13 +14,13 @@ typedef struct player {
     int luck;
 } player_t;
 
-player_t * get_player_obj();
-int get_player_y();
-int get_player_x();
+player_t * get_player_obj(void);
+int get_player_y(void);
+int get_player_x(void);
 void set_player_y(int y);
 void set_player_x(int x);
 void player_hurt(int enemy_strength);
 void player_gain_exp(int xp);
-void player_levelup();
-int player_damage_dealt();
+void player_levelup(void);
+int player_damage_dealt(void);
 #endif

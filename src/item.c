@@ -12,6 +12,7 @@ static item_t *held = 0;
 
 
 item_t *item_add(list_t *list, int y, int x) {
+    item_t *item;
     if (!list) {
         if (item_list) {
             list = item_list;
@@ -19,10 +20,10 @@ item_t *item_add(list_t *list, int y, int x) {
             return 0;
         }
     }
-
-    item_t *item = malloc(sizeof(*item));
+    item = malloc(sizeof(*item));
     item->y = y;
     item->x = x;
+
     if (rand()%2) {
         item->power = rand()%(10*(floor_get()+1));
         item->stat = rand()%3 + 1;
@@ -45,11 +46,11 @@ item_t *item_add(list_t *list, int y, int x) {
 }
 
 item_t *item_at(int y, int x) {
+    item_t *t;
     if (!item_list) {
         return 0;
     }
     list_traverse(item_list->head);
-    item_t *t;
     while ((t = list_traverse(0))) {
         if (t->y == y && t->x == x) {
             return t;
@@ -63,10 +64,10 @@ void item_set_list(list_t *list) {
 }
 
 void item_drink(item_t* item) {
+    char msg[80];
     if (item && item->type == POTION) {
         list_remove(item->node);
         add_action("Drank a potion");
-        char msg[80];
         switch (item->stat) {
             case 0: /* str */
                 if (item->power > 0) {
@@ -178,16 +179,21 @@ void item_give() {
 }
 
 void item_draw(WINDOW *win, int y, int x) {
-    if (!item_list) return;
-    int w, h;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
-    int y0 = y - (h/2);
-    int x0 = x - (w/2);
-    list_traverse(item_list->head);
+    int w;
+    int h;
+    int x0;
+    int y0;
+    int ex;
+    int ey;
     item_t *e;
+    if (!item_list) return;
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    y0 = y - (h/2);
+    x0 = x - (w/2);
+    list_traverse(item_list->head);
     while ((e = list_traverse(0))) {
-        int ey = e->y - y0;
-        int ex = e->x - x0;
+        ey = e->y - y0;
+        ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
             mvwaddch(win, ey, ex, e->pic);
         }

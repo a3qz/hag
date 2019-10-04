@@ -4,17 +4,17 @@
 #include "item.h"
 
 static player_t player = {
-    current_hp:    175, 
-    max_hp:        175, 
-    y:             50,
-    x:             50, 
-    strength:      10, 
-    dexterity:     10,
-    intelligence:  10, 
-    current_exp:   0,
-    max_exp:       112, 
-    current_level: 1,
-    luck:          1000
+    175, /* current hp*/
+    175, /* max_hp */ 
+    50,  /* y */
+    50,  /* x */ 
+    10,  /* strength */ 
+    10,  /* dexterity */
+    10,  /* intelligence */ 
+    0,   /* current_exp */
+    112, /* max_exp */ 
+    1,   /* current_level */
+    1000 /* luck */
 };
 
 player_t * get_player_obj(){
@@ -50,10 +50,10 @@ void player_gain_exp(int xp){
 }
 
 void player_levelup(){
+    char res = gui_prompt("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?", "sdi");
     player.current_level++;
     player.max_hp += player.max_hp/4;
     player.current_hp = player.max_hp;
-    char res = gui_prompt("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?", "sdi");
     switch(res){
         case 's':
             player.strength += 5;
@@ -68,10 +68,11 @@ void player_levelup(){
 }
 
 int player_damage_dealt(){
-    int max= 0, current;
+    int current;
     int *start;
-    start = &player.strength;
     int i;
+    int max = 0;
+    start = &player.strength;
     for(i = 1; i <= 3; i++){
         if(item_stat() == i){
             current = item_power();

@@ -23,9 +23,10 @@ void key_setup(){
 }
 
 void key_add_stair(int dir, int pic){
+    key_item_t *e;
     system("echo crap > hello");
     key_setup();
-    key_item_t *e = (key_item_t*)malloc(sizeof(*e));
+    e = (key_item_t*)malloc(sizeof(*e));
     if(dir == 0){
         e->name = "stairs up";
     } else{
@@ -44,15 +45,22 @@ list_t* key_get_list(){
 }
 
 void key_checker(WINDOW *win, int y, int x){
-    int starting_number = 11;
-    int width = map_width();
-    int w, h;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
-    int y0 = y - (h/2);
-    int x0 = x - (w/2);
-    int x1 = x + (w/2);
     int i = 0;
     int j = 0;
+    int starting_number = 11;
+    int width = map_width();
+    int w;
+    int h;
+    int y0;
+    int x0;
+    int x1;
+    char str[100];
+    enemy_t *e;
+    item_t *it;
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    y0 = y - (h/2);
+    x0 = x - (w/2);
+    x1 = x + (w/2);
     if (y0 < 0) {
         i -= y0;
         y0 = 0;
@@ -65,9 +73,6 @@ void key_checker(WINDOW *win, int y, int x){
     if (x1 > width) {
         w -= x1 - width;
     }
-    char str[100];
-    /*fprintf(stderr, "x %d y %d h %d w %d i %d j %d \n",floor_up_xcoord(), floor_up_ycoord(),y0, x0, i, j); */
-
     if (floor_up_xcoord() > i+x0 && floor_up_xcoord() < w+x0){
         if(floor_up_ycoord() > j+y0 && floor_up_ycoord() < h+y0){
             sprintf(str, " : %s, %s%d\n", "stairs up", "goto floor ", floor_get()-1);
@@ -97,7 +102,6 @@ void key_checker(WINDOW *win, int y, int x){
     }
 
     list_traverse(get_enemy_list()->head);
-    enemy_t *e;
     while ((e = list_traverse(0))) {
         if (e->x > i+x0 && e->x < w+x0){
             if(e->y > j+y0 && e->y < h+y0){
@@ -113,7 +117,6 @@ void key_checker(WINDOW *win, int y, int x){
         }
     }
     list_traverse(get_item_list()->head);
-    item_t *it;
     while ((it = list_traverse(0))) {
         if (it->x > i+x0 && it->x < w+x0){
             if(it->y > j+y0 && it->y < h+y0){

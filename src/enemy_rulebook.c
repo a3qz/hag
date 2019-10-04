@@ -155,25 +155,35 @@ int enemy_index_snek() {
 
 void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
 
-    int w, h;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
-    int y0 = y - (h/2);
-    int x0 = x - (w/2);
-    int ey = e->y - y0;
-    int ex = e->x - x0;
+    enemy_t *n;
+    enemy_template_t en;
+    char msg[80];
+    int w;
+    int h;
+    int y0;
+    int x0;
+    int i;
+    int j;
+    int ey;
+    int ex;
     int yn = e->y;
     int xn = e->x;
     int ydiff = e->y - y;
     int xdiff = e->x - x;
 
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    y0 = y - (h/2);
+    x0 = x - (w/2);
+
+    ey = e->y - y0;
+    ex = e->x - x0;
+
     if (ey >= 0 && ex >= 0 && ey < h && ex < w) {  /* if the enemy is on screen */
         /* TODO attacking */
-        int i, j;
         for (i = e->x-1; i <= e->x+1; i++){
             for(j = e->y-1; j <= e->y+1; j++){
                 if(i == get_player_x() && j == get_player_y()){
                     player_hurt(e->strength);
-                    char msg[80];
                     sprintf(msg, "The %s hurts you for %d life.", rulebook[e->type].name, e->strength);
                     add_action(msg);
                     return;
@@ -183,9 +193,9 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
 
         if ((e->pic & A_CHARTEXT) == 'H') {
             if (tick % 24 == 0) {
-                enemy_template_t en = get_rulebook()[snek];
+                en = get_rulebook()[snek];
                 add_action("The old hag summons a dangerous snek!");
-                enemy_t *n = enemy_add(0, snek, en.pic, en.base_hp, e->y, e->x+xdiff, en.base_sight_range, en.base_strength, en.base_exp, "dangerous snek");
+                n = enemy_add(0, snek, en.pic, en.base_hp, e->y, e->x+xdiff, en.base_sight_range, en.base_strength, en.base_exp, "dangerous snek");
                 map_line(e->y, e->x, n->y, n->x);
             }
         }

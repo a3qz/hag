@@ -13,6 +13,7 @@ void enemy_set(list_t *list) {
 }
 
 enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, int x, int sight_range, int strength, int xp, char *name) {
+    enemy_t *e;
     if (!floor_enemy_list) {
         if (enemy_list) {
             floor_enemy_list = enemy_list;
@@ -20,7 +21,7 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
             return 0;
         }
     }
-    enemy_t *e = (enemy_t*)malloc(sizeof(*e));
+    e = (enemy_t*)malloc(sizeof(*e));
     e->type = type;
     e->pic = pic;
     e->hp = hp;
@@ -35,11 +36,11 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
 }
 
 enemy_t *enemy_at(int y, int x) {
+    enemy_t *e;
     if (!enemy_list) {
         return 0;
     }
     list_traverse(enemy_list->head);
-    enemy_t *e;
     while ((e = list_traverse(0))) {
         if (e->y == y && e->x == x) {
             return e;
@@ -49,6 +50,11 @@ enemy_t *enemy_at(int y, int x) {
 }
 
 void enemy_hurt(enemy_t *e, int d) {
+    int nx;
+    int ny;
+    char msg[80];
+    enemy_template_t en;
+
     if (!e) return;
 
     if ((e->pic & A_CHARTEXT) == 'H') {
@@ -65,12 +71,12 @@ void enemy_hurt(enemy_t *e, int d) {
         } else {
             if (e->hp % 3 == 0) {
                 add_action("In a flash, the old hag manages to blink across the room.");
-                int nx = e->x+(rand()%2*2-1)*((rand() % 4) + 5);
-                int ny = e->y+(rand()%2*2-1)*((rand() % 4) + 5);
+                nx = e->x+(rand()%2*2-1)*((rand() % 4) + 5);
+                ny = e->y+(rand()%2*2-1)*((rand() % 4) + 5);
                 map_line(e->y, e->x, ny, nx);
                 if (e->hp <= 15) {
                     add_action("The old hag uses her magic to cast a doppleganger of herself!");
-                    enemy_template_t en = get_rulebook()[enemy_index_fake_hag()];
+                    en = get_rulebook()[enemy_index_fake_hag()];
                     enemy_add(0, enemy_index_fake_hag(), en.pic, en.base_hp, ny, nx, en.base_sight_range, en.base_strength, en.base_exp, "Fake");
                     nx += (rand()%2*2-1)*((rand() % 4) + 5);
                     ny += (rand()%2*2-1)*((rand() % 4) + 5);
@@ -83,7 +89,6 @@ void enemy_hurt(enemy_t *e, int d) {
     } else {
         e->hp -= d;
         if (e->hp <= 0) {
-            char msg[80];
             sprintf(msg, "You defeat the %s and gain %d experience.", e->name, e->xp);
             add_action(msg);
             player_gain_exp(e->xp);
@@ -94,16 +99,23 @@ void enemy_hurt(enemy_t *e, int d) {
 }
 
 void enemy_draw(WINDOW *win, int y, int x) {
-    if (!enemy_list) return;
-    int w, h;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
-    int y0 = y - (h/2);
-    int x0 = x - (w/2);
-    list_traverse(enemy_list->head);
+    int w;
+    int h;
+    int y0;
+    int x0;
+    int ey;
+    int ex;
     enemy_t *e;
+
+    if (!enemy_list) return;
+
+    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    y0 = y - (h/2);
+    x0 = x - (w/2);
+    list_traverse(enemy_list->head);
     while ((e = list_traverse(0))) {
-        int ey = e->y - y0;
-        int ex = e->x - x0;
+        ey = e->y - y0;
+        ex = e->x - x0;
         if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
             mvwaddch(win, ey, ex, e->pic);
         }
@@ -111,10 +123,13 @@ void enemy_draw(WINDOW *win, int y, int x) {
 }
 
 void enemy_clear() {
+    node_t *t;
+
     if (!enemy_list) return;
+
     while (enemy_list->head) {
         free(enemy_list->head->data);
-        node_t *t = enemy_list->head;
+        t = enemy_list->head;
         enemy_list->head = enemy_list->head->next;
         free(t);
     }

@@ -35,8 +35,8 @@ void add_action(char * s){
 }
 
 void initialize_actions(int n, WINDOW * w){
-    nelems = n;
     int i;
+    nelems = n;
     win = w;
     actions = (char**)malloc(n*sizeof(char*));
     for (i = 0; i < nelems; i++){
@@ -59,21 +59,21 @@ void init_wins(WINDOW **wins, struct winsize w) /*int n) */
     /*top left	 */
     wins[0] = newwin(NLINES*.75, NCOLS/2, 0, 0);
     sprintf(label, "Window Number %d", 1);
-    win_show(wins[0], label, 1);
+    win_show(wins[0]);
 
     /*bottom  */
     wins[1] = newwin(NLINES*.25, NCOLS, NLINES*.75, 0);
     sprintf(label, "%i %i", (int)(NLINES*.75)*15, 0);
-    win_show(wins[1], label, 2);
+    win_show(wins[1]);
 
     /*top right */
     wins[2] = newwin(NLINES*.75, NCOLS/2, 0, NCOLS*.5);
     sprintf(label, "%i %f", 0, ((int)NCOLS*.5*15));
-    win_show(wins[2], label, 3);
+    win_show(wins[2]);
 }
 
 /* Show the window with a border and a label */
-void win_show(WINDOW *win, char *label, int label_color)
+void win_show(WINDOW *win)
 {
     int width;
     getmaxyx(win, junk, width);
@@ -86,9 +86,10 @@ void win_show(WINDOW *win, char *label, int label_color)
 
 void print_stats(struct player *p, WINDOW * win2){
     int y;
+    char c[30];
+    char *str = c;
     getmaxyx(win2, y, junk);
-    char c[y];
-    char * str = c ;
+
     sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
     print_in_window(win2, 1, 1, y, str, 0, false);
     sprintf(str, "Strength: %d\n", p->strength);
@@ -114,8 +115,9 @@ void print_stats(struct player *p, WINDOW * win2){
 
 void print_action(){
     int y;
-    getmaxyx(win, y, junk);
     int i;
+    getmaxyx(win, y, junk);
+
     for (i = 0; i < nelems; i++){ 
         print_in_window(win, i+1, 1, y, actions[i], 0, false);
     }
@@ -123,10 +125,10 @@ void print_action(){
 }
 
 char gui_prompt(char * prompt, char * answer){	
+    char response = -1;
     if (!prompt_window || !answer) {
         return 0;
     }
-    char response = -1;
     while (strchr(answer, response) == NULL) {
         add_action(prompt);
         print_action();
@@ -144,7 +146,9 @@ void gui_set_prompt_window(WINDOW *win) {
 
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid)
 {	
-    int length, x, y;
+    int length;
+    int x;
+    int y;
     float temp;
 
     if(win == NULL)

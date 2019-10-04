@@ -20,8 +20,8 @@ void item_set_list(list_t *list);
 void item_swap(item_t* item);
 void item_drink(item_t* item);
 void item_draw(WINDOW *win, int y, int x);
-void item_give();
-int item_power();
-int item_stat();
-list_t * get_item_list();
+void item_give(void);
+int item_power(void);
+int item_stat(void);
+list_t * get_item_list(void);
 #endif

@@ -18,11 +18,11 @@ typedef struct floor {
 } floor_t;
 
 void floor_goto(int f);
-void floor_down();
-void floor_up();
-int floor_get();
-int floor_up_xcoord();
-int floor_up_ycoord();
-int floor_down_xcoord();
-int floor_down_ycoord();
+void floor_down(void);
+void floor_up(void);
+int floor_get(void);
+int floor_up_xcoord(void);
+int floor_up_ycoord(void);
+int floor_down_xcoord(void);
+int floor_down_ycoord(void);
 #endif

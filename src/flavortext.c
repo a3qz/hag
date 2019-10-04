@@ -1,6 +1,7 @@
 #include "floor.h"
+#include "flavortext.h"
 
-char* flavortext_from_floor() {
+char* flavortext_from_floor(void) {
     static int visited[FLOOR_COUNT] = {0};
     static char* floor_texts[FLOOR_COUNT] = {
         "You find yourself on the first floor of a dangerous dungeon.",
