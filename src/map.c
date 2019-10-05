@@ -25,6 +25,12 @@ void map_set(char c, int y, int x) {
     }
 }
 
+void map_set_ext(int c, int y, int x) {
+    if (in_bounds(y, x) && map) {
+        map[y][x] = c;
+    }
+}
+
 char map_get(int y, int x) {
     if (in_bounds(y, x) && map) {
         return map[y][x];
@@ -103,6 +109,53 @@ void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
                 realy += 1;
             }
             map[realy][realx] = '.' | A_DIM;
+        }
+    }
+}
+
+void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
+    int xdiff = newcenterx-oldcenterx;
+    int ydiff = newcentery-oldcentery;
+    int realx = newcenterx;
+    int realy = newcentery;
+
+    while(abs(xdiff) > 0 || abs(ydiff) > 0){
+        if(abs(xdiff) > abs(ydiff)){
+            if(xdiff > 0){
+                xdiff -= 1;
+                realx -= 1;
+            } else if(xdiff < 0){
+                xdiff += 1;
+                realx += 1;
+            }
+            if ((map[realy][realx] & 0xFF) != '.') {
+                return;
+            }
+        } else {
+            if(ydiff > 0){
+                ydiff -= 1;
+                realy -= 1;
+            } else if(ydiff < 0){
+                ydiff += 1;
+                realy += 1;
+            }
+            if ((map[realy][realx] & 0xFF) != '.') {
+                return;
+            }
+        }
+        map[realy][realx] = '.' | A_BOLD;
+    }
+}
+
+void map_los(int y, int x, int r) {
+    int off_y;
+    int off_x;
+    for (off_y = -r; off_y < r; off_y++) {
+        for (off_x = -r; off_x < r; off_x++) {
+            if (off_x*off_x + off_y*off_y <= r*r) {
+                /* O(n^3) but who cares, n=~10 */
+                map_line_empty(y, x, y + off_y, x + off_x);
+            }
         }
     }
 }

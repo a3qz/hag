@@ -89,6 +89,7 @@ int main(int argc, char **argv)
     gui_set_prompt_window(my_wins[1]);
     item_give();
     add_action(flavortext_from_floor());
+    map_los(player->y, player->x, 5);
     while(player->current_hp > 0) {
         tick++;
         refresh();
@@ -247,6 +248,7 @@ int main(int argc, char **argv)
             add_action("You can't walk through walls.");
         }
         enemy_turn_driver(my_wins[0], player->y, player->x);
+        map_los(player->y, player->x, 5);
         key_checker(my_wins[2], player->y, player->x);
     }
     print_stats(player, my_wins[2]);
