@@ -4,15 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "args.h"
 
-void parse_args(int argc, char **argv)
-{
+void parse_args(int argc, char **argv) {
     srand(time(NULL));
 
     while (1) {
         struct option long_options[] = {
             {"help", no_argument,       NULL, 'h'},
             {"seed", required_argument, NULL, 's'},
+            {0, 0, 0, 0}
         };
         int c = getopt_long(argc, argv, "hs:", long_options, NULL);
         unsigned long seed;
