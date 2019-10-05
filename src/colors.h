@@ -7,5 +7,5 @@ extern const int COLORS_CYAN;
 extern const int COLORS_YELLOW;
 extern const int COLORS_WHITE;
 extern const int COLORS_GRAY;
-void colors_init();
+void colors_init(void);
 #endif

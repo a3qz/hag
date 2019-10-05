@@ -35,13 +35,20 @@ char map_get(int y, int x) {
 
 void map_print(WINDOW *win, int y, int x) {
     if (win && map && in_bounds(y, x)) {
-        int w, h;
-        getmaxyx(win, h, w); /*MACRO, changes w and h */
-        int y0 = y - (h/2);
-        int x0 = x - (w/2);
-        int x1 = x + (w/2);
+        int w;
+        int h;
+        int y0;
+        int x0;
+        int x1;
+        int k;
         int i = 0;
         int j = 0;
+
+        getmaxyx(win, h, w); /*MACRO, changes w and h */
+        y0 = y - (h/2);
+        x0 = x - (w/2);
+        x1 = x + (w/2);
+
         if (y0 < 0) {
             i -= y0;
             y0 = 0;
@@ -55,7 +62,6 @@ void map_print(WINDOW *win, int y, int x) {
             w -= x1 - width;
         }
         for (; i < h && y0 < height; i++) {
-            int k;
             for (k = 0; k < w && x0+k<width; k++) {
                 mvwaddch(win, i, j + k, map[y0][x0+k]);
             }

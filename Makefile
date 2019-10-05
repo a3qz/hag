@@ -1,6 +1,6 @@
 # Declaration of variables
 CC       = gcc 
-CC_FLAGS =-lpanel -lncurses -g -Wall -std=c89
+CC_FLAGS =-lpanel -lncurses -g -Wall -std=c89 -pedantic -Wextra -Werror -Wmissing-prototypes -Wstrict-prototypes 
  
 # File names
 EXEC     = out/hag

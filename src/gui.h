@@ -9,10 +9,10 @@
 #include "player.h"
 
 void init_wins(WINDOW **wins, struct winsize w);
-void win_show(WINDOW *win, char *label, int label_color);
+void win_show(WINDOW *win);
 void print_in_window(WINDOW *win, int starty, int startx, int width, char *string, chtype color, bool mid);
 void print_stats(struct player *p, WINDOW * wins2);
-void print_action();
+void print_action(void);
 void add_action(char * s);
 void initialize_actions(int n, WINDOW * win);
 char gui_prompt(char * prompt, char * answer);
