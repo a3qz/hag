@@ -9,7 +9,7 @@ typedef struct item {
     int stat; 
     int pic;
     enum {
-        SWORD, POTION
+        SWORD, POTION, SUPER_POTION
     } type;
     node_t *node;
 } item_t;

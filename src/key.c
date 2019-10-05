@@ -57,7 +57,8 @@ void key_checker(WINDOW *win, int y, int x){
     char str[100];
     enemy_t *e;
     item_t *it;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    getmaxyx(win, h, w); /*MACRO, changes w and h
+ */
     y0 = y - (h/2);
     x0 = x - (w/2);
     x1 = x + (w/2);
@@ -81,12 +82,11 @@ void key_checker(WINDOW *win, int y, int x){
             starting_number++;
         }else{
             print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
-            /*exit(1); */
+            /*exit(1);*/
         }
     } else{
         print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
-
-        /*exit(2); */
+        /*exit(2);*/
     }
     if (floor_down_xcoord() > i+x0 && floor_down_xcoord() < w+x0){
         if(floor_down_ycoord() > j+y0 && floor_down_ycoord() < h+y0){
@@ -116,21 +116,21 @@ void key_checker(WINDOW *win, int y, int x){
             print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
         }
     }
+
     list_traverse(get_item_list()->head);
     while ((it = list_traverse(0))) {
         if (it->x > i+x0 && it->x < w+x0){
             if(it->y > j+y0 && it->y < h+y0){
                 if (it->type == SWORD) {    
                     sprintf(str, " : %s Weapon\n", weapontypes[it->stat]);
-                    print_in_window(win, starting_number, 1, y, str, 0, false);
-                    mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
-                    starting_number++;
-                } else {
+                } else if (it->type == POTION) {
                     sprintf(str, " : Potion\n");
-                    print_in_window(win, starting_number, 1, y, str, 0, false);
-                    mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
-                    starting_number++;
+                } else if (it->type == SUPER_POTION) {
+                    sprintf(str, " : Super Potion\n");
                 }
+                print_in_window(win, starting_number, 1, y, str, 0, false);
+                mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
+                starting_number++;
             }else{
                 print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
             }
@@ -138,6 +138,5 @@ void key_checker(WINDOW *win, int y, int x){
             print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
         }
     }
-
     box(win, 0, 0);
 }

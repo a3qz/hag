@@ -10,7 +10,6 @@
 static list_t *item_list = 0;
 static item_t *held = 0;
 
-
 item_t *item_add(list_t *list, int y, int x) {
     item_t *item;
     if (!list) {
@@ -24,11 +23,16 @@ item_t *item_add(list_t *list, int y, int x) {
     item->y = y;
     item->x = x;
 
-    if (rand()%2) {
+    if(rand() == 32) { /* It's a SUPER POTION */
+        item->power = rand() > 100 ? rand() : 100;
+        item->type = SUPER_POTION;
+        item->stat = rand()%6;
+        item->pic = '&'|COLORS_MAGENTA|A_BOLD;
+    } else if (rand() % 2) { /* It's a new SWORD */
         item->power = rand()%(10*(floor_get()+1));
         item->stat = rand()%3 + 1;
         item->type = SWORD;
-        if(item->stat == 1){
+        if(item->stat == 1){ /* It's a normal POTION */
             item->pic = '/'|COLORS_GREEN|A_BOLD;
         } else if(item->stat == 2){
             item->pic = ')'|COLORS_GREEN|A_BOLD;
