@@ -28,6 +28,7 @@ item_t *item_add(list_t *list, int y, int x) {
         item->power = rand()%(10*(floor_get()+1));
         item->stat = rand()%3 + 1;
         item->type = SWORD;
+        item->ident = 0;
         if(item->stat == 1){
             item->pic = '/'|COLORS_GREEN|A_BOLD;
         } else if(item->stat == 2){
@@ -40,6 +41,7 @@ item_t *item_add(list_t *list, int y, int x) {
         item->type = POTION;
         item->stat = rand()%6;
         item->pic = '&'|COLORS_CYAN|A_BOLD;
+        item->ident = 0;
     }
     item->node = list_add_tail(list, item);
     return item;
@@ -63,11 +65,39 @@ void item_set_list(list_t *list) {
     item_list = list;
 }
 
+void item_inspect(item_t* item) {
+    int count = get_player_obj()->potion_count;
+    int level = get_player_obj()->current_level;
+    char msg[80];
+    if (item && item->type == POTION) {
+        switch (item->ident) {
+            case -1: 
+                add_action("The potion remains unknown");
+                break;
+            case 0:
+                if ((count + level) < rand()%25) {
+                    add_action("The potion is unknowable");
+                    item->ident = -1;
+                } else {
+                    sprintf(msg, "You discover a %s potion", potiontypes[item->stat]);
+                    add_action(msg);
+                    item->ident = 1;
+                }
+                break;
+            case 1:
+                sprintf(msg, "This is a %s potion", potiontypes[item->stat]);
+                add_action(msg);
+                break;
+        }
+    }
+}
+
 void item_drink(item_t* item) {
     char msg[80];
     if (item && item->type == POTION) {
         list_remove(item->node);
         add_action("Drank a potion");
+        get_player_obj()->potion_count += 1;
         switch (item->stat) {
             case 0: /* str */
                 if (item->power > 0) {

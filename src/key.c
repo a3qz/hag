@@ -12,6 +12,7 @@
 #include "gui.h"
 
 char * weapontypes[4] = {"", "Strength", "Dexterity", "Intelligence"};
+char * potiontypes[6] = {"Strength", "Dexterity", "Intelligence", "Health", "Luck", "Experience"};
 static int inited = 0;
 static list_t * key_list;
 
@@ -126,7 +127,11 @@ void key_checker(WINDOW *win, int y, int x){
                     mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
                     starting_number++;
                 } else {
-                    sprintf(str, " : Potion\n");
+                    if (it->ident <= 0) {
+                        sprintf(str, " : Potion\n");
+                    } else {
+                        sprintf(str, " : %s Potion\n", potiontypes[it->stat]);
+                    }
                     print_in_window(win, starting_number, 1, y, str, 0, false);
                     mvwaddch(win, starting_number, 1, (it->pic)?it->pic:' ' );
                     starting_number++;

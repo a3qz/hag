@@ -188,6 +188,12 @@ int main(int argc, char **argv)
                             item_drink(item);
                         }
                         break;
+                    case 'I':
+                        item = item_at(player->y, player->x);
+                        if (item && item->type == POTION) {
+                            item_inspect(item);
+                        }
+                        break;
                     case 'e':
                         item = item_at(player->y, player->x);
                         if (item && item->type == SWORD) {

@@ -14,7 +14,8 @@ static player_t player = {
     0,   /* current_exp */
     112, /* max_exp */ 
     1,   /* current_level */
-    1000 /* luck */
+    1000, /* luck */
+    0     /* potion_count */
 };
 
 player_t * get_player_obj(){
