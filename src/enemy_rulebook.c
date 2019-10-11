@@ -183,8 +183,9 @@ void enemy_take_turn(enemy_t *e, WINDOW *win, int y, int x){
         for (i = e->x-1; i <= e->x+1; i++){
             for(j = e->y-1; j <= e->y+1; j++){
                 if(i == get_player_x() && j == get_player_y()){
-                    player_hurt(e->strength);
-                    sprintf(msg, "The %s hurts you for %d life.", rulebook[e->type].name, e->strength);
+                    int damage = rand()%e->strength;
+                    player_hurt(damage);
+                    sprintf(msg, "The %s hurts you for %d life.", rulebook[e->type].name, damage);
                     add_action(msg);
                     return;
                 }
