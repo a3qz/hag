@@ -130,10 +130,10 @@ void item_drink(item_t* item) {
                 break;
             case 4: /* luck */
                 if (item->power > 0) {
-                    sprintf(msg, "It increased your luck by %d points", item->power);
+                    sprintf(msg, "It increased your luck by %d points", item->power*100);
                     add_action(msg);
                 } else if (item->power < 0) {
-                    sprintf(msg, "It decreased your luck by %d points", -item->power);
+                    sprintf(msg, "It decreased your luck by %d points", -item->power*100);
                     add_action(msg);
                 } else {
                     add_action("It did nothing.");
