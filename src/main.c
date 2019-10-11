@@ -230,7 +230,7 @@ int main(int argc, char **argv)
                     int damage = player_damage_dealt();
                     if (rand()%20000<player->luck) {
                         char msg[80];
-                        sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, damage);
+                        sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, damage*2);
                         add_action(msg);
                         enemy_hurt(at, damage*2);
                     } else {
