@@ -47,7 +47,7 @@ list_t* key_get_list(){
 void key_checker(WINDOW *win, int y, int x){
     int i = 0;
     int j = 0;
-    int starting_number = 11;
+    int starting_number = 12;
     int width = map_width();
     int w;
     int h;
@@ -57,7 +57,8 @@ void key_checker(WINDOW *win, int y, int x){
     char str[100];
     enemy_t *e;
     item_t *it;
-    getmaxyx(win, h, w); /*MACRO, changes w and h */
+    getmaxyx(win, h, w); /*MACRO, changes w and h
+ */
     y0 = y - (h/2);
     x0 = x - (w/2);
     x1 = x + (w/2);
@@ -81,12 +82,14 @@ void key_checker(WINDOW *win, int y, int x){
             starting_number++;
         }else{
             print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
-            /*exit(1); */
+            /*exit(1);
+ */
         }
     } else{
         print_in_window(win, starting_number, 1, y, "                                          ", 0, false);
 
-        /*exit(2); */
+        /*exit(2);
+ */
     }
     if (floor_down_xcoord() > i+x0 && floor_down_xcoord() < w+x0){
         if(floor_down_ycoord() > j+y0 && floor_down_ycoord() < h+y0){

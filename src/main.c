@@ -93,7 +93,7 @@ int main(int argc, char **argv)
         tick++;
         refresh();
         werase(my_wins[2]);
-        print_stats(player, my_wins[2]);
+        print_stats(player, my_wins[2], floor_tick_get());
         key_checker(my_wins[2], player->y, player->x);
         update_panels();
         print_action();
@@ -253,7 +253,7 @@ int main(int argc, char **argv)
         enemy_turn_driver(my_wins[0], player->y, player->x);
         key_checker(my_wins[2], player->y, player->x);
     }
-    print_stats(player, my_wins[2]);
+    print_stats(player, my_wins[2], floor_tick_get());
     gui_prompt("You have died! Press space to exit.", " ");
 
     endwin();

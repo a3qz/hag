@@ -84,7 +84,7 @@ void win_show(WINDOW *win)
 
 }
 
-void print_stats(struct player *p, WINDOW * win2){
+void print_stats(struct player *p, WINDOW * win2, int floor_tick){
     int y;
     char c[30];
     char *str = c;
@@ -106,10 +106,13 @@ void print_stats(struct player *p, WINDOW * win2){
     print_in_window(win2, 7, 1, y, str, 0, false);
     sprintf(str, "Current Item: %c %d\n", statslist[item_stat()], item_power());
     print_in_window(win2, 8, 1, y, str, 0, false);
-    sprintf(str, "\n");
+    sprintf(str, "Turns: %d\n", floor_tick);
     print_in_window(win2, 9, 1, y, str, 0, false);
-    sprintf(str, "Key:\n");
+    sprintf(str, "\n");
     print_in_window(win2, 10, 1, y, str, 0, false);
+    sprintf(str, "Key:\n");
+    print_in_window(win2, 11, 1, y, str, 0, false);
+
     box(win2, 0, 0);
 }
 

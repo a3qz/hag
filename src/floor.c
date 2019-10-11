@@ -8,7 +8,7 @@
 #include "enemy_rulebook.h"
 #include "player.h"
 
-#define MAX_FLOOR_TICK 27000
+#define MAX_FLOOR_TICK 10000
 
 static int connectpoints(map_t board, int newcenterx, int newcentery, int oldcenterx, int oldcentery);
 
@@ -216,4 +216,7 @@ int floor_tick(){
     else{
         return 0;
     }
+}
+int floor_tick_get(){
+    return floors[current_floor].floor_tick;
 }

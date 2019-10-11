@@ -27,4 +27,5 @@ int floor_up_ycoord(void);
 int floor_down_xcoord(void);
 int floor_down_ycoord(void);
 int floor_tick(void);
+int floor_tick_get(void);
 #endif
