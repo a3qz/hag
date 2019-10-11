@@ -21,9 +21,6 @@ enemy_t *enemy_add(list_t *floor_enemy_list, int type, int pic, int hp, int y, i
             return 0;
         }
     }
-    if(y == get_player_y && x == get_player_x){
-        return 0;
-    }
     e = (enemy_t*)malloc(sizeof(*e));
     e->type = type;
     e->pic = pic;
