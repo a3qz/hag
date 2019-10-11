@@ -72,8 +72,8 @@ static void floor_init(void) {
 
                 for(i = 0; i < ylen; i++){
                     for(j = 0; j < xlen; j++){
-                        board[i+ypos][j+xpos] = '.' | A_DIM;
-                        board[i+ypos][j+xpos] = '.' | A_DIM;
+                        board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GREEN;
+                        board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GREEN;
                         if(rand()%(2000+1) <= 2*(floor_get()+5)){
                             type = rand()%((floor_get()<3)? 2:floor_get() );
                             en = get_rulebook()[type];
