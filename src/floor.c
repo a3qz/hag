@@ -44,7 +44,6 @@ static void floor_init(void) {
     list_t *enemies;
     list_t *items;
 
-    
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
         board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         enemies = list_create();
