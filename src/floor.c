@@ -8,6 +8,8 @@
 #include "enemy_rulebook.h"
 #include "player.h"
 
+#define MAX_FLOOR_TICK 27000
+
 static int connectpoints(map_t board, int newcenterx, int newcentery, int oldcenterx, int oldcentery);
 
 static const int NUM_ROOMS = 30;
@@ -42,6 +44,7 @@ static void floor_init(void) {
     list_t *enemies;
     list_t *items;
 
+    
     if (current_floor < FLOOR_COUNT && current_floor >= 0 && !floors[current_floor].loaded) {
         board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         enemies = list_create();
@@ -130,6 +133,7 @@ static void floor_init(void) {
         floors[current_floor].enemy_list = enemies;
         floors[current_floor].item_list = items;
         floors[current_floor].loaded = 1;
+        floors[current_floor].floor_tick = 0;
     }
 }
 
@@ -200,4 +204,17 @@ int floor_down_xcoord(){
 }
 int floor_down_ycoord(){
     return floors[current_floor].down_y;
+}
+int floor_tick(){
+    floors[current_floor].floor_tick++;
+    if (floors[current_floor].floor_tick == MAX_FLOOR_TICK){
+        return 2;
+    }
+    else if (floors[current_floor].floor_tick > MAX_FLOOR_TICK){
+        player_hurt(1);
+        return 1;
+    }
+    else{
+        return 0;
+    }
 }

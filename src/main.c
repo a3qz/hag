@@ -218,6 +218,10 @@ int main(int argc, char **argv)
             } else {
                 add_action("You tripped.");
             }
+            if(floor_tick() == 2){
+                add_action("You hear the hag cackling from somewhere deep inside the dungeon.");
+                add_action("You feel like every step you take on this floor will hurt you.");
+            }
         }
         at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {

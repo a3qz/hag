@@ -8,6 +8,7 @@
 
 typedef struct floor {
     int loaded;
+    unsigned int floor_tick;
     list_t *enemy_list;
     list_t *item_list;
     map_t map;
@@ -25,4 +26,5 @@ int floor_up_xcoord(void);
 int floor_up_ycoord(void);
 int floor_down_xcoord(void);
 int floor_down_ycoord(void);
+int floor_tick(void);
 #endif
