@@ -129,6 +129,9 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcente
                 realx += 1;
             }
             if ((map[realy][realx] & 0xFF) != '.') {
+                if ((map[realy][realx] & 0xFF) == '#') {
+                    map[realy][realx] = (c &~0xFF) | '#';
+                }
                 return;
             }
         } else {
@@ -140,6 +143,9 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcente
                 realy += 1;
             }
             if ((map[realy][realx] & 0xFF) != '.') {
+                if ((map[realy][realx] & 0xFF) == '#') {
+                    map[realy][realx] = (c &~0xFF) | '#';
+                }
                 return;
             }
         }

@@ -105,7 +105,7 @@ int main(int argc, char **argv)
         getmaxyx(my_wins[0], h0, w0); /*MACRO, changes w and h */
         mvwprintw(my_wins[0], h0/2, w0/2, "@");
         wrefresh(my_wins[0]);
-        map_los(player->y, player->x, 8, '.' | COLORS_WHITE);
+        map_los(player->y, player->x, 8, (int)'.' | COLORS_BLACK | A_BOLD);
         xn = player->x;
         yn = player->y;
         ch = ERR;
