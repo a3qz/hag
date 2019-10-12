@@ -83,5 +83,5 @@ int player_damage_dealt(){
             max = current+ start[i-1];
         }
     }
-    return max;
+    return rand()%max;
 }

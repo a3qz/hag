@@ -231,16 +231,17 @@ int main(int argc, char **argv)
                     sprintf(msg, "You swing at the %s, but miss.", get_rulebook()[at->type].name);
                     add_action(msg);
                 } else {
+                    int damage = player_damage_dealt();
                     if (rand()%20000<player->luck) {
                         char msg[80];
-                        sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt()*2);
+                        sprintf(msg, "You land a critical blow against the %s for %d life.", get_rulebook()[at->type].name, damage*2);
                         add_action(msg);
-                        enemy_hurt(at, player_damage_dealt()*2);
+                        enemy_hurt(at, damage*2);
                     } else {
                         char msg[80];
-                        sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, player_damage_dealt());
+                        sprintf(msg, "You hurt the %s for %d life.", get_rulebook()[at->type].name, damage);
                         add_action(msg);
-                        enemy_hurt(at, player_damage_dealt());
+                        enemy_hurt(at, damage);
                     }
                 }
             } else {
