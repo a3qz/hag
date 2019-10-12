@@ -94,7 +94,7 @@ int main(int argc, char **argv)
         tick++;
         refresh();
         werase(my_wins[2]);
-        print_stats(player, my_wins[2]);
+        print_stats(player, my_wins[2], floor_tick_get());
         key_checker(my_wins[2], player->y, player->x);
         update_panels();
         print_action();
@@ -220,6 +220,10 @@ int main(int argc, char **argv)
             } else {
                 add_action("You tripped.");
             }
+            if(floor_tick() == 2){
+                add_action("You hear the hag cackling from somewhere deep inside the dungeon.");
+                add_action("You feel like every step you take on this floor will hurt you.");
+            }
         }
         at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<' || map_get(yn, xn) == '>') {
@@ -252,7 +256,7 @@ int main(int argc, char **argv)
         map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
     }
-    print_stats(player, my_wins[2]);
+    print_stats(player, my_wins[2], floor_tick_get());
     gui_prompt("You have died! Press space to exit.", " ");
 
     endwin();
