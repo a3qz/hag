@@ -72,8 +72,8 @@ static void floor_init(void) {
 
                 for(i = 0; i < ylen; i++){
                     for(j = 0; j < xlen; j++){
-                        board[i+ypos][j+xpos] = '.' | A_DIM;
-                        board[i+ypos][j+xpos] = '.' | A_DIM;
+                        board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GRAY;
+                        board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GRAY;
                         if(rand()%(2000+1) <= 2*(floor_get()+5)){
                             type = rand()%((floor_get()<3)? 2:floor_get() );
                             en = get_rulebook()[type];
@@ -114,8 +114,8 @@ static void floor_init(void) {
             ypos = down_y - 10;
             for(i = 0; i < ylen; i++){
                 for(j = 0; j < xlen; j++){
-                    board[i+ypos][j+xpos] = '.' | A_DIM;
-                    board[i+ypos][j+xpos] = '.' | A_DIM;
+                    board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GRAY;
+                    board[i+ypos][j+xpos] = '.' | A_DIM | COLORS_GRAY;
                 }
             }
             connectpoints(board, down_y, down_x, up_y, up_x);
@@ -174,7 +174,7 @@ static int connectpoints(map_t board, int newcentery, int newcenterx, int oldcen
                 xdiff += 1;
                 realx += 1;
             }
-            board[realy][realx] = '.' | A_DIM;
+            board[realy][realx] = '.' | A_DIM | COLORS_GRAY;
         } else {
             if(ydiff > 0){
                 ydiff -= 1;
@@ -183,7 +183,7 @@ static int connectpoints(map_t board, int newcentery, int newcenterx, int oldcen
                 ydiff += 1;
                 realy += 1;
             }
-            board[realy][realx] = '.' | A_DIM;
+            board[realy][realx] = '.' | A_DIM | COLORS_GRAY;
         }
     }
     return 0;  

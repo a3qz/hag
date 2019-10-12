@@ -113,7 +113,7 @@ void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
     }
 }
 
-void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcenterx) {
+void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcenterx, int c) {
     int xdiff = newcenterx-oldcenterx;
     int ydiff = newcentery-oldcentery;
     int realx = newcenterx;
@@ -143,19 +143,23 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcente
                 return;
             }
         }
-        map[realy][realx] = '.' | A_BOLD;
+        map[realy][realx] = c;
     }
 }
 
-void map_los(int y, int x, int r) {
+void map_los(int y, int x, int r, int c) {
     int off_y;
     int off_x;
     for (off_y = -r; off_y <= r; off_y++) {
         for (off_x = -r; off_x <= r; off_x++) {
             if (off_x*off_x + off_y*off_y <= r*r) {
                 /* O(n^3) but who cares, n=~10 */
-                map_line_empty(y, x, y + off_y, x + off_x);
+                map_line_empty(y, x, y + off_y, x + off_x, c);
             }
         }
     }
+}
+
+int map_visible(int y, int x) {
+    return map[y][x] & A_BOLD;
 }
