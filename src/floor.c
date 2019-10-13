@@ -79,10 +79,6 @@ static void floor_init(void) {
                         if(rand()%(2000+1) <= 2*(floor_get()+5)){
                             type = rand()%((floor_get()<3)? 2:floor_get() );
                             en = get_rulebook()[type];
-                            while (i+ypos == get_player_y() && j+xpos == get_player_x()){
-                                ypos = rand()%(BOARD_Y-ylen-2)+1;
-                                xpos = rand()%(BOARD_X-xlen-2)+1;
-                            }
                             enemy_add(enemies, type, en.pic, en.base_hp + (((floor_get()))*en.base_hp)/4, i+ypos, j+xpos, en.base_sight_range, en.base_strength + rand()%(floor_get()+1), en.base_exp, en.name);
                         }
                         if(rand()%(8000+1) <= 2*(floor_get()+5)){
@@ -100,9 +96,25 @@ static void floor_init(void) {
                 if (room_iterator == 0) {
                     up_x = xpos + rand()%(xlen);
                     up_y = ypos + rand()%(ylen);
+                    list_traverse(enemy_list->head);
+                    while ((e = list_traverse(0))) {
+                        if (e->y == up_y && e->x == up_x) {
+                            up_x = xpos + rand()%(xlen);
+                            up_y = ypos + rand()%(ylen);
+                            list_traverse(enemy_list->head);
+                        }
+                    } 
                 } else if (room_iterator == NUM_ROOMS-1) {
                     down_x = xpos + rand()%(xlen);
                     down_y = ypos + rand()%(ylen);
+                    list_traverse(enemy_list->head);
+                    while ((e = list_traverse(0))) {
+                        if (e->y == down_y && e->x == down_x) {
+                            down_x = xpos + rand()%(xlen);
+                            down_y = ypos + rand()%(ylen);
+                            list_traverse(enemy_list->head);
+                        }
+                    } 
                 }
             }
 
