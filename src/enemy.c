@@ -105,6 +105,7 @@ void enemy_draw(WINDOW *win, int y, int x) {
     int x0;
     int ey;
     int ex;
+    int visible;
     enemy_t *e;
 
     if (!enemy_list) return;
@@ -116,7 +117,8 @@ void enemy_draw(WINDOW *win, int y, int x) {
     while ((e = list_traverse(0))) {
         ey = e->y - y0;
         ex = e->x - x0;
-        if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
+        visible = map_visible(e->y, e->x);
+        if (ey >= 0 && ex >= 0 && ey < h && ex < w && visible) {
             mvwaddch(win, ey, ex, e->pic);
         }
     } 

@@ -8,10 +8,14 @@ typedef map_row_t*   map_t;
 
 void map_load(map_t new_map, int w, int h);
 void map_set(char c, int y, int x);
+void map_set_ext(int c, int y, int x);
 char map_get(int y, int x);
 void map_print(WINDOW *win, int y, int x);
 int map_width(void);
 int map_height(void);
 void map_line(int newcentery, int newcenterx, int oldcentery, int oldcenterx);
+void map_line_empty(int newcentery, int newcenterx, int oldcentery, int oldcenterx, int c);
+void map_los(int y, int x, int r, int c);
+int map_visible(int y, int x);
 
 #endif
