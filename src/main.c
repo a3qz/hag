@@ -150,24 +150,7 @@ int main(int argc, char **argv)
                         xn++;
                         yn--;
                         break;
-                    case 'c':
-                        add_action("You lame cheater.");
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        floor_down();
-                        player->max_hp = 3000;
-                        player->current_hp = 3000;
-                        player->max_exp = 9999999;
-                        item_swap(item_add(0, 0, 0));
-                        break;
-                    case '>':
+                   case '>':
                         if (map_get(player->y, player->x) == '>') {
                             add_action("You climb down the ladder.");
                             floor_down();
@@ -196,9 +179,6 @@ int main(int argc, char **argv)
                         }
                         break;
                     case '.':
-                        break;
-                    case 't':
-                        /*enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10); */
                         break;
                     case KEY_F(4):
                         endwin();
