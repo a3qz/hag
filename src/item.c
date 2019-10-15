@@ -139,8 +139,8 @@ void item_drink(item_t* item) {
                     add_action("It did nothing.");
                 }
                 get_player_obj()->luck += item->power*100;
-                if(get_player_obj()->luck < 50){
-                    get_player_obj()->luck = 50;
+                if(get_player_obj()->luck < 2){
+                    get_player_obj()->luck = 2;
                 }
                 break;
             case 5: /* exp */

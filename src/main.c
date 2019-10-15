@@ -217,6 +217,9 @@ int main(int argc, char **argv)
                 }
             } else {
                 add_action("You tripped.");
+				if (player->luck < 50){
+					player->luck += 1;
+				}
             }
             if(floor_tick() == 2){
                 add_action("You hear the hag cackling from somewhere deep inside the dungeon.");
