@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: ncurses
-      run: apt-get install libncurses5-dev
+      run: sudo apt-get install libncurses5-dev
     - name: make
       run: make
 
