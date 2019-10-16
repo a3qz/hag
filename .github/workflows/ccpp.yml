@@ -9,8 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Install ncurses
-      run: sudo apt-get install libncurses5-dev
+    - name: Install dependencies
+      run: sudo apt-get install libncurses5-dev indent
     - name: Check style
       run: make lint
     - name: Compile
