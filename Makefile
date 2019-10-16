@@ -19,6 +19,15 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	mkdir -p $(OBJDIR)
 	$(CC) -c $< -o $@ $(CC_FLAGS)
 
+$(SRCDIR)%.c~: $(SRCDIR)%.c
+	@indent -kr -ts 4 -as -nut -o $@ $<
+	diff $< $@
+
+lint: $(SOURCES:.c=.c~)
+	@rm $^
+
 # To remove generated files
 clean:
 	rm -f $(EXEC) $(OBJECTS)
+
+

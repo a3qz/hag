@@ -14,7 +14,7 @@ typedef struct player {
     int luck;
 } player_t;
 
-player_t * get_player_obj(void);
+player_t *get_player_obj(void);
 int get_player_y(void);
 int get_player_x(void);
 void set_player_y(int y);

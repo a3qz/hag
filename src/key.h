@@ -5,7 +5,7 @@
 #include "list.h"
 #include "map.h"
 typedef struct key_item {
-    char * name;
+    char *name;
     int pic;
     char extra_info[100];
     node_t *node;
@@ -13,6 +13,6 @@ typedef struct key_item {
 
 void key_setup(void);
 void key_add_stair(int dir, int pic);
-list_t* key_get_list(void);
-void key_checker(WINDOW *win, int y, int x);
+list_t *key_get_list(void);
+void key_checker(WINDOW * win, int y, int x);
 #endif

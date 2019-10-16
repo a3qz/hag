@@ -1,19 +1,21 @@
 #include "list.h"
 #include <stdlib.h>
 
-struct list *list_create() {
-    struct list *l = (struct list*)malloc(sizeof(*l));
+struct list *list_create()
+{
+    struct list *l = (struct list *) malloc(sizeof(*l));
     l->head = 0;
     l->tail = 0;
     return l;
 }
 
-struct node *list_add_tail(struct list *list, void *data) {
+struct node *list_add_tail(struct list *list, void *data)
+{
     struct node *n;
     if (!list) {
         return 0;
     }
-    n = (struct node*)malloc(sizeof(*n));
+    n = (struct node *) malloc(sizeof(*n));
     n->data = data;
     n->list = list;
     n->next = 0;
@@ -28,12 +30,13 @@ struct node *list_add_tail(struct list *list, void *data) {
     return n;
 }
 
-struct node *list_add_head(struct list *list, void *data) {
+struct node *list_add_head(struct list *list, void *data)
+{
     struct node *n;
     if (!list) {
         return 0;
     }
-    n = (struct node*)malloc(sizeof(*n));
+    n = (struct node *) malloc(sizeof(*n));
     n->data = data;
     n->list = list;
     n->prev = 0;
@@ -48,12 +51,13 @@ struct node *list_add_head(struct list *list, void *data) {
     return n;
 }
 
-struct node *list_add_after(struct node *node, void *data) {
+struct node *list_add_after(struct node *node, void *data)
+{
     struct node *n;
     if (!node) {
         return 0;
     }
-    n = (struct node*)malloc(sizeof(*n));
+    n = (struct node *) malloc(sizeof(*n));
     n->list = node->list;
     n->data = data;
     n->next = node->next;
@@ -68,7 +72,8 @@ struct node *list_add_after(struct node *node, void *data) {
     return n;
 }
 
-void list_remove(struct node *node) {
+void list_remove(struct node *node)
+{
     if (!node || !node->list) {
         return;
     }
@@ -87,13 +92,15 @@ void list_remove(struct node *node) {
     free(node);
 }
 
-void list_clear(struct list *list) {
+void list_clear(struct list *list)
+{
     while (list->head) {
         list_remove(list->head);
     }
 }
 
-void *list_traverse(struct node *node) {
+void *list_traverse(struct node *node)
+{
     static struct node *prev = 0;
     void *ret = 0;
     if (node) {
@@ -102,7 +109,7 @@ void *list_traverse(struct node *node) {
     }
     if (prev) {
         ret = prev->data;
-        prev = prev->next;   
+        prev = prev->next;
     }
     return ret;
 }

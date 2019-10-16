@@ -1,6 +1,6 @@
 name: C/C++ CI
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -9,8 +9,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: ncurses
+    - name: Install ncurses
       run: sudo apt-get install libncurses5-dev
-    - name: make
+    - name: Check style
+      run: make lint
+    - name: Compile
       run: make
 
