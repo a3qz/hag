@@ -65,8 +65,8 @@ void player_levelup()
 {
     char res =
         gui_prompt
-        ("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?",
-         "sdi");
+            ("What stat would you like to increase? (s)trength, (d)exterity, or (i)ntelligence?",
+            "sdi");
     player.current_level++;
     player.max_hp += player.max_hp / 4;
     player.current_hp = player.max_hp;

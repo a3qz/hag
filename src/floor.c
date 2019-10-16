@@ -48,13 +48,13 @@ static void floor_init(void)
 
     if (current_floor < FLOOR_COUNT && current_floor >= 0
         && !floors[current_floor].loaded) {
-        board = (map_t) malloc(BOARD_Y * sizeof(map_row_t));
+        board = (map_t)malloc(BOARD_Y * sizeof(map_row_t));
         enemies = list_create();
         items = list_create();
 
 
         for (i = 0; i < BOARD_Y; i++) {
-            board[i] = (map_row_t) malloc(BOARD_X * sizeof(map_space_t));
+            board[i] = (map_row_t)malloc(BOARD_X * sizeof(map_space_t));
         }
 
         for (i = 0; i < BOARD_Y; i++) {
@@ -64,7 +64,6 @@ static void floor_init(void)
         }
 
         if (floor_get() != FLOOR_COUNT - 1) {
-
             for (room_iterator = 0; room_iterator < NUM_ROOMS;
                  room_iterator++) {
                 ylen = rand() % MAX_ROOM_Y + 1;

@@ -29,7 +29,7 @@ void key_add_stair(int dir, int pic)
     key_item_t *e;
     system("echo crap > hello");
     key_setup();
-    e = (key_item_t *) malloc(sizeof(*e));
+    e = (key_item_t*)malloc(sizeof(*e));
     if (dir == 0) {
         e->name = "stairs up";
     } else {
@@ -40,7 +40,6 @@ void key_add_stair(int dir, int pic)
     e->pic = pic;
     system("echo crap > hello");
     e->node = list_add_tail(key_list, e);
-
 }
 
 list_t *key_get_list()

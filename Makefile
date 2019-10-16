@@ -1,7 +1,8 @@
 # Declaration of variables
 CC       = gcc 
+ID       = uncrustify
 CC_FLAGS =-lpanel -lncurses -g -Wall -std=c89 -pedantic -Wextra -Wmissing-prototypes -Wstrict-prototypes 
-ID_FLAGS =-kr -ts 4 -nut
+ID_FLAGS =-c uncrustify.cfg
  
 # File names
 EXEC     = out/hag
@@ -21,8 +22,8 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) -c $< -o $@ $(CC_FLAGS)
 
 $(SRCDIR)%.c~: $(SRCDIR)%.c
-	@indent $(ID_FLAGS) -o $@ $<
-	diff $< $@
+	@$(ID) $(ID_FLAGS) -f $< -o $@
+	@diff $< $@
 
 lint: $(SOURCES:.c=.c~)
 	@rm $^

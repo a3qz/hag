@@ -28,7 +28,6 @@ void add_action(char *s)
     for (i = 1; i < nelems; i++) {
         memset(actions[i - 1], '\0', ACTION_LENGTH);
         strcpy(actions[i - 1], actions[i]);
-
     }
     strcpy(actions[nelems - 1], s);
     werase(win);
@@ -40,9 +39,9 @@ void initialize_actions(int n, WINDOW * w)
     int i;
     nelems = n;
     win = w;
-    actions = (char **) malloc(n * sizeof(char *));
+    actions = (char**)malloc(n * sizeof(char *));
     for (i = 0; i < nelems; i++) {
-        actions[i] = (char *) malloc(ACTION_LENGTH * sizeof(char));
+        actions[i] = (char*)malloc(ACTION_LENGTH * sizeof(char));
         memset(actions[i], '\0', ACTION_LENGTH);
     }
 }
@@ -65,12 +64,12 @@ void init_wins(WINDOW ** wins, struct winsize w)
 
     /*bottom  */
     wins[1] = newwin(NLINES * .25, NCOLS, NLINES * .75, 0);
-    sprintf(label, "%i %i", (int) (NLINES * .75) * 15, 0);
+    sprintf(label, "%i %i", (int)(NLINES * .75) * 15, 0);
     win_show(wins[1]);
 
     /*top right */
     wins[2] = newwin(NLINES * .75, NCOLS / 2, 0, NCOLS * .5);
-    sprintf(label, "%i %f", 0, ((int) NCOLS * .5 * 15));
+    sprintf(label, "%i %f", 0, ((int)NCOLS * .5 * 15));
     win_show(wins[2]);
 }
 
@@ -83,7 +82,6 @@ void win_show(WINDOW * win)
     box(win, 0, 0);
     mvwaddch(win, 2, 0, ACS_LTEE);
     mvwaddch(win, 2, width - 1, ACS_RTEE);
-
 }
 
 void print_stats(struct player *p, WINDOW * win2, int floor_tick)
@@ -179,7 +177,7 @@ void print_in_window(WINDOW * win, int starty, int startx, int width,
         temp = 0;
         startx = 1;
     }
-    x = startx + (int) temp;
+    x = startx + (int)temp;
     wattron(win, color);
     mvwprintw(win, y, x, "%s", string);
     wattroff(win, color);

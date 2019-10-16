@@ -129,9 +129,6 @@ void generate_enemies()
     rulebook[book_length].base_exp = 70;
     hag = book_length;
     book_length++;
-
-
-
 }
 
 enemy_template_t *get_rulebook()
@@ -161,7 +158,6 @@ int enemy_index_snek()
 
 void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
 {
-
     enemy_t *n;
     enemy_template_t en;
     char msg[80];
@@ -220,14 +216,12 @@ void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
             } else if (ydiff > 0) {
                 yn--;
             } else {
-
             }
             if (xdiff < 0) {
                 xn++;
             } else if (xdiff > 0) {
                 xn--;
             } else {
-
             }
             if (map_get(yn, xn) == '.' && !enemy_at(yn, xn)) {
                 e->y = yn;
@@ -239,5 +233,4 @@ void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
             }
         }
     }
-
 }

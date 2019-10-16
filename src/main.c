@@ -25,7 +25,7 @@
 /*#define NLINES 60 */
 /*#define NCOLS 60 */
 
-#define KEY_F(n)        (KEY_F0+(n))
+#define KEY_F(n)        (KEY_F0 + (n))
 
 int tick = 0;
 
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
         mvwprintw(my_wins[0], h0 / 2, w0 / 2, "@");
         wrefresh(my_wins[0]);
         map_los(player->y, player->x, 8,
-                (int) '.' | COLORS_BLACK | A_BOLD);
+                (int)'.' | COLORS_BLACK | A_BOLD);
         xn = player->x;
         yn = player->y;
         ch = ERR;
@@ -115,25 +115,25 @@ int main(int argc, char **argv)
                 switch (ch) {
                 case 0x102:
                     add_action("Hey babby use j");
-                    __attribute__((fallthrough));
+                /* fallthrough */
                 case 'j':
                     yn++;
                     break;
                 case 0x103:
                     add_action("Hey babby use k");
-                    __attribute__((fallthrough));
+                /* fallthrough */
                 case 'k':
                     yn--;
                     break;
                 case 0x104:
                     add_action("Hey babby use h");
-                    __attribute__((fallthrough));
+                /* fallthrough */
                 case 'h':
                     xn--;
                     break;
                 case 0x105:
                     add_action("Hey babby use l");
-                    __attribute__((fallthrough));
+                /* fallthrough */
                 case 'l':
                     xn++;
                     break;

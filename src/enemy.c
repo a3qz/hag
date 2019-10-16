@@ -25,7 +25,7 @@ enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
             return 0;
         }
     }
-    e = (enemy_t *) malloc(sizeof(*e));
+    e = (enemy_t*)malloc(sizeof(*e));
     e->type = type;
     e->pic = pic;
     e->hp = hp;

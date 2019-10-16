@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: sudo apt-get install libncurses5-dev indent
+      run: sudo apt-get install libncurses5-dev uncrustify
     - name: Check style
       run: make lint
     - name: Compile

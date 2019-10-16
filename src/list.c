@@ -3,7 +3,7 @@
 
 struct list *list_create()
 {
-    struct list *l = (struct list *) malloc(sizeof(*l));
+    struct list *l = (struct list*)malloc(sizeof(*l));
     l->head = 0;
     l->tail = 0;
     return l;
@@ -15,7 +15,7 @@ struct node *list_add_tail(struct list *list, void *data)
     if (!list) {
         return 0;
     }
-    n = (struct node *) malloc(sizeof(*n));
+    n = (struct node*)malloc(sizeof(*n));
     n->data = data;
     n->list = list;
     n->next = 0;
@@ -36,7 +36,7 @@ struct node *list_add_head(struct list *list, void *data)
     if (!list) {
         return 0;
     }
-    n = (struct node *) malloc(sizeof(*n));
+    n = (struct node*)malloc(sizeof(*n));
     n->data = data;
     n->list = list;
     n->prev = 0;
@@ -57,7 +57,7 @@ struct node *list_add_after(struct node *node, void *data)
     if (!node) {
         return 0;
     }
-    n = (struct node *) malloc(sizeof(*n));
+    n = (struct node*)malloc(sizeof(*n));
     n->list = node->list;
     n->data = data;
     n->next = node->next;
