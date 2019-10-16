@@ -1,6 +1,7 @@
 # Declaration of variables
 CC       = gcc 
 CC_FLAGS =-lpanel -lncurses -g -Wall -std=c89 -pedantic -Wextra -Wmissing-prototypes -Wstrict-prototypes 
+ID_FLAGS =-kr -ts 4 -nut
  
 # File names
 EXEC     = out/hag
@@ -20,7 +21,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) -c $< -o $@ $(CC_FLAGS)
 
 $(SRCDIR)%.c~: $(SRCDIR)%.c
-	@indent -kr -ts 4 -as -nut -o $@ $<
+	@indent $(ID_FLAGS) -o $@ $<
 	diff $< $@
 
 lint: $(SOURCES:.c=.c~)
