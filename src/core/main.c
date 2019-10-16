@@ -153,23 +153,6 @@ int main(int argc, char **argv)
                     xn++;
                     yn--;
                     break;
-                case 'c':
-                    add_action("You lame cheater.");
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    floor_down();
-                    player->max_hp = 3000;
-                    player->current_hp = 3000;
-                    player->max_exp = 9999999;
-                    item_swap(item_add(0, 0, 0));
-                    break;
                 case '>':
                     if (map_get(player->y, player->x) == '>') {
                         add_action("You climb down the ladder.");
@@ -191,6 +174,12 @@ int main(int argc, char **argv)
                         item_drink(item);
                     }
                     break;
+                case 'I':
+                    item = item_at(player->y, player->x);
+                    if (item && item->type == POTION) {
+                        item_inspect(item);
+                    }
+                    break;
                 case 'e':
                     item = item_at(player->y, player->x);
                     if (item && item->type == SWORD) {
@@ -199,9 +188,6 @@ int main(int argc, char **argv)
                     }
                     break;
                 case '.':
-                    break;
-                case 't':
-                    /*enemy_add(0, 0, 'X', 45, player->y+1, player->x+1, 15, 10); */
                     break;
                 case KEY_F(4):
                     endwin();

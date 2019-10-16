@@ -8,6 +8,7 @@ typedef struct item {
     int power;
     int stat;
     int pic;
+    int ident;
     enum {
         SWORD, POTION
     } type;
@@ -20,6 +21,7 @@ void item_set_list(list_t * list);
 void item_swap(item_t * item);
 void item_drink(item_t * item);
 void item_draw(WINDOW * win, int y, int x);
+void item_inspect(item_t* item);
 void item_give(void);
 int item_power(void);
 int item_stat(void);

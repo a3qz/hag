@@ -12,6 +12,7 @@ typedef struct player {
     int max_exp;
     int current_level;
     int luck;
+    int potion_count;
 } player_t;
 
 player_t *get_player_obj(void);
