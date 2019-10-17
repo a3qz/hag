@@ -226,6 +226,7 @@ void item_draw(WINDOW *win, int y, int x)
     int y0;
     int ex;
     int ey;
+    int visible;
     item_t *e;
     if (!item_list) return;
     getmaxyx(win, h, w); /*MACRO, changes w and h */
@@ -235,7 +236,8 @@ void item_draw(WINDOW *win, int y, int x)
     while ((e = list_traverse(0))) {
         ey = e->y - y0;
         ex = e->x - x0;
-        if (ey >= 0 && ex >= 0 && ey < h && ex < w) {
+        visible = map_visible(e->y, e->x);
+        if (ey >= 0 && ex >= 0 && ey < h && ex < w && visible) {
             mvwaddch(win, ey, ex, e->pic);
         }
     }
