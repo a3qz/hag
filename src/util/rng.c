@@ -1,11 +1,10 @@
-#include "rng.c"
+#include "rng.h"
 #include <stdlib.h>
 
 int rng_rand(int max){
-    max++;
-    int limit = RAND_MAX - (RAND_MAX % max),r;
+    int limit = RAND_MAX - (RAND_MAX % (max + 1)),r;
     while((r = rand()) >= limit);
-    return r % max;
+    return r % (max + 1);
 }
 
 int rng_roll(int droprate){
