@@ -207,6 +207,9 @@ int main(int argc, char **argv)
                         ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
                     add_action("    F4 -> quit the game");
                     break;
+                    default:
+                        add_action("Invalid button. Press '?' for the manual");
+                        break;
                 }
             } else {
                 add_action("You tripped.");
