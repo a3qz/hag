@@ -35,6 +35,7 @@ enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
     e->sight_range = sight_range;
     e->strength = strength;
     e->speed = speed;
+    e->potential = 0;
     e->xp = xp;
     e->name = name;
     e->node = list_add_tail(floor_enemy_list, e);
@@ -159,13 +160,18 @@ void enemy_clear()
     enemy_list->tail = 0;
 }
 
-void enemy_turn_driver(WINDOW * win, int y, int x, int subtick)
+void enemy_turn_driver(WINDOW * win, int y, int x)
 {
+    int player_speed;
     enemy_t *e;
-    node_t *l = enemy_list->head;
+    node_t *l;
+    player_speed = get_player_obj()->speed;
+    l = enemy_list->head;
     while (l) {
         e = (enemy_t*)l->data;
-        if (e->speed > subtick) {
+        e->potential += e->speed;
+        while (e->potential >= player_speed) {
+            e->potential -= player_speed;
             enemy_take_turn(e, win, y, x);
         }
         l = l->next;

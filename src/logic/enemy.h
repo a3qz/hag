@@ -10,6 +10,7 @@ typedef struct enemy {
     int x;
     int sight_range;
     int speed;
+    int potential;
     int strength;
     int xp;
     char *name;
@@ -24,6 +25,6 @@ void enemy_set(list_t * list);
 void enemy_hurt(enemy_t * e, int d);
 void enemy_draw(WINDOW * win, int y, int x);
 void enemy_clear(void);
-void enemy_turn_driver(WINDOW * win, int y, int x, int subtick);
+void enemy_turn_driver(WINDOW * win, int y, int x);
 list_t *get_enemy_list(void);
 #endif
