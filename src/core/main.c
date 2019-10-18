@@ -36,7 +36,9 @@ int main(int argc, char **argv)
     int xn;
     int yn;
     int ch;
+    int moved;
     int numRows;
+    int subtick;
     struct winsize w;
     item_t *item;
     player_t *player;
@@ -90,8 +92,10 @@ int main(int argc, char **argv)
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
+    subtick = 0;
+
     while (player->current_hp > 0) {
-        tick++;
+        moved = 1;
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -110,7 +114,7 @@ int main(int argc, char **argv)
         xn = player->x;
         yn = player->y;
         ch = ERR;
-        if (ch = getch(), ch != ERR) {
+        if (subtick < player->speed && (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
                 case 0x102:
@@ -209,6 +213,8 @@ int main(int argc, char **argv)
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
+                    moved = 0;
+                    continue;
                     break;
                 }
             } else {
@@ -257,9 +263,13 @@ int main(int argc, char **argv)
         } else {
             add_action("You can't walk through walls.");
         }
-        enemy_turn_driver(my_wins[0], player->y, player->x);
+        enemy_turn_driver(my_wins[0], player->y, player->x, subtick);
         map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
+        if (moved) {
+            tick++;
+            subtick = (subtick + 1) % 10;
+        }
     }
     print_stats(player, my_wins[2], floor_tick_get());
     gui_prompt("You have died! Press space to exit.", " ");
