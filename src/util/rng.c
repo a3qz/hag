@@ -4,7 +4,7 @@
 int rng_rand(int max)
 {
     int limit = RAND_MAX - (RAND_MAX % (max + 1)), r;
-    while ((r = rand()) >= limit) ;
+    while ((r = rand()) >= limit);
     return r % (max + 1);
 }
 

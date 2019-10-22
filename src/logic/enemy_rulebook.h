@@ -8,6 +8,7 @@ typedef struct enemy_template {
     int base_hp;
     int base_sight_range;
     int base_strength;
+    int base_speed;
     int base_exp;
 } enemy_template_t;
 void generate_enemies(void);
