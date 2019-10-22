@@ -1,24 +1,35 @@
-// movement keys define
+#ifndef CONTROLS_H
+#define CONTROLS_H
 
+#include <ncurses.h>
+#ifndef KEY_F
+#define KEY_F(n)        (KEY_F0 + (n))
+#endif
 
-//Normal movements
-const int MOVE_N = 'j';
-const int MOVE_N_BABBY = '0x102';
-const int MOVE_W = 'h';
-const int MOVE_W_BABBY = '0x104';
-const int MOVE_S = 'k';
-const int MOVE_S_BABBY = '0x103';
-const int MOVE_E = 'l';
-const int MOVE_E_BABBY = '0x105';
+/* Normal movements */
+#define KEY_MOVE_N        'j'
+#define KEY_MOVE_N_BABBY  0x102
+#define KEY_MOVE_W        'h'
+#define KEY_MOVE_W_BABBY  0x104
+#define KEY_MOVE_S        'k'
+#define KEY_MOVE_S_BABBY  0x103
+#define KEY_MOVE_E        'l'
+#define KEY_MOVE_E_BABBY  0x105
 
-//diagonal movement
-const int MOVE_NW = 'b';
-const int MOVE_NE = 'n';
-const int MOVE_SW = 'y';
-const int MOVE_SE = 'u';
+/* Diagonal movement */
+#define KEY_MOVE_NW       'b'
+#define KEY_MOVE_NE       'n'
+#define KEY_MOVE_SW       'y'
+#define KEY_MOVE_SE       'u'
 
-//actions
-const int KEY_CLIMB_UP = '<';
-const int KEY_CLIMB_DOWN = '>';
-const int KEY_Q = 'q';
-const int KEY_E = 'l';
+/* Actions */
+#define KEY_CLIMB_UP      '<'
+#define KEY_CLIMB_DOWN    '>'
+#define KEY_QWARF         'q'
+#define KEY_EQUIP         'e'
+#define KEY_INSPECT       'I'
+#define KEY_BIDE          '.'
+#define KEY_QUIT          KEY_F(4)
+#define KEY_QUESTIONMARK  '?'
+
+#endif
