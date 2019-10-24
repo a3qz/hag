@@ -93,7 +93,7 @@ int main(int argc, char **argv)
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
 
     while (player->current_hp > 0) {
-        moved = 0;
+        moved = 1;
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -264,6 +264,9 @@ int main(int argc, char **argv)
         enemy_turn_driver(my_wins[0], player->y, player->x);
         map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
+        if (moved) {
+            tick++;
+        }
     }
     print_stats(player, my_wins[2], floor_tick_get());
     gui_prompt("You have died! Press space to exit.", " ");
