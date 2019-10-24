@@ -5,6 +5,7 @@
 #include "../util/list.h"
 #include "../world/map.h"
 #include "../ui/gui.h"
+#include "../core/main.h"
 
 static list_t *enemy_list = 0;
 
