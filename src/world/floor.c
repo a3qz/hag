@@ -241,7 +241,7 @@ int floor_tick()
     if (floors[current_floor].floor_tick == MAX_FLOOR_TICK) {
         return 2;
     } else if (floors[current_floor].floor_tick > MAX_FLOOR_TICK) {
-        ../logic/player.hurt(1);
+        player.hurt(1);
         return 1;
     } else {
         return 0;
