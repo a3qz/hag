@@ -27,7 +27,6 @@ void key_setup()
 void key_add_stair(int dir, int pic)
 {
     key_item_t *e;
-    system("echo crap > hello");
     key_setup();
     e = (key_item_t*)malloc(sizeof(*e));
     if (dir == 0) {
@@ -38,7 +37,6 @@ void key_add_stair(int dir, int pic)
     sprintf((e->extra_info), "goto floor %d", floor_get() - 1);
 
     e->pic = pic;
-    system("echo crap > hello");
     e->node = list_add_tail(key_list, e);
 }
 

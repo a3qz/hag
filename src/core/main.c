@@ -36,6 +36,7 @@ int main(int argc, char **argv)
     int xn;
     int yn;
     int ch;
+    int moved;
     int numRows;
     struct winsize w;
     item_t *item;
@@ -90,8 +91,9 @@ int main(int argc, char **argv)
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
+
     while (player->current_hp > 0) {
-        tick++;
+        moved = 0;
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -209,6 +211,8 @@ int main(int argc, char **argv)
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
+                    moved = 0;
+                    continue;
                     break;
                 }
             } else {
