@@ -14,8 +14,8 @@ void enemy_set(list_t * list)
 }
 
 enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
-                   int y, int x, int sight_range, int strength, int speed, 
-                   int xp, char *name)
+                   int y, int x, int sight_range, int strength,
+                   int speed, int xp, char *name)
 {
     enemy_t *e;
     if (!floor_enemy_list) {
@@ -92,7 +92,7 @@ void enemy_hurt(enemy_t * e, int d)
                     en = get_rulebook()[enemy_index_fake_hag()];
                     enemy_add(0, enemy_index_fake_hag(), en.pic,
                               en.base_hp, ny, nx, en.base_sight_range,
-                              en.base_strength, en.base_speed, 
+                              en.base_strength, en.base_speed,
                               en.base_exp, "Fake");
                     nx += (rand() % 2 * 2 - 1) * ((rand() % 4) + 5);
                     ny += (rand() % 2 * 2 - 1) * ((rand() % 4) + 5);
