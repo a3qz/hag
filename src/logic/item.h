@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <ncurses.h>
-#include "list.h"
+#include "../util/list.h"
 typedef struct item {
     int y;
     int x;

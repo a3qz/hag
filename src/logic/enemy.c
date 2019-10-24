@@ -1,11 +1,10 @@
+#include <stdlib.h>
 #include "enemy.h"
 #include "enemy_rulebook.h"
-#include "list.h"
-#include "map.h"
-#include "gui.h"
-#include "main.h"
-#include "stdlib.h"
 #include "player.h"
+#include "../util/list.h"
+#include "../world/map.h"
+#include "../ui/gui.h"
 
 static list_t *enemy_list = 0;
 
@@ -15,8 +14,8 @@ void enemy_set(list_t * list)
 }
 
 enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
-                   int y, int x, int sight_range, int strength,
-                   int speed, int xp, char *name)
+                   int y, int x, int sight_range, int strength, int xp,
+                   char *name)
 {
     enemy_t *e;
     if (!floor_enemy_list) {
@@ -34,8 +33,6 @@ enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
     e->x = x;
     e->sight_range = sight_range;
     e->strength = strength;
-    e->speed = speed;
-    e->potential = 0;
     e->xp = xp;
     e->name = name;
     e->node = list_add_tail(floor_enemy_list, e);
@@ -93,8 +90,7 @@ void enemy_hurt(enemy_t * e, int d)
                     en = get_rulebook()[enemy_index_fake_hag()];
                     enemy_add(0, enemy_index_fake_hag(), en.pic,
                               en.base_hp, ny, nx, en.base_sight_range,
-                              en.base_strength, en.base_speed,
-                              en.base_exp, "Fake");
+                              en.base_strength, en.base_exp, "Fake");
                     nx += (rand() % 2 * 2 - 1) * ((rand() % 4) + 5);
                     ny += (rand() % 2 * 2 - 1) * ((rand() % 4) + 5);
                     map_line(e->y, e->x, ny, nx);
@@ -162,19 +158,10 @@ void enemy_clear()
 
 void enemy_turn_driver(WINDOW * win, int y, int x)
 {
-    int player_speed;
-    enemy_t *e;
-    node_t *l;
-    player_speed = get_player_obj()->speed;
-    l = enemy_list->head;
-    while (l) {
-        e = (enemy_t*)l->data;
-        e->potential += e->speed;
-        while (e->potential >= player_speed) {
-            e->potential -= player_speed;
-            enemy_take_turn(e, win, y, x);
-        }
-        l = l->next;
+    node_t *e = enemy_list->head;
+    while (e) {
+        enemy_take_turn(e->data, win, y, x);
+        e = e->next;
     }
 }
 

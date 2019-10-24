@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 #include "map.h"
-#include "key.h"
-#include "colors.h"
+#include "../ui/key.h"
+#include "../ui/colors.h"
 
 static map_t map = 0;
 static int width = 0;

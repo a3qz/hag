@@ -1,13 +1,13 @@
 #include <ncurses.h>
 #include <stdio.h>
-#include "floor.h"
-#include "list.h"
+#include "../world/floor.h"
+#include "../util/list.h"
 #include "time.h"
 #include "colors.h"
-#include "item.h"
-#include "enemy.h"
-#include "enemy_rulebook.h"
-#include "player.h"
+#include "../logic/item.h"
+#include "../logic/enemy.h"
+#include "../logic/enemy_rulebook.h"
+#include "../logic/player.h"
 #include "key.h"
 #include "gui.h"
 
@@ -27,6 +27,7 @@ void key_setup()
 void key_add_stair(int dir, int pic)
 {
     key_item_t *e;
+    system("echo crap > hello");
     key_setup();
     e = (key_item_t*)malloc(sizeof(*e));
     if (dir == 0) {
@@ -37,6 +38,7 @@ void key_add_stair(int dir, int pic)
     sprintf((e->extra_info), "goto floor %d", floor_get() - 1);
 
     e->pic = pic;
+    system("echo crap > hello");
     e->node = list_add_tail(key_list, e);
 }
 

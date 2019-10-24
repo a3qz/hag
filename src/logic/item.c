@@ -1,10 +1,10 @@
 #include <ncurses.h>
-#include "list.h"
+#include "../util/list.h"
 #include "player.h"
 #include "item.h"
-#include "colors.h"
-#include "floor.h"
-#include "gui.h"
+#include "../ui/colors.h"
+#include "../world/floor.h"
+#include "../ui/gui.h"
 #include <time.h>
 
 /* TODO: don't do this, instead have a getter function */

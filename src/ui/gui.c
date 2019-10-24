@@ -6,9 +6,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "gui.h"
-#include "player.h"
-#include "item.h"
-#include "list.h"
+#include "../logic/player.h"
+#include "../logic/item.h"
+#include "../util/list.h"
 #include "key.h"
 
 #define ACTION_LENGTH 120

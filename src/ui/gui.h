@@ -6,7 +6,7 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "player.h"
+#include "../logic/player.h"
 
 void init_wins(WINDOW ** wins, struct winsize w);
 void win_show(WINDOW * win);

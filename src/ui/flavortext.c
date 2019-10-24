@@ -1,4 +1,4 @@
-#include "floor.h"
+#include "../world/floor.h"
 #include "flavortext.h"
 
 char *flavortext_from_floor(void)

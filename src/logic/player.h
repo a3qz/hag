@@ -8,7 +8,6 @@ typedef struct player {
     int strength;
     int dexterity;
     int intelligence;
-    int speed;
     int current_exp;
     int max_exp;
     int current_level;

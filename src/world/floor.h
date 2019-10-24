@@ -3,7 +3,7 @@
 
 #define FLOOR_COUNT 10
 
-#include "list.h"
+#include "../util/list.h"
 #include "map.h"
 
 typedef struct floor {

@@ -2,8 +2,8 @@
 #define KEY_H
 
 
-#include "list.h"
-#include "map.h"
+#include "../util/list.h"
+#include "../world/map.h"
 typedef struct key_item {
     char *name;
     int pic;

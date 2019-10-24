@@ -1,11 +1,11 @@
 #include "enemy_rulebook.h"
 #include "enemy.h"
-#include "list.h"
-#include "colors.h"
+#include "../util/list.h"
+#include "../ui/colors.h"
 #include "player.h"
-#include "map.h"
-#include "main.h"
-#include "gui.h"
+#include "../world/map.h"
+#include "../core/main.h"
+#include "../ui/gui.h"
 
 static enemy_template_t rulebook[100];
 int book_length = 0;
@@ -25,7 +25,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 30;
     rulebook[book_length].base_sight_range = 10;
     rulebook[book_length].base_exp = 10;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_strength = 5;
     book_length++;
 
@@ -35,7 +34,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 10;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 15;
     book_length++;
 
@@ -45,7 +43,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 15;
-    rulebook[book_length].base_speed = 6;
     rulebook[book_length].base_exp = 15;
     book_length++;
 
@@ -55,7 +52,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 15;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 15;
     snek = book_length;
     book_length++;
@@ -66,7 +62,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 7;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 20;
     book_length++;
 
@@ -76,7 +71,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 15;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 20;
     book_length++;
 
@@ -86,7 +80,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 30;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 30;
     book_length++;
 
@@ -96,7 +89,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
     rulebook[book_length].base_strength = 30;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 35;
     book_length++;
 
@@ -106,7 +98,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 100;
     rulebook[book_length].base_sight_range = 20;
     rulebook[book_length].base_strength = 30;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 40;
     book_length++;
 
@@ -116,7 +107,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 60;
     rulebook[book_length].base_sight_range = 20;
     rulebook[book_length].base_strength = 50;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 40;
     book_length++;
 
@@ -126,7 +116,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 1;
     rulebook[book_length].base_sight_range = 0;
     rulebook[book_length].base_strength = 50;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 50;
     fake_hag = book_length;
     book_length++;
@@ -137,7 +126,6 @@ void generate_enemies()
     rulebook[book_length].base_hp = 30;
     rulebook[book_length].base_sight_range = 0;
     rulebook[book_length].base_strength = 60;
-    rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 70;
     hag = book_length;
     book_length++;
@@ -214,8 +202,8 @@ void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
                 add_action("The old hag summons a dangerous snek!");
                 n = enemy_add(0, snek, en.pic, en.base_hp, e->y,
                               e->x + xdiff, en.base_sight_range,
-                              en.base_strength, en.base_speed,
-                              en.base_exp, "dangerous snek");
+                              en.base_strength, en.base_exp,
+                              "dangerous snek");
                 map_line(e->y, e->x, n->y, n->x);
             }
         }

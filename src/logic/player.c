@@ -1,6 +1,6 @@
 #include "player.h"
 #include <stdlib.h>
-#include "gui.h"
+#include "../ui/gui.h"
 #include "item.h"
 
 static player_t player = {
@@ -11,7 +11,6 @@ static player_t player = {
     10,  /* strength */
     10,  /* dexterity */
     10,  /* intelligence */
-    5,   /* speed */
     0,   /* current_exp */
     112, /* max_exp */
     1,   /* current_level */

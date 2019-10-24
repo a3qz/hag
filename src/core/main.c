@@ -6,17 +6,17 @@
 #include <unistd.h>
 
 #include "args.h"
-#include "player.h"
-#include "colors.h"
-#include "map.h"
-#include "item.h"
-#include "flavortext.h"
-#include "floor.h"
-#include "list.h"
-#include "enemy_rulebook.h"
-#include "enemy.h"
-#include "gui.h"
-#include "key.h"
+#include "../logic/player.h"
+#include "../ui/colors.h"
+#include "../world/map.h"
+#include "../logic/item.h"
+#include "../ui/flavortext.h"
+#include "../world/floor.h"
+#include "../util/list.h"
+#include "../logic/enemy_rulebook.h"
+#include "../logic/enemy.h"
+#include "../ui/gui.h"
+#include "../ui/key.h"
 
 #define W 60
 #define H 13
@@ -36,7 +36,6 @@ int main(int argc, char **argv)
     int xn;
     int yn;
     int ch;
-    int moved;
     int numRows;
     struct winsize w;
     item_t *item;
@@ -91,9 +90,8 @@ int main(int argc, char **argv)
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
-
     while (player->current_hp > 0) {
-        moved = 1;
+        tick++;
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -211,8 +209,6 @@ int main(int argc, char **argv)
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
-                    moved = 0;
-                    continue;
                     break;
                 }
             } else {
@@ -264,9 +260,6 @@ int main(int argc, char **argv)
         enemy_turn_driver(my_wins[0], player->y, player->x);
         map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
-        if (moved) {
-            tick++;
-        }
     }
     print_stats(player, my_wins[2], floor_tick_get());
     gui_prompt("You have died! Press space to exit.", " ");
