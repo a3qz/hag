@@ -8,6 +8,7 @@
 #include "args.h"
 #include "player.h"
 #include "colors.h"
+#include "controls.h"
 #include "map.h"
 #include "item.h"
 #include "flavortext.h"
@@ -20,12 +21,6 @@
 
 #define W 60
 #define H 13
-#define ESC 27
-
-/*#define NLINES 60 */
-/*#define NCOLS 60 */
-
-#define KEY_F(n)        (KEY_F0 + (n))
 
 int tick = 0;
 
@@ -115,47 +110,47 @@ int main(int argc, char **argv)
         if (ch = getch(), ch != ERR) {
             if (rand() % player->luck) {
                 switch (ch) {
-                case 0x102:
+                case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
                 /* fallthrough */
-                case 'j':
+                case KEY_MOVE_N:
                     yn++;
                     break;
-                case 0x103:
+                case KEY_MOVE_S_BABBY:
                     add_action("Hey babby use k");
                 /* fallthrough */
-                case 'k':
+                case KEY_MOVE_S:
                     yn--;
                     break;
-                case 0x104:
+                case KEY_MOVE_W_BABBY:
                     add_action("Hey babby use h");
                 /* fallthrough */
-                case 'h':
+                case KEY_MOVE_W:
                     xn--;
                     break;
-                case 0x105:
+                case KEY_MOVE_E_BABBY:
                     add_action("Hey babby use l");
                 /* fallthrough */
-                case 'l':
+                case KEY_MOVE_E:
                     xn++;
                     break;
-                case 'b':
+                case KEY_MOVE_NW:
                     xn--;
                     yn++;
                     break;
-                case 'n':
+                case KEY_MOVE_NE:
                     xn++;
                     yn++;
                     break;
-                case 'y':
+                case KEY_MOVE_SW:
                     xn--;
                     yn--;
                     break;
-                case 'u':
+                case KEY_MOVE_SE:
                     xn++;
                     yn--;
                     break;
-                case '>':
+                case KEY_CLIMB_DOWN:
                     if (map_get(player->y, player->x) == '>') {
                         add_action("You climb down the ladder.");
                         floor_down();
@@ -163,39 +158,39 @@ int main(int argc, char **argv)
                         continue;
                     }
                     break;
-                case '<':
+                case KEY_CLIMB_UP:
                     if (map_get(player->y, player->x) == '<') {
                         add_action("You climb up the ladder.");
                         floor_up();
                         continue;
                     }
                     break;
-                case 'q':
+                case KEY_QWARF:
                     item = item_at(player->y, player->x);
                     if (item && item->type == POTION) {
                         item_drink(item);
                     }
                     break;
-                case 'I':
+                case KEY_INSPECT:
                     item = item_at(player->y, player->x);
                     if (item && item->type == POTION) {
                         item_inspect(item);
                     }
                     break;
-                case 'e':
+                case KEY_EQUIP:
                     item = item_at(player->y, player->x);
                     if (item && item->type == SWORD) {
                         add_action("Picked up a sword");
                         item_swap(item);
                     }
                     break;
-                case '.':
+                case KEY_BIDE:
                     break;
-                case KEY_F(4):
+                case KEY_QUIT:
                     endwin();
                     return 0;
                     break;
-                case '?':
+                case KEY_QUESTIONMARK:
                     add_action("Babby Manual:");
                     add_action("    h|j|k|l -> Left, Down, Up, Right");
                     add_action
