@@ -87,7 +87,7 @@ void win_show(WINDOW * win)
 void print_stats(struct player *p, WINDOW * win2, int floor_tick)
 {
     int y;
-    char c[30];
+    char c[200];
     char *str = c;
     getmaxyx(win2, y, junk);
 
