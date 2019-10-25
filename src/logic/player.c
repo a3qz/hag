@@ -1,6 +1,7 @@
 #include "player.h"
 #include <stdlib.h>
 #include "gui.h"
+#include "rng.h"
 #include "item.h"
 
 static player_t player = {
@@ -93,5 +94,5 @@ int player_damage_dealt()
             max = current + start[i - 1];
         }
     }
-    return max;
+    return rng_rand(max);
 }
