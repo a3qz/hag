@@ -26,6 +26,7 @@ static int current_floor = -1;
 static void floor_init(void)
 {
     int type;
+    enemy_t* e;
     enemy_template_t en;
     int xpos;
     int ypos;
@@ -112,9 +113,25 @@ static void floor_init(void)
                 if (room_iterator == 0) {
                     up_x = xpos + rand() % (xlen);
                     up_y = ypos + rand() % (ylen);
+                    list_traverse(enemies->head);
+                    while ((e = list_traverse(0))) {
+                        if (e->y == up_y && e->x == up_x) {
+                            up_x = xpos + rand() % (xlen);
+                            up_y = ypos + rand() % (ylen);
+                            list_traverse(enemies->head);
+                        }
+                    }
                 } else if (room_iterator == NUM_ROOMS - 1) {
                     down_x = xpos + rand() % (xlen);
                     down_y = ypos + rand() % (ylen);
+                    list_traverse(enemies->head);
+                    while ((e = list_traverse(0))) {
+                        if (e->y == down_y && e->x == down_x) {
+                            down_x = xpos + rand() % (xlen);
+                            down_y = ypos + rand() % (ylen);
+                            list_traverse(enemies->head);
+                        }
+                    }
                 }
             }
 
