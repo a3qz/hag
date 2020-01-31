@@ -30,6 +30,8 @@ int main(int argc, char **argv)
     int h0;
     int xn;
     int yn;
+    int xp;
+    int yp;
     int ch;
     int moved;
     int numRows;
@@ -86,9 +88,13 @@ int main(int argc, char **argv)
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
+    xp = player->x;
+    yp = player->y;
 
     while (player->current_hp > 0) {
         moved = 1;
+        map_los(yp, xp, 8, (int)'.' | COLORS_BLACK | A_BOLD);
+        map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -102,10 +108,8 @@ int main(int argc, char **argv)
         getmaxyx(my_wins[0], h0, w0);   /*MACRO, changes w and h */
         mvwprintw(my_wins[0], h0 / 2, w0 / 2, "@");
         wrefresh(my_wins[0]);
-        map_los(player->y, player->x, 8,
-                (int)'.' | COLORS_BLACK | A_BOLD);
-        xn = player->x;
-        yn = player->y;
+        xn = xp = player->x;
+        yn = yp = player->y;
         ch = ERR;
         if (ch = getch(), ch != ERR) {
             if (rand() % player->luck) {
@@ -257,7 +261,6 @@ int main(int argc, char **argv)
             add_action("You can't walk through walls.");
         }
         enemy_turn_driver(my_wins[0], player->y, player->x);
-        map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
         if (moved) {
             tick++;
