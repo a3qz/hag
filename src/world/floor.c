@@ -146,7 +146,7 @@ static void floor_init(void)
             type = enemy_index_hag();
             en = get_rulebook()[type];
             enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x,
-                      en.base_sight_range, en.base_strength, 
+                      en.base_sight_range, en.base_strength,
                       en.stat_str, en.stat_dex, en.stat_int,
                       en.base_speed,
                       en.base_exp, en.name);
