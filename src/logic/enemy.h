@@ -13,8 +13,8 @@ typedef struct enemy {
     int potential;
     int strength;
     int stat_str;
-    int stat_int;
     int stat_dex;
+    int stat_int;
     int xp;
     char *name;
     node_t *node;
