@@ -12,6 +12,9 @@ typedef struct enemy {
     int speed;
     int potential;
     int strength;
+    int stat_str;
+    int stat_int;
+    int stat_dex;
     int xp;
     char *name;
     node_t *node;
@@ -19,6 +22,7 @@ typedef struct enemy {
 
 enemy_t *enemy_add(list_t * floor_enemy_list, int type, int pic, int hp,
                    int y, int x, int sight_range, int strength,
+                   int stat_str, int stat_dex, int stat_int,
                    int speed, int xp, char *name);
 enemy_t *enemy_at(int y, int x);
 void enemy_set(list_t * list);

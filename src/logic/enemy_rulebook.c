@@ -27,6 +27,9 @@ void generate_enemies()
     rulebook[book_length].base_exp = 10;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_strength = 5;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* kobold */
@@ -37,6 +40,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 10;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 15;
+    rulebook[book_length].stat_int = 0;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* goblin */
@@ -47,6 +53,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 15;
     rulebook[book_length].base_speed = 6;
     rulebook[book_length].base_exp = 15;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 0;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* snake */
@@ -57,6 +66,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 15;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 15;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 0;
     snek = book_length;
     book_length++;
 
@@ -68,6 +80,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 7;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 20;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 10;
     book_length++;
 
     /* orc */
@@ -78,6 +93,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 15;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 20;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* wolf */
@@ -88,6 +106,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 30;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 30;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* imp */
@@ -98,6 +119,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 30;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 35;
+    rulebook[book_length].stat_int = 10;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* griffin */
@@ -108,6 +132,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 30;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 40;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* grue */
@@ -118,6 +145,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 50;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 40;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 10;
+    rulebook[book_length].stat_str = 5;
     book_length++;
 
     /* fake hag */
@@ -128,6 +158,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 50;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 50;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     fake_hag = book_length;
     book_length++;
 
@@ -139,6 +172,9 @@ void generate_enemies()
     rulebook[book_length].base_strength = 60;
     rulebook[book_length].base_speed = 5;
     rulebook[book_length].base_exp = 70;
+    rulebook[book_length].stat_int = 5;
+    rulebook[book_length].stat_dex = 5;
+    rulebook[book_length].stat_str = 5;
     hag = book_length;
     book_length++;
 }
@@ -214,7 +250,8 @@ void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
                 add_action("The old hag summons a dangerous snek!");
                 n = enemy_add(0, snek, en.pic, en.base_hp, e->y,
                               e->x + xdiff, en.base_sight_range,
-                              en.base_strength, en.base_speed,
+                              en.base_strength, en.stat_str,
+                              en.stat_dex, en.stat_int, en.base_speed,
                               en.base_exp, "dangerous snek");
                 map_line(e->y, e->x, n->y, n->x);
             }

@@ -10,6 +10,9 @@ typedef struct enemy_template {
     int base_strength;
     int base_speed;
     int base_exp;
+    int stat_int;
+    int stat_dex;
+    int stat_str;
 } enemy_template_t;
 void generate_enemies(void);
 enemy_template_t *get_rulebook(void);
