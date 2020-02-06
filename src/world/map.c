@@ -159,9 +159,9 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery,
                 return;
             }
         }
-	if ((map[realy][realx] & 0xFF) == '.') {
-	    map[realy][realx] = c;
-	}
+        if ((map[realy][realx] & 0xFF) == '.') {
+            map[realy][realx] = c;
+        }
     }
 }
 
