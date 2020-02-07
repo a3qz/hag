@@ -136,7 +136,9 @@ static void floor_init(void)
             }
 
             board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
-            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+            if (floor_get() > 0) {
+                board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+            }
         } else {
             up_x = 150;
             up_y = 150;
