@@ -238,6 +238,8 @@ int main(int argc, char **argv)
                     add_action(msg);
                 } else {
                     int damage = player_damage_dealt();
+                    damage *= 10 - *(&at->stat_str + item_stat() - 1);
+                    damage /= 5;
                     if (rand() % 20000 < player->luck) {
                         char msg[80];
                         sprintf(msg,

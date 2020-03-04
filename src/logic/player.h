@@ -1,5 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "enemy.h"
+
 typedef struct player {
     int current_hp;
     int max_hp;
