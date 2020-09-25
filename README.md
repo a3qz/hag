@@ -63,53 +63,53 @@ Press `?` to shows controls in game.
 
 ### Movement:
 
-			h = left
+		h = left
 
-			j = down
+		j = down
 
-			k = up
+		k = up
 
-			l = right
+		l = right
 
-			y = up left
+		y = up left
 
-			u = up right
+		u = up right
 
-			b = down left
+		b = down left
 
-			n = down right
+		n = down right
 
 
 ### Combat:
 
-			walk into the enemy you want to attack
+		walk into the enemy you want to attack
 
 ### Item:
 
-			e = pickup/swap with item on ground
+		e = pickup/swap with item on ground
 
 ### Stairs:
 
-			< = go up an up staircase
+		< = go up an up staircase
 
-			> = do down a down staircase
+		> = do down a down staircase
 
 
 ### Leveling:
 
-		on levelup, press:
+	on levelup, press:
 
-			s to increase strength
+		s to increase strength
 
-			d to increase dexterity
+		d to increase dexterity
 
-			i to increase intelligence
+		i to increase intelligence
 
 
 ### Death:
 
-		on death, press space to exit
+	on death, press space to exit
 
 ### Exit:
 
-		to exit, press F4
+	to exit, press F4
