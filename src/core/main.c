@@ -258,8 +258,9 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
-                if (fight_pre) {
+                if (fight_pre == 1) {
                     repeat_act = ch;
+                    fight_pre = 2;
                 }
                 if (run_pre) {
                     run_pre = 0;
@@ -290,7 +291,7 @@ int main(int argc, char **argv)
                     }
                 }
             } else {
-                if (fight_pre) {
+                if (fight_pre == 2) {
                     repeat_act = 0;
                     fight_pre = 0;
                 }
