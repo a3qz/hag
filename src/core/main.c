@@ -115,117 +115,117 @@ int main(int argc, char **argv)
         if ((ch = run) || (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
-                    case KEY_RUN_N:
-                        run = KEY_MOVE_N;
-                        break;
-                    case KEY_RUN_S:
-                        run = KEY_MOVE_S;
-                        break;
-                    case KEY_RUN_E:
-                        run = KEY_MOVE_E;
-                        break;
-                    case KEY_RUN_W:
-                        run = KEY_MOVE_W;
-                        break;
-                    case KEY_MOVE_N_BABBY:
-                        add_action("Hey babby use j");
-                        /* fallthrough */
-                    case KEY_MOVE_N:
-                        yn++;
-                        break;
-                    case KEY_MOVE_S_BABBY:
-                        add_action("Hey babby use k");
-                        /* fallthrough */
-                    case KEY_MOVE_S:
-                        yn--;
-                        break;
-                    case KEY_MOVE_W_BABBY:
-                        add_action("Hey babby use h");
-                        /* fallthrough */
-                    case KEY_MOVE_W:
-                        xn--;
-                        break;
-                    case KEY_MOVE_E_BABBY:
-                        add_action("Hey babby use l");
-                        /* fallthrough */
-                    case KEY_MOVE_E:
-                        xn++;
-                        break;
-                    case KEY_MOVE_NW:
-                        xn--;
-                        yn++;
-                        break;
-                    case KEY_MOVE_NE:
-                        xn++;
-                        yn++;
-                        break;
-                    case KEY_MOVE_SW:
-                        xn--;
-                        yn--;
-                        break;
-                    case KEY_MOVE_SE:
-                        xn++;
-                        yn--;
-                        break;
-                    case KEY_CLIMB_DOWN:
-                        if (map_get(player->y, player->x) == '>') {
-                            add_action("You climb down the ladder.");
-                            floor_down();
-                            add_action(flavortext_from_floor());
-                            continue;
-                        }
-                        break;
-                    case KEY_CLIMB_UP:
-                        if (map_get(player->y, player->x) == '<') {
-                            add_action("You climb up the ladder.");
-                            floor_up();
-                            continue;
-                        }
-                        break;
-                    case KEY_QWARF:
-                        item = item_at(player->y, player->x);
-                        if (item && item->type == POTION) {
-                            item_drink(item);
-                        }
-                        break;
-                    case KEY_INSPECT:
-                        item = item_at(player->y, player->x);
-                        if (item && item->type == POTION) {
-                            item_inspect(item);
-                        }
-                        break;
-                    case KEY_EQUIP:
-                        item = item_at(player->y, player->x);
-                        if (item && item->type == SWORD) {
-                            add_action("Picked up a sword");
-                            item_swap(item);
-                        }
-                        break;
-                    case KEY_BIDE:
-                        break;
-                    case KEY_QUIT:
-                        endwin();
-                        return 0;
-                        break;
-                    case KEY_QUESTIONMARK:
-                        add_action("Babby Manual:");
-                        add_action("    h|j|k|l -> Left, Down, Up, Right");
-                        add_action
-                            ("    y|u|b|n -> Up Left, Up Right, Down Left, Down Right");
-                        add_action
-                            ("    Combat: walk into the enemy you want to attack");
-                        add_action("    e -> pickup/swap with item on ground");
-                        add_action
-                            ("    <|> -> go up an up staircase|down a down staircase");
-                        add_action
-                            ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
-                        add_action("    F4 -> quit the game");
-                        break;
-                    default:
-                        add_action("Invalid button. Press '?' for the manual");
-                        moved = 0;
+                case KEY_RUN_N:
+                    run = KEY_MOVE_N;
+                    break;
+                case KEY_RUN_S:
+                    run = KEY_MOVE_S;
+                    break;
+                case KEY_RUN_E:
+                    run = KEY_MOVE_E;
+                    break;
+                case KEY_RUN_W:
+                    run = KEY_MOVE_W;
+                    break;
+                case KEY_MOVE_N_BABBY:
+                    add_action("Hey babby use j");
+                /* fallthrough */
+                case KEY_MOVE_N:
+                    yn++;
+                    break;
+                case KEY_MOVE_S_BABBY:
+                    add_action("Hey babby use k");
+                /* fallthrough */
+                case KEY_MOVE_S:
+                    yn--;
+                    break;
+                case KEY_MOVE_W_BABBY:
+                    add_action("Hey babby use h");
+                /* fallthrough */
+                case KEY_MOVE_W:
+                    xn--;
+                    break;
+                case KEY_MOVE_E_BABBY:
+                    add_action("Hey babby use l");
+                /* fallthrough */
+                case KEY_MOVE_E:
+                    xn++;
+                    break;
+                case KEY_MOVE_NW:
+                    xn--;
+                    yn++;
+                    break;
+                case KEY_MOVE_NE:
+                    xn++;
+                    yn++;
+                    break;
+                case KEY_MOVE_SW:
+                    xn--;
+                    yn--;
+                    break;
+                case KEY_MOVE_SE:
+                    xn++;
+                    yn--;
+                    break;
+                case KEY_CLIMB_DOWN:
+                    if (map_get(player->y, player->x) == '>') {
+                        add_action("You climb down the ladder.");
+                        floor_down();
+                        add_action(flavortext_from_floor());
                         continue;
-                        break;
+                    }
+                    break;
+                case KEY_CLIMB_UP:
+                    if (map_get(player->y, player->x) == '<') {
+                        add_action("You climb up the ladder.");
+                        floor_up();
+                        continue;
+                    }
+                    break;
+                case KEY_QWARF:
+                    item = item_at(player->y, player->x);
+                    if (item && item->type == POTION) {
+                        item_drink(item);
+                    }
+                    break;
+                case KEY_INSPECT:
+                    item = item_at(player->y, player->x);
+                    if (item && item->type == POTION) {
+                        item_inspect(item);
+                    }
+                    break;
+                case KEY_EQUIP:
+                    item = item_at(player->y, player->x);
+                    if (item && item->type == SWORD) {
+                        add_action("Picked up a sword");
+                        item_swap(item);
+                    }
+                    break;
+                case KEY_BIDE:
+                    break;
+                case KEY_QUIT:
+                    endwin();
+                    return 0;
+                    break;
+                case KEY_QUESTIONMARK:
+                    add_action("Babby Manual:");
+                    add_action("    h|j|k|l -> Left, Down, Up, Right");
+                    add_action
+                        ("    y|u|b|n -> Up Left, Up Right, Down Left, Down Right");
+                    add_action
+                        ("    Combat: walk into the enemy you want to attack");
+                    add_action("    e -> pickup/swap with item on ground");
+                    add_action
+                        ("    <|> -> go up an up staircase|down a down staircase");
+                    add_action
+                        ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
+                    add_action("    F4 -> quit the game");
+                    break;
+                default:
+                    add_action("Invalid button. Press '?' for the manual");
+                    moved = 0;
+                    continue;
+                    break;
                 }
             } else {
                 add_action("You tripped.");
@@ -242,7 +242,7 @@ int main(int argc, char **argv)
         }
         at = enemy_at(yn, xn);
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
-                || map_get(yn, xn) == '>') {
+            || map_get(yn, xn) == '>') {
             if (at) {
                 if (run) {
                     run = 0;
