@@ -109,9 +109,9 @@ void item_drink(item_t* item)
         get_player_obj()->potion_count += 1;
 
         if (item->power == 1) {
-            pts = "point"
+            pts = "point";
         } else {
-            pts = "points"
+            pts = "points";
         }
 
         switch (item->stat) {
