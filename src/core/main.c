@@ -4,6 +4,7 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include "args.h"
 #include "player.h"
@@ -122,24 +123,16 @@ int main(int argc, char **argv)
                     fight_pre = 1;
                     break;
                 case KEY_RUN_N:
-                    moved = 0;
-                    repeat_act = KEY_MOVE_N;
-                    run_pre = 1;
-                    break;
                 case KEY_RUN_S:
-                    moved = 0;
-                    repeat_act = KEY_MOVE_S;
-                    run_pre = 1;
-                    break;
                 case KEY_RUN_E:
-                    moved = 0;
-                    repeat_act = KEY_MOVE_E;
-                    run_pre = 1;
-                    break;
                 case KEY_RUN_W:
+                case KEY_RUN_NE:
+                case KEY_RUN_NW:
+                case KEY_RUN_SE:
+                case KEY_RUN_SW:
                     moved = 0;
-                    repeat_act = KEY_MOVE_W;
                     run_pre = 1;
+                    repeat_act = tolower(ch);
                     break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");

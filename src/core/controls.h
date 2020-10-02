@@ -27,6 +27,10 @@
 #define KEY_RUN_W        'H'
 #define KEY_RUN_S        'K'
 #define KEY_RUN_E        'L'
+#define KEY_RUN_NW       'B'
+#define KEY_RUN_NE       'N'
+#define KEY_RUN_SW       'Y'
+#define KEY_RUN_SE       'U'
 
 /* Actions */
 #define KEY_CLIMB_UP      '<'
