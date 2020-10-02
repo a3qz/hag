@@ -26,6 +26,8 @@ int tick = 0;
 
 int main(int argc, char **argv)
 {
+    int fight_act = 0;
+    int fight_pre = 0;
     int w0;
     int h0;
     int xn;
@@ -111,9 +113,13 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         ch = ERR;
-        if (ch = getch(), ch != ERR) {
+        if ((ch = fight_act) || (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
+                case KEY_FIGHT:
+                    moved = 0;
+                    fight_pre = 1;
+                    break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
                 /* fallthrough */
@@ -231,6 +237,10 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
+                if (fight_pre) {
+                    fight_act = ch;
+                }
+                fight_pre = 0;
                 if (rand() % player->luck == 0) {
                     char msg[80];
                     sprintf(msg, "You swing at the %s, but miss.",
@@ -256,6 +266,7 @@ int main(int argc, char **argv)
                     }
                 }
             } else {
+                fight_act = 0;
                 player->x = xn;
                 player->y = yn;
             }

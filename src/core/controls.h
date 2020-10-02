@@ -28,6 +28,7 @@
 #define KEY_QWARF         'q'
 #define KEY_EQUIP         'e'
 #define KEY_INSPECT       'I'
+#define KEY_FIGHT         'f'
 #define KEY_BIDE          '.'
 #define KEY_QUIT          KEY_F(4)
 #define KEY_QUESTIONMARK  '?'
