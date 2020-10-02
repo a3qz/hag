@@ -22,6 +22,12 @@
 #define KEY_MOVE_SW       'y'
 #define KEY_MOVE_SE       'u'
 
+/* Run */
+#define KEY_RUN_N        'J'
+#define KEY_RUN_W        'H'
+#define KEY_RUN_S        'K'
+#define KEY_RUN_E        'L'
+
 /* Actions */
 #define KEY_CLIMB_UP      '<'
 #define KEY_CLIMB_DOWN    '>'
