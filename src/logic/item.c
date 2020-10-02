@@ -101,18 +101,26 @@ void item_inspect(item_t* item)
 
 void item_drink(item_t* item)
 {
+    char* pts;
     char msg[80];
     if (item && item->type == POTION) {
         list_remove(item->node);
         add_action("Drank a potion");
         get_player_obj()->potion_count += 1;
+
+        if (item->power == 1){
+            pts = "point"
+        } else {
+            pts = "points"
+        }
+
         switch (item->stat) {
         case 0:     /* str */
             if (item->power > 0) {
-                sprintf(msg, "It increased your strength by %d points", item->power);
+                sprintf(msg, "It increased your strength by %d %s", item->power, pts);
                 add_action(msg);
             } else if (item->power < 0) {
-                sprintf(msg, "It decreased your strength by %d points", -item->power);
+                sprintf(msg, "It decreased your strength by %d %s", -item->power, pts);
                 add_action(msg);
             } else {
                 add_action("It did nothing.");
@@ -124,10 +132,10 @@ void item_drink(item_t* item)
             break;
         case 1:     /* dex */
             if (item->power > 0) {
-                sprintf(msg, "It increased your dexterity by %d points", item->power);
+                sprintf(msg, "It increased your dexterity by %d %s", item->power, pts);
                 add_action(msg);
             } else if (item->power < 0) {
-                sprintf(msg, "It decreased your dexterity by %d points", -item->power);
+                sprintf(msg, "It decreased your dexterity by %d %s", -item->power, pts);
                 add_action(msg);
             } else {
                 add_action("It did nothing.");
@@ -139,10 +147,10 @@ void item_drink(item_t* item)
             break;
         case 2:     /* int */
             if (item->power > 0) {
-                sprintf(msg, "It increased your intelligence by %d points", item->power);
+                sprintf(msg, "It increased your intelligence by %d %s", item->power, pts);
                 add_action(msg);
             } else if (item->power < 0) {
-                sprintf(msg, "It decreased your intelligence by %d points", -item->power);
+                sprintf(msg, "It decreased your intelligence by %d %s", -item->power, pts);
                 add_action(msg);
             } else {
                 add_action("It did nothing.");
@@ -157,10 +165,10 @@ void item_drink(item_t* item)
             get_player_obj()->max_hp += item->power;
             get_player_obj()->current_hp += item->power;
             if (item->power > 0) {
-                sprintf(msg, "It increased your health by %d points", item->power);
+                sprintf(msg, "It increased your health by %d %s", item->power, pts);
                 add_action(msg);
             } else if (item->power < 0) {
-                sprintf(msg, "It decreased your health by %d points", -item->power);
+                sprintf(msg, "It decreased your health by %d %s", -item->power, pts);
                 add_action(msg);
             } else {
                 add_action("It did nothing.");
@@ -168,10 +176,10 @@ void item_drink(item_t* item)
             break;
         case 4:     /* luck */
             if (item->power > 0) {
-                sprintf(msg, "It increased your luck by %d points", 100 * item->power);
+                sprintf(msg, "It increased your luck by %d %s", 100 * item->power, pts);
                 add_action(msg);
             } else if (item->power < 0) {
-                sprintf(msg, "It decreased your luck by %d points", -100 * item->power);
+                sprintf(msg, "It decreased your luck by %d %s", -100 * item->power, pts);
                 add_action(msg);
             } else {
                 add_action("It did nothing.");
