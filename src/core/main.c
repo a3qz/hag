@@ -43,13 +43,15 @@ int main(int argc, char **argv)
     PANEL *my_panels[3];
     parse_args(argc, argv);
 
+    floor_down();
+
     /*assuming character size is 15 by 15 pixels */
     /* getting the size of the terminal */
     /* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
     ioctl(0, TIOCGWINSZ, &w);
 
 
-    floor_down();
+
     /* Initialize curses */
     initscr();
     cbreak();
@@ -90,6 +92,11 @@ int main(int argc, char **argv)
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
     xp = player->x;
     yp = player->y;
+
+    for (ch = 0; ch <= FLOOR_COUNT; ch++) {
+        floor_goto(ch);
+    }
+    floor_goto(0);
 
     while (player->current_hp > 0) {
         moved = 1;
