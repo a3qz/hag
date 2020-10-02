@@ -26,8 +26,9 @@ int tick = 0;
 
 int main(int argc, char **argv)
 {
-    int fight_act = 0;
+    int repeat_act = 0;
     int fight_pre = 0;
+    int run_pre = 0;
     int w0;
     int h0;
     int xn;
@@ -113,12 +114,32 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         ch = ERR;
-        if ((ch = fight_act) || (ch = getch(), ch != ERR)) {
+        if ((ch = repeat_act) || (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
                 case KEY_FIGHT:
                     moved = 0;
                     fight_pre = 1;
+                    break;
+                case KEY_RUN_N:
+                    moved = 0;
+                    repeat_act = KEY_MOVE_N;
+                    run_pre = 1;
+                    break;
+                case KEY_RUN_S:
+                    moved = 0;
+                    repeat_act = KEY_MOVE_S;
+                    run_pre = 1;
+                    break;
+                case KEY_RUN_E:
+                    moved = 0;
+                    repeat_act = KEY_MOVE_E;
+                    run_pre = 1;
+                    break;
+                case KEY_RUN_W:
+                    moved = 0;
+                    repeat_act = KEY_MOVE_W;
+                    run_pre = 1;
                     break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
@@ -238,9 +259,12 @@ int main(int argc, char **argv)
             || map_get(yn, xn) == '>') {
             if (at) {
                 if (fight_pre) {
-                    fight_act = ch;
+                    repeat_act = ch;
                 }
-                fight_pre = 0;
+                if (run_pre) {
+                    run_pre = 0;
+                    repeat_act = 0;
+                }
                 if (rand() % player->luck == 0) {
                     char msg[80];
                     sprintf(msg, "You swing at the %s, but miss.",
@@ -266,12 +290,20 @@ int main(int argc, char **argv)
                     }
                 }
             } else {
-                fight_act = 0;
+                if (fight_pre) {
+                    repeat_act = 0;
+                    fight_pre = 0;
+                }
                 player->x = xn;
                 player->y = yn;
             }
         } else {
-            add_action("You can't walk through walls.");
+            if (run_pre) {
+                run_pre = 0;
+                repeat_act = 0;
+            } else {
+                add_action("You can't walk through walls.");
+            }
         }
         enemy_turn_driver(my_wins[0], player->y, player->x);
         key_checker(my_wins[2], player->y, player->x);
