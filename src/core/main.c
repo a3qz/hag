@@ -26,6 +26,7 @@ int tick = 0;
 
 int main(int argc, char **argv)
 {
+    int run = 0;
     int w0;
     int h0;
     int xn;
@@ -111,9 +112,21 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         ch = ERR;
-        if (ch = getch(), ch != ERR) {
+        if ((ch = run) || (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
+                case KEY_RUN_N:
+                    run = KEY_MOVE_N;
+                    break;
+                case KEY_RUN_S:
+                    run = KEY_MOVE_S;
+                    break;
+                case KEY_RUN_E:
+                    run = KEY_MOVE_E;
+                    break;
+                case KEY_RUN_W:
+                    run = KEY_MOVE_W;
+                    break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
                 /* fallthrough */
@@ -231,6 +244,9 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
+                if (run) {
+                    run = 0;
+                }
                 if (rand() % player->luck == 0) {
                     char msg[80];
                     sprintf(msg, "You swing at the %s, but miss.",
@@ -260,7 +276,11 @@ int main(int argc, char **argv)
                 player->y = yn;
             }
         } else {
-            add_action("You can't walk through walls.");
+            if (run) {
+                run = 0;
+            } else {
+                add_action("You can't walk through walls.");
+            }
         }
         enemy_turn_driver(my_wins[0], player->y, player->x);
         key_checker(my_wins[2], player->y, player->x);
