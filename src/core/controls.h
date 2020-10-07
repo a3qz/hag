@@ -27,6 +27,10 @@
 #define KEY_RUN_W        'H'
 #define KEY_RUN_S        'K'
 #define KEY_RUN_E        'L'
+#define KEY_RUN_NW       'B'
+#define KEY_RUN_NE       'N'
+#define KEY_RUN_SW       'Y'
+#define KEY_RUN_SE       'U'
 
 /* Actions */
 #define KEY_CLIMB_UP      '<'
@@ -34,6 +38,7 @@
 #define KEY_QWARF         'q'
 #define KEY_EQUIP         'e'
 #define KEY_INSPECT       'I'
+#define KEY_FIGHT         'f'
 #define KEY_BIDE          '.'
 #define KEY_QUIT          KEY_F(4)
 #define KEY_QUESTIONMARK  '?'

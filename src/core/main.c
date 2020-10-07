@@ -4,6 +4,7 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include "args.h"
 #include "player.h"
@@ -26,7 +27,9 @@ int tick = 0;
 
 int main(int argc, char **argv)
 {
-    int run = 0;
+    int repeat_act = 0;
+    int fight_pre = 0;
+    int run_pre = 0;
     int w0;
     int h0;
     int xn;
@@ -112,20 +115,24 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         ch = ERR;
-        if ((ch = run) || (ch = getch(), ch != ERR)) {
+        if ((ch = repeat_act) || (ch = getch(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
+                case KEY_FIGHT:
+                    moved = 0;
+                    fight_pre = 1;
+                    break;
                 case KEY_RUN_N:
-                    run = KEY_MOVE_N;
-                    break;
                 case KEY_RUN_S:
-                    run = KEY_MOVE_S;
-                    break;
                 case KEY_RUN_E:
-                    run = KEY_MOVE_E;
-                    break;
                 case KEY_RUN_W:
-                    run = KEY_MOVE_W;
+                case KEY_RUN_NE:
+                case KEY_RUN_NW:
+                case KEY_RUN_SE:
+                case KEY_RUN_SW:
+                    moved = 0;
+                    run_pre = 1;
+                    repeat_act = tolower(ch);
                     break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
@@ -244,8 +251,13 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
-                if (run) {
-                    run = 0;
+                if (fight_pre == 1) {
+                    repeat_act = ch;
+                    fight_pre = 2;
+                }
+                if (run_pre) {
+                    run_pre = 0;
+                    repeat_act = 0;
                 }
                 if (rand() % player->luck == 0) {
                     char msg[80];
@@ -272,12 +284,17 @@ int main(int argc, char **argv)
                     }
                 }
             } else {
+                if (fight_pre == 2) {
+                    repeat_act = 0;
+                    fight_pre = 0;
+                }
                 player->x = xn;
                 player->y = yn;
             }
         } else {
-            if (run) {
-                run = 0;
+            if (run_pre) {
+                run_pre = 0;
+                repeat_act = 0;
             } else {
                 add_action("You can't walk through walls.");
             }
