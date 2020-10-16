@@ -16,11 +16,11 @@ void parse_args(int argc, char **argv)
         struct option long_options[] = {
             { "help", no_argument, NULL, 'h' },
             { "seed", required_argument, NULL, 's' },
-            { "play", required_argument, NULL, 'r' },
-            { "record", required_argument, NULL, 'w' },
+            { "play", optional_argument, NULL, 'r' },
+            { "record", optional_argument, NULL, 'w' },
             { 0, 0, 0, 0 }
         };
-        int c = getopt_long(argc, argv, "hs:r:w:", long_options, NULL);
+        int c = getopt_long(argc, argv, "hs:r?w?", long_options, NULL);
 
         if (c == -1) {
             break;
@@ -32,9 +32,10 @@ void parse_args(int argc, char **argv)
                 ("hag, an ncurses procedurally-generated dungeon crawler.\n\n");
             printf("Usage: %s [options]\n", argv[0]);
             printf("-h, --help        Show this help message\n");
-            printf("-s, --seed  <seed> RNG seed to use\n");
-            printf("-r, --read  <file> demo file to replay\n");
-            printf("-w, --write <file> file to save demo to\n");
+            printf("-s, --seed   <seed> RNG seed to use\n");
+            printf("-r, --play   [file] demo file to replay\n");
+            printf("-w, --record [file] file to save demo to\n");
+            printf("\n\n--play and --record take an optional file - if these flags are used but no file is given, .demo.hag is used instead.\n");
             exit(EXIT_SUCCESS);
         case 's':
             seed = strtoul(optarg, NULL, 10);

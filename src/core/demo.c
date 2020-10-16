@@ -49,6 +49,9 @@ static void demo_write_header(void)
 
 void demo_start(int mode, char* fname)
 {
+    if (!fname) {
+        fname = DEMO_DEFAULT_FILE;
+    }
     if (read_from) {
         fclose(read_from);
         read_from = 0;
