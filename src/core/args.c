@@ -5,19 +5,22 @@
 #include <stdlib.h>
 #include <time.h>
 #include "args.h"
-
+#include "demo.h"
+static unsigned long seed;
 void parse_args(int argc, char **argv)
 {
-    srand(time(NULL));
+    int demo_started = 0;
+    set_seed(time(NULL));
 
     while (1) {
         struct option long_options[] = {
             { "help", no_argument, NULL, 'h' },
             { "seed", required_argument, NULL, 's' },
+            { "play", required_argument, NULL, 'r' },
+            { "record", required_argument, NULL, 'w' },
             { 0, 0, 0, 0 }
         };
-        int c = getopt_long(argc, argv, "hs:", long_options, NULL);
-        unsigned long seed;
+        int c = getopt_long(argc, argv, "hs:r:w:", long_options, NULL);
 
         if (c == -1) {
             break;
@@ -29,7 +32,9 @@ void parse_args(int argc, char **argv)
                 ("hag, an ncurses procedurally-generated dungeon crawler.\n\n");
             printf("Usage: %s [options]\n", argv[0]);
             printf("-h, --help        Show this help message\n");
-            printf("-s, --seed <seed> RNG seed to use\n");
+            printf("-s, --seed  <seed> RNG seed to use\n");
+            printf("-r, --read  <file> demo file to replay\n");
+            printf("-w, --write <file> file to save demo to\n");
             exit(EXIT_SUCCESS);
         case 's':
             seed = strtoul(optarg, NULL, 10);
@@ -39,10 +44,32 @@ void parse_args(int argc, char **argv)
                 exit(EXIT_FAILURE);
             }
 
-            srand(seed);
+            set_seed(seed);
+            break;
+        case 'r':
+            demo_start(DEMO_REPLAY, optarg);
+            demo_started = 1;
+            break;
+        case 'w':
+            demo_start(DEMO_RECORD, optarg);
+            demo_started = 1;
             break;
         default:
             exit(EXIT_FAILURE);
         }
     }
+    if (!demo_started) {
+        demo_start(DEMO_NONE, 0);
+    }
+}
+
+void set_seed(unsigned long s)
+{
+    seed = s;
+    srand(s);
+}
+
+unsigned long get_seed(void)
+{
+    return seed;
 }
