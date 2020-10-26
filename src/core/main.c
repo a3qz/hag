@@ -258,6 +258,7 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
+                int damage;
                 if (fight_pre == 1) {
                     repeat_act = ch;
                     fight_pre = 2;
@@ -266,13 +267,13 @@ int main(int argc, char **argv)
                     run_pre = 0;
                     repeat_act = 0;
                 }
-                if (rand() % player->luck == 0) {
+                damage = player_damage_dealt();
+                if ((rand() % player->luck == 0) || (damage == 0)) {
                     char msg[80];
                     sprintf(msg, "You swing at the %s, but miss.",
                             get_rulebook()[at->type].name);
                     add_action(msg);
                 } else {
-                    int damage = player_damage_dealt();
                     damage *= 10 - *(&at->stat_str + item_stat() - 1);
                     damage /= 5;
                     if (rand() % 20000 < player->luck) {
