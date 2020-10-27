@@ -19,11 +19,15 @@
 #include "enemy.h"
 #include "gui.h"
 #include "key.h"
+#include "main.h"
 
 #define W 60
 #define H 13
 
 int tick = 0;
+
+
+
 
 int main(int argc, char **argv)
 {
@@ -266,30 +270,7 @@ int main(int argc, char **argv)
                     run_pre = 0;
                     repeat_act = 0;
                 }
-                if (rand() % player->luck == 0) {
-                    char msg[80];
-                    sprintf(msg, "You swing at the %s, but miss.",
-                            get_rulebook()[at->type].name);
-                    add_action(msg);
-                } else {
-                    int damage = player_damage_dealt();
-                    damage *= 10 - *(&at->stat_str + item_stat() - 1);
-                    damage /= 5;
-                    if (rand() % 20000 < player->luck) {
-                        char msg[80];
-                        sprintf(msg,
-                                "You land a critical blow against the %s for %d life.",
-                                get_rulebook()[at->type].name, damage * 2);
-                        add_action(msg);
-                        enemy_hurt(at, damage * 2);
-                    } else {
-                        char msg[80];
-                        sprintf(msg, "You hurt the %s for %d life.",
-                                get_rulebook()[at->type].name, damage);
-                        add_action(msg);
-                        enemy_hurt(at, damage);
-                    }
-                }
+                player_attacks(player, at);
             } else {
                 if (fight_pre == 2) {
                     repeat_act = 0;
@@ -317,4 +298,32 @@ int main(int argc, char **argv)
 
     endwin();
     return 0;
+}
+void player_attacks(player_t *player, enemy_t *at)
+{
+    int damage;
+    damage = player_damage_dealt();
+    if ((rand() % player->luck == 0) || (damage == 0)) {
+        char msg[80];
+        sprintf(msg, "You swing at the %s, but miss.",
+                get_rulebook()[at->type].name);
+        add_action(msg);
+    } else {
+        damage *= 10 - *(&at->stat_str + item_stat() - 1);
+        damage /= 5;
+        if (rand() % 20000 < player->luck) {
+            char msg[80];
+            sprintf(msg,
+                    "You land a critical blow against the %s for %d life.",
+                    get_rulebook()[at->type].name, damage * 2);
+            add_action(msg);
+            enemy_hurt(at, damage * 2);
+        } else {
+            char msg[80];
+            sprintf(msg, "You hurt the %s for %d life.",
+                    get_rulebook()[at->type].name, damage);
+            add_action(msg);
+            enemy_hurt(at, damage);
+        }
+    }
 }
