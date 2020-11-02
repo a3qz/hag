@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
+#include "demo.h"
 #include "args.h"
 #include "player.h"
 #include "colors.h"
@@ -122,7 +123,7 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         ch = ERR;
-        if ((ch = repeat_act) || (ch = getch(), ch != ERR)) {
+        if ((ch = repeat_act) || (ch = demo_next(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
                 case KEY_FIGHT:
