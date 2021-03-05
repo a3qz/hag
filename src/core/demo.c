@@ -10,6 +10,8 @@ static void demo_read_header(void);
 static FILE* read_from = 0;
 static FILE* write_to = 0;
 
+static int demo_speed = 300;
+
 void usleep(long); /* needed because headers are big sad */
 
 int demo_next(void)
@@ -17,7 +19,7 @@ int demo_next(void)
     int move = 0;
     if (read_from) {
         fread(&move, sizeof(move), 1, read_from);
-        usleep(1000 /*ms to us*/ * 300 /*ms*/);
+        usleep(1000 /*ms to us*/ * demo_speed /*ms*/);
     }
     if (!move) {
         move = getch();
@@ -65,11 +67,24 @@ void demo_start(int mode, char* fname)
         break;
     case DEMO_REPLAY:
         read_from = fopen(fname, "r");
-        demo_read_header();
         break;
     case DEMO_RECORD:
         write_to = fopen(fname, "w");
-        demo_write_header();
         break;
     }
+}
+
+void demo_header()
+{
+    if (read_from) {
+        demo_read_header();
+    }
+    if (write_to) {
+        demo_write_header();
+    }
+}
+
+void demo_set_speed(int s)
+{
+    demo_speed = s;
 }
