@@ -10,6 +10,7 @@
 #include "item.h"
 #include "list.h"
 #include "key.h"
+#include "demo.h"
 
 #define ACTION_LENGTH 120
 
@@ -141,7 +142,7 @@ char gui_prompt(char *prompt, char *answer)
         print_action();
         update_panels();
         refresh();
-        response = getch();
+        response = demo_next();
     }
     return response;
 }
