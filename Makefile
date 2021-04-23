@@ -10,15 +10,16 @@ OBJECTS  = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
  
 # Declaration of variables
 CC       = gcc 
-CC_FLAGS =-lpanel -lncurses -g -Wall -std=c89 -pedantic -Wextra -Werror \
+LINKS    =-lncurses -lpanel
+CC_FLAGS =-g -Wall -std=c89 -pedantic -Wextra -Werror \
 		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE)
 ID       = uncrustify
 ID_FLAGS =-c uncrustify.cfg
 
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) $^ -o $@ $(CC_FLAGS)
- 
+	$(CC) $^ -o $@ $(LINKS) $(CC_FLAGS)
+
 # Obtain object files
 $(OBJDIR)%.o: $(SRCDIR)/*/%.c
 	@mkdir -p $(OBJDIR)

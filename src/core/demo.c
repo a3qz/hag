@@ -12,7 +12,9 @@ static FILE* write_to = 0;
 
 static int demo_speed = 300;
 
+#ifndef __APPLE__
 void usleep(long); /* needed because headers are big sad */
+#endif
 
 int demo_next(void)
 {

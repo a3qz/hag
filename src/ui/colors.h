@@ -1,5 +1,8 @@
 #ifndef COLORS_H
 #define COLORS_H
+#ifdef __APPLE__
+    #define NCURSES_PAIRS_T int
+#endif
 extern const NCURSES_PAIRS_T COLORS_BLACK;
 extern const NCURSES_PAIRS_T COLORS_RED;
 extern const NCURSES_PAIRS_T COLORS_GREEN;
