@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <curses.h>
 #include <panel.h>
 #include <string.h>
 #include <sys/ioctl.h>
