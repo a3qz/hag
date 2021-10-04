@@ -127,7 +127,6 @@ int main(int argc, char **argv)
         wrefresh(my_wins[0]);
         xn = xp = player->x;
         yn = yp = player->y;
-        ch = ERR;
         if ((ch = repeat_act) || (ch = demo_next(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
@@ -243,7 +242,6 @@ int main(int argc, char **argv)
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
-                    moved = 0;
                     continue;
                     break;
                 }
