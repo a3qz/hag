@@ -164,8 +164,6 @@ void print_in_window(WINDOW * win, int starty, int startx, int width,
     if (win == NULL)
         win = stdscr;
     getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
     if (starty != 0)
         y = starty;
     if (width == 0)
