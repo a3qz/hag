@@ -43,4 +43,8 @@
 #define KEY_QUIT          KEY_F(4)
 #define KEY_QUESTIONMARK  '?'
 
+/* Scroll */
+#define KEY_SCROLL_UP     '['
+#define KEY_SCROLL_DOWN   ']'
+
 #endif
