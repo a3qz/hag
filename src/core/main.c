@@ -245,8 +245,8 @@ int main(int argc, char **argv)
                     add_action
                         ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
                     add_action("    F4 -> quit the game");
-                    add_action("    [  -> scroll up");
-                    add_action("    ]  -> scroll down");
+                    add_action("    [  -> scroll action log up");
+                    add_action("    ]  -> scroll action log down");
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
