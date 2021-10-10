@@ -10,9 +10,21 @@ Please note we have a code of conduct, please follow it in all your interactions
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a 
    build.
 2. Update the README.md with details of changes to the interface, this includes new environment 
-   variables, exposed ports, useful file locations and container parameters.
-3. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+   variables, exposed ports, useful file locations and game controls.
+3. You may make a Pull Request at any time, so long as it was not claimed by someone else who
+   appears to be making progress. That is, if you don't see anyone working on it, feel free to
+   do it yourself.
+4. You may merge the Pull Request in once you have the sign-off of at least one maintainer.
+
+## Project Specific Details
+
+1. We use `uncrustify` to force a certain coding style. Please run `make lint` before
+   opening a Pull Request, as otherwise it will not pass our style checks.  
+2. We use an outdated C version intentionally to force nostalgia. Please check that your
+   code actually compiles with these constraints before opening a Pull Request.
+3. The project currently builds on both MacOS and GNU/Linux. Please try to keep it that way.
+   No need to test on hardware you don't have, but please avoid submitting Pull Requests
+   using specific features you know aren't available in both environments.
 
 ## Code of Conduct
 
