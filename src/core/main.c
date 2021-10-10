@@ -186,6 +186,12 @@ int main(int argc, char **argv)
                     xn++;
                     yn--;
                     break;
+                case KEY_SCROLL_UP:
+                    set_scroll(get_scroll() - 1);
+                    continue;
+                case KEY_SCROLL_DOWN:
+                    set_scroll(get_scroll() + 1);
+                    continue;
                 case KEY_CLIMB_DOWN:
                     if (map_get(player->y, player->x) == '>') {
                         add_action("You climb down the ladder.");
@@ -239,6 +245,8 @@ int main(int argc, char **argv)
                     add_action
                         ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
                     add_action("    F4 -> quit the game");
+                    add_action("    [  -> scroll action log up");
+                    add_action("    ]  -> scroll action log down");
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
