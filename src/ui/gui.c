@@ -28,11 +28,17 @@ WINDOW *win;
 void add_action(char *s)
 {
     int i;
-    for (i = 1; i < HISTORY_LENGTH; i++) {
-        memset(actions[i - 1], '\0', ACTION_LENGTH);
-        strcpy(actions[i - 1], actions[i]);
+    int width;
+    int count;
+    getmaxyx(win, junk, width);
+    count = strlen(s) / width + 1;
+    for (i = count; i < HISTORY_LENGTH; i++) {
+        memset(actions[i - count], '\0', ACTION_LENGTH);
+        strcpy(actions[i - count], actions[i]);
     }
-    strcpy(actions[HISTORY_LENGTH - 1], s);
+    for (i = 0; i < count; i++) {
+        strncpy(actions[HISTORY_LENGTH - count + i], s + (width - 2) * i, width);
+    }
     werase(win);
     print_action();
 }
