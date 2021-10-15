@@ -12,7 +12,7 @@ static FILE* write_to = 0;
 
 static int demo_speed = 300;
 
-#if __NEED_USLEEP__
+#ifdef __NEED_USLEEP__
 void usleep(long); /* needed because headers are big sad */
 #endif
 
