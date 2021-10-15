@@ -11,8 +11,9 @@ OBJECTS  = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
 # Declaration of variables
 CC       = gcc 
 LINKS    =-lncurses -lpanel
-CC_FLAGS =-g -Wall -std=c89 -pedantic -Wextra -Werror \
-		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE) \
+COMMON_FLAGS =-g -Wall -pedantic -Wextra -Werror \
+		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE) 
+CC_FLAGS =-std=c89 $(COMMON_FLAGS) $(INCLUDE)\
 		  -D__NEED_USLEEP__
 ID       = uncrustify
 ID_FLAGS =-c uncrustify.cfg
@@ -38,3 +39,8 @@ lint: $(SOURCES:.c=.c~uncrust) $(HEADERS:.h=.h~uncrust)
 %~uncrust: %
 	@$(ID) $(ID_FLAGS) -f $< -o $@
 	@diff $< $@
+
+# Allow you to get a valid build without the -std=c89 standard 
+# (for local development)
+cheat: CC_FLAGS = $(COMMON_FLAGS) $(INCLUDE)
+cheat: $(EXEC)
