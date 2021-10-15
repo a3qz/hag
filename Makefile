@@ -12,7 +12,8 @@ OBJECTS  = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
 CC       = gcc 
 LINKS    =-lncurses -lpanel
 CC_FLAGS =-g -Wall -std=c89 -pedantic -Wextra -Werror \
-		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE)
+		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE) \
+		  -D__NEED_USLEEP__
 ID       = uncrustify
 ID_FLAGS =-c uncrustify.cfg
 
