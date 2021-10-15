@@ -12,7 +12,7 @@ static FILE* write_to = 0;
 
 static int demo_speed = 300;
 
-#ifndef __APPLE__
+#if (_XOPEN_SOURCE >= 500) && !(_POSIX_C_SOURCE >= 200809L)
 void usleep(long); /* needed because headers are big sad */
 #endif
 
