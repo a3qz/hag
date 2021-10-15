@@ -12,7 +12,9 @@ static FILE* write_to = 0;
 
 static int demo_speed = 300;
 
-#if (_XOPEN_SOURCE >= 500) && !(_POSIX_C_SOURCE >= 200809L)
+#if !((_XOPEN_SOURCE >= 500) && ! (_POSIX_C_SOURCE >= 200809L) \
+                   || /* Glibc since 2.19: */ _DEFAULT_SOURCE \
+                   || /* Glibc <= 2.19: */ _BSD_SOURCE) && !__APPLE__
 void usleep(long); /* needed because headers are big sad */
 #endif
 
