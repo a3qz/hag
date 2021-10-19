@@ -77,7 +77,8 @@ void key_checker(WINDOW *win, int y, int x)
         w -= x1 - width;
     }
     if (floor_up_xcoord() > i + x0 && floor_up_xcoord() < w + x0) {
-        if (floor_up_ycoord() > j + y0 && floor_up_ycoord() < h + y0) {
+        if (floor_up_ycoord() > j + y0 && floor_up_ycoord() < h + y0 &&
+            floor_get() > 0) {
             sprintf(str, " : %s, %s%d\n", "stairs up", "goto floor ", floor_get() - 1);
             print_in_window(win, starting_number, 1, y, str, 0, false);
             mvwaddch(win, starting_number, 1, ('<' | A_BOLD | COLORS_BLUE));

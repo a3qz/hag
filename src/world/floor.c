@@ -94,6 +94,7 @@ static void floor_init(void)
                                       en.base_sight_range,
                                       en.base_strength +
                                       rand() % (floor_get() + 1),
+                                      en.stat_str, en.stat_dex, en.stat_int,
                                       en.base_speed,
                                       en.base_exp, en.name);
                         }
@@ -136,7 +137,9 @@ static void floor_init(void)
             }
 
             board[down_y][down_x] = '>' | A_BOLD | COLORS_BLUE;
-            board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+            if (floor_get() > 0) {
+                board[up_y][up_x] = '<' | A_BOLD | COLORS_BLUE;
+            }
         } else {
             up_x = 150;
             up_y = 150;
@@ -145,7 +148,9 @@ static void floor_init(void)
             type = enemy_index_hag();
             en = get_rulebook()[type];
             enemy_add(enemies, type, en.pic, en.base_hp, down_y, down_x,
-                      en.base_sight_range, en.base_strength, en.base_speed,
+                      en.base_sight_range, en.base_strength,
+                      en.stat_str, en.stat_dex, en.stat_int,
+                      en.base_speed,
                       en.base_exp, en.name);
             xpos = down_x - 10;
             ypos = down_y - 10;

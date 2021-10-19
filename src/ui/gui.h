@@ -18,4 +18,6 @@ void add_action(char *s);
 void initialize_actions(int n, WINDOW * win);
 char gui_prompt(char *prompt, char *answer);
 void gui_set_prompt_window(WINDOW * win);
+int get_scroll(void);
+void set_scroll(int scroll);
 #endif

@@ -1,10 +1,13 @@
 #include <ncurses.h>
+#include <curses.h>
 #include <panel.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <ctype.h>
 
+#include "demo.h"
 #include "args.h"
 #include "player.h"
 #include "colors.h"
@@ -18,18 +21,27 @@
 #include "enemy.h"
 #include "gui.h"
 #include "key.h"
+#include "main.h"
 
 #define W 60
 #define H 13
 
 int tick = 0;
 
+
+
+
 int main(int argc, char **argv)
 {
+    int repeat_act = 0;
+    int fight_pre = 0;
+    int run_pre = 0;
     int w0;
     int h0;
     int xn;
     int yn;
+    int xp;
+    int yp;
     int ch;
     int moved;
     int numRows;
@@ -41,13 +53,15 @@ int main(int argc, char **argv)
     PANEL *my_panels[3];
     parse_args(argc, argv);
 
+    floor_down();
+
     /*assuming character size is 15 by 15 pixels */
     /* getting the size of the terminal */
     /* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
     ioctl(0, TIOCGWINSZ, &w);
 
 
-    floor_down();
+
     /* Initialize curses */
     initscr();
     cbreak();
@@ -86,9 +100,18 @@ int main(int argc, char **argv)
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
+    xp = player->x;
+    yp = player->y;
+
+    for (ch = 0; ch <= FLOOR_COUNT; ch++) {
+        floor_goto(ch);
+    }
+    floor_goto(0);
 
     while (player->current_hp > 0) {
         moved = 1;
+        map_los(yp, xp, 8, (int)'.' | COLORS_BLACK | A_BOLD);
+        map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         refresh();
         werase(my_wins[2]);
         print_stats(player, my_wins[2], floor_tick_get());
@@ -102,14 +125,27 @@ int main(int argc, char **argv)
         getmaxyx(my_wins[0], h0, w0);   /*MACRO, changes w and h */
         mvwprintw(my_wins[0], h0 / 2, w0 / 2, "@");
         wrefresh(my_wins[0]);
-        map_los(player->y, player->x, 8,
-                (int)'.' | COLORS_BLACK | A_BOLD);
-        xn = player->x;
-        yn = player->y;
-        ch = ERR;
-        if (ch = getch(), ch != ERR) {
+        xn = xp = player->x;
+        yn = yp = player->y;
+        if ((ch = repeat_act) || (ch = demo_next(), ch != ERR)) {
             if (rand() % player->luck) {
                 switch (ch) {
+                case KEY_FIGHT:
+                    moved = 0;
+                    fight_pre = 1;
+                    break;
+                case KEY_RUN_N:
+                case KEY_RUN_S:
+                case KEY_RUN_E:
+                case KEY_RUN_W:
+                case KEY_RUN_NE:
+                case KEY_RUN_NW:
+                case KEY_RUN_SE:
+                case KEY_RUN_SW:
+                    moved = 0;
+                    run_pre = 1;
+                    repeat_act = tolower(ch);
+                    break;
                 case KEY_MOVE_N_BABBY:
                     add_action("Hey babby use j");
                 /* fallthrough */
@@ -150,6 +186,12 @@ int main(int argc, char **argv)
                     xn++;
                     yn--;
                     break;
+                case KEY_SCROLL_UP:
+                    set_scroll(get_scroll() - 1);
+                    continue;
+                case KEY_SCROLL_DOWN:
+                    set_scroll(get_scroll() + 1);
+                    continue;
                 case KEY_CLIMB_DOWN:
                     if (map_get(player->y, player->x) == '>') {
                         add_action("You climb down the ladder.");
@@ -203,10 +245,11 @@ int main(int argc, char **argv)
                     add_action
                         ("    s|d|i -> increase strength|dexterity|intelligence on levelup");
                     add_action("    F4 -> quit the game");
+                    add_action("    [  -> scroll action log up");
+                    add_action("    ]  -> scroll action log down");
                     break;
                 default:
                     add_action("Invalid button. Press '?' for the manual");
-                    moved = 0;
                     continue;
                     break;
                 }
@@ -227,37 +270,32 @@ int main(int argc, char **argv)
         if (map_get(yn, xn) == '.' || map_get(yn, xn) == '<'
             || map_get(yn, xn) == '>') {
             if (at) {
-                if (rand() % player->luck == 0) {
-                    char msg[80];
-                    sprintf(msg, "You swing at the %s, but miss.",
-                            get_rulebook()[at->type].name);
-                    add_action(msg);
-                } else {
-                    int damage = player_damage_dealt();
-                    if (rand() % 20000 < player->luck) {
-                        char msg[80];
-                        sprintf(msg,
-                                "You land a critical blow against the %s for %d life.",
-                                get_rulebook()[at->type].name, damage * 2);
-                        add_action(msg);
-                        enemy_hurt(at, damage * 2);
-                    } else {
-                        char msg[80];
-                        sprintf(msg, "You hurt the %s for %d life.",
-                                get_rulebook()[at->type].name, damage);
-                        add_action(msg);
-                        enemy_hurt(at, damage);
-                    }
+                if (fight_pre == 1) {
+                    repeat_act = ch;
+                    fight_pre = 2;
                 }
+                if (run_pre) {
+                    run_pre = 0;
+                    repeat_act = 0;
+                }
+                player_attacks(player, at);
             } else {
+                if (fight_pre == 2) {
+                    repeat_act = 0;
+                    fight_pre = 0;
+                }
                 player->x = xn;
                 player->y = yn;
             }
         } else {
-            add_action("You can't walk through walls.");
+            if (run_pre) {
+                run_pre = 0;
+                repeat_act = 0;
+            } else {
+                add_action("You can't walk through walls.");
+            }
         }
         enemy_turn_driver(my_wins[0], player->y, player->x);
-        map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
         key_checker(my_wins[2], player->y, player->x);
         if (moved) {
             tick++;
@@ -268,4 +306,32 @@ int main(int argc, char **argv)
 
     endwin();
     return 0;
+}
+void player_attacks(player_t *player, enemy_t *at)
+{
+    int damage;
+    damage = player_damage_dealt();
+    if ((rand() % player->luck == 0) || (damage == 0)) {
+        char msg[80];
+        sprintf(msg, "You swing at the %s, but miss.",
+                get_rulebook()[at->type].name);
+        add_action(msg);
+    } else {
+        damage *= 10 - *(&at->stat_str + item_stat() - 1);
+        damage /= 5;
+        if (rand() % 20000 < player->luck) {
+            char msg[80];
+            sprintf(msg,
+                    "You land a critical blow against the %s for %d life.",
+                    get_rulebook()[at->type].name, damage * 2);
+            add_action(msg);
+            enemy_hurt(at, damage * 2);
+        } else {
+            char msg[80];
+            sprintf(msg, "You hurt the %s for %d life.",
+                    get_rulebook()[at->type].name, damage);
+            add_action(msg);
+            enemy_hurt(at, damage);
+        }
+    }
 }

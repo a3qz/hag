@@ -140,10 +140,8 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery,
                 xdiff += 1;
                 realx += 1;
             }
-            if ((map[realy][realx] & 0xFF) != '.') {
-                if ((map[realy][realx] & 0xFF) == '#') {
-                    map[realy][realx] = (c & ~0xFF) | '#';
-                }
+            if ((map[realy][realx] & 0xFF) == '#') {
+                map[realy][realx] = (c & ~0xFF) | '#';
                 return;
             }
         } else {
@@ -154,14 +152,14 @@ void map_line_empty(int newcentery, int newcenterx, int oldcentery,
                 ydiff += 1;
                 realy += 1;
             }
-            if ((map[realy][realx] & 0xFF) != '.') {
-                if ((map[realy][realx] & 0xFF) == '#') {
-                    map[realy][realx] = (c & ~0xFF) | '#';
-                }
+            if ((map[realy][realx] & 0xFF) == '#') {
+                map[realy][realx] = (c & ~0xFF) | '#';
                 return;
             }
         }
-        map[realy][realx] = c;
+        if ((map[realy][realx] & 0xFF) == '.') {
+            map[realy][realx] = c;
+        }
     }
 }
 
