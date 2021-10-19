@@ -260,17 +260,15 @@ void enemy_take_turn(enemy_t * e, WINDOW * win, int y, int x)
         /* movement */
         /* if enemy is in range of the player */
         if (abs(ydiff) < e->sight_range && abs(xdiff) < e->sight_range) {
-            if (ydiff < 0) {
-                yn++;
-            } else if (ydiff > 0) {
-                yn--;
-            } else {
-            }
             if (xdiff < 0) {
                 xn++;
             } else if (xdiff > 0) {
                 xn--;
-            } else {
+            }
+            if (ydiff < 0) {
+                yn++;
+            } else if (ydiff > 0) {
+                yn--;
             }
             if (map_get(yn, xn) == '.' && !enemy_at(yn, xn)) {
                 e->y = yn;

@@ -10,11 +10,14 @@
 #include "item.h"
 #include "list.h"
 #include "key.h"
+#include "demo.h"
 
-#define ACTION_LENGTH 120
+#define ACTION_LENGTH  120
+#define HISTORY_LENGTH 120
 
 int junk;
 int nelems;
+int scroll_back;
 char *statslist = " sdi";
 WINDOW *prompt_window = 0;
 
@@ -25,11 +28,17 @@ WINDOW *win;
 void add_action(char *s)
 {
     int i;
-    for (i = 1; i < nelems; i++) {
-        memset(actions[i - 1], '\0', ACTION_LENGTH);
-        strcpy(actions[i - 1], actions[i]);
+    int width;
+    int count;
+    getmaxyx(win, junk, width);
+    count = strlen(s) / width + 1;
+    for (i = count; i < HISTORY_LENGTH; i++) {
+        memset(actions[i - count], '\0', ACTION_LENGTH);
+        strcpy(actions[i - count], actions[i]);
     }
-    strcpy(actions[nelems - 1], s);
+    for (i = 0; i < count; i++) {
+        strncpy(actions[HISTORY_LENGTH - count + i], s + (width - 2) * i, width);
+    }
     werase(win);
     print_action();
 }
@@ -38,9 +47,10 @@ void initialize_actions(int n, WINDOW * w)
 {
     int i;
     nelems = n;
+    scroll_back = HISTORY_LENGTH - nelems;
     win = w;
-    actions = (char**)malloc(n * sizeof(char *));
-    for (i = 0; i < nelems; i++) {
+    actions = (char**)malloc(HISTORY_LENGTH * sizeof(char *));
+    for (i = 0; i < HISTORY_LENGTH; i++) {
         actions[i] = (char*)malloc(ACTION_LENGTH * sizeof(char));
         memset(actions[i], '\0', ACTION_LENGTH);
     }
@@ -122,11 +132,19 @@ void print_action()
 {
     int y;
     int i;
+    char msg[100];
+    int scrolled = scroll_back != HISTORY_LENGTH - nelems;
     getmaxyx(win, y, junk);
 
-    for (i = 0; i < nelems; i++) {
-        print_in_window(win, i + 1, 1, y, actions[i], 0, false);
+    for (i = scrolled; i < nelems && i + scroll_back < HISTORY_LENGTH; i++) {
+        print_in_window(win, i + 1, 1, y, actions[i + scroll_back], 0, false);
     }
+
+    if (scrolled) {
+        sprintf(msg, "You are looking back %d lines.", HISTORY_LENGTH - scroll_back - nelems);
+        print_in_window(win, 1, 1, y, msg, 0, false);
+    }
+
     box(win, 0, 0);
 }
 
@@ -141,7 +159,7 @@ char gui_prompt(char *prompt, char *answer)
         print_action();
         update_panels();
         refresh();
-        response = getch();
+        response = demo_next();
     }
     return response;
 }
@@ -151,6 +169,18 @@ void gui_set_prompt_window(WINDOW * win)
     prompt_window = win;
 }
 
+int get_scroll(void)
+{
+    return scroll_back;
+}
+
+void set_scroll(int scroll)
+{
+    int max = HISTORY_LENGTH - nelems;
+    scroll_back = scroll < 0 ? 0 : scroll >= max ? max : scroll;
+    werase(win);
+    print_action();
+}
 
 void print_in_window(WINDOW * win, int starty, int startx, int width,
                      char *string, chtype color, bool mid)
@@ -163,8 +193,6 @@ void print_in_window(WINDOW * win, int starty, int startx, int width,
     if (win == NULL)
         win = stdscr;
     getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
     if (starty != 0)
         y = starty;
     if (width == 0)
