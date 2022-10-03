@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <curses.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "demo.h"
 #include "args.h"
 
@@ -12,7 +13,7 @@ static FILE* write_to = 0;
 
 static int demo_speed = 300;
 
-#ifdef __NEED_USLEEP__
+#ifndef __HAS_USLEEP__
 void usleep(long); /* needed because headers are big sad */
 #endif
 
@@ -38,7 +39,10 @@ static void demo_read_header()
     unsigned long s;
     fread(&demo_version, sizeof(demo_version), 1, read_from);
     fread(&s, sizeof(s), 1, read_from);
-    /* TODO: fail if demo version is wrong */
+    if (demo_version != DEMO_VERSION) {
+        fprintf(stderr, "File demo version (%d) does not match application version (%d)!\n", demo_version, DEMO_VERSION);
+        exit(1);
+    }
     set_seed(s);
 }
 

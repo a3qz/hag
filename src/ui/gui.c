@@ -183,7 +183,7 @@ void set_scroll(int scroll)
 }
 
 void print_in_window(WINDOW * win, int starty, int startx, int width,
-                     char *string, chtype color, bool mid)
+                     char *string, chtype color, int mid)
 {
     int length;
     int x;

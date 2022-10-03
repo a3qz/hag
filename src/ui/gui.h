@@ -11,7 +11,7 @@
 void init_wins(WINDOW ** wins, struct winsize w);
 void win_show(WINDOW * win);
 void print_in_window(WINDOW * win, int starty, int startx, int width,
-                     char *string, chtype color, bool mid);
+                     char *string, chtype color, int mid);
 void print_stats(struct player *p, WINDOW * wins2, int floor_tick);
 void print_action(void);
 void add_action(char *s);
