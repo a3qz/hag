@@ -18,9 +18,10 @@ int snek = 0;
 void generate_enemies()
 {
     called = 1;
+    book_length = 0;
 
     /* rat */
-    rulebook[book_length].name = "rat";
+    rulebook[book_length].name = is_halloween()?"spooky rat":"rat";
     rulebook[book_length].pic = 'r' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 30;
     rulebook[book_length].base_sight_range = 10;
@@ -33,7 +34,7 @@ void generate_enemies()
     book_length++;
 
     /* kobold */
-    rulebook[book_length].name = "kobold";
+    rulebook[book_length].name = is_halloween()?"spooky kobold":"kobold";
     rulebook[book_length].pic = 'k' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
@@ -46,7 +47,7 @@ void generate_enemies()
     book_length++;
 
     /* goblin */
-    rulebook[book_length].name = "goblin";
+    rulebook[book_length].name = is_halloween()?"spooky goblin":"goblin";
     rulebook[book_length].pic = 'g' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
@@ -59,7 +60,7 @@ void generate_enemies()
     book_length++;
 
     /* snake */
-    rulebook[book_length].name = "snek";
+    rulebook[book_length].name = is_halloween()?"spooky snek":"snek";
     rulebook[book_length].pic = 's' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
@@ -73,7 +74,7 @@ void generate_enemies()
     book_length++;
 
     /* slime */
-    rulebook[book_length].name = "slime";
+    rulebook[book_length].name = is_halloween()?"spooky slime":"slime";
     rulebook[book_length].pic = 'm' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
@@ -86,7 +87,7 @@ void generate_enemies()
     book_length++;
 
     /* orc */
-    rulebook[book_length].name = "orc";
+    rulebook[book_length].name = is_halloween()?"spooky orc":"orc";
     rulebook[book_length].pic = 'o' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
@@ -99,7 +100,7 @@ void generate_enemies()
     book_length++;
 
     /* wolf */
-    rulebook[book_length].name = "wolf";
+    rulebook[book_length].name = is_halloween()?"spooky wolf":"wolf";
     rulebook[book_length].pic = 'w' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 50;
     rulebook[book_length].base_sight_range = 15;
@@ -112,7 +113,7 @@ void generate_enemies()
     book_length++;
 
     /* imp */
-    rulebook[book_length].name = "imp";
+    rulebook[book_length].name = is_halloween()?"spooky imp":"imp";
     rulebook[book_length].pic = 'i' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 75;
     rulebook[book_length].base_sight_range = 15;
@@ -125,7 +126,7 @@ void generate_enemies()
     book_length++;
 
     /* griffin */
-    rulebook[book_length].name = "griffin";
+    rulebook[book_length].name = is_halloween()?"spooky griffin":"griffin";
     rulebook[book_length].pic = 'G' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 100;
     rulebook[book_length].base_sight_range = 20;
@@ -138,7 +139,7 @@ void generate_enemies()
     book_length++;
 
     /* grue */
-    rulebook[book_length].name = "grue";
+    rulebook[book_length].name = is_halloween()?"spooky grue":"grue";
     rulebook[book_length].pic = 'U' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 60;
     rulebook[book_length].base_sight_range = 20;
@@ -151,7 +152,7 @@ void generate_enemies()
     book_length++;
 
     /* fake hag */
-    rulebook[book_length].name = "Hag";
+    rulebook[book_length].name = is_halloween()?"Halloween Hag":"Hag";
     rulebook[book_length].pic = 'H' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 1;
     rulebook[book_length].base_sight_range = 0;
@@ -165,7 +166,7 @@ void generate_enemies()
     book_length++;
 
     /* hag */
-    rulebook[book_length].name = "Hag";
+    rulebook[book_length].name = is_halloween()?"Halloween Hag":"Hag";
     rulebook[book_length].pic = 'H' | A_BOLD | COLORS_RED;
     rulebook[book_length].base_hp = 30;
     rulebook[book_length].base_sight_range = 0;

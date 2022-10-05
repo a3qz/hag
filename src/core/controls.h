@@ -6,6 +6,8 @@
 #define KEY_F(n)        (KEY_F0 + (n))
 #endif
 
+#define COMMAND_CHAR      17
+
 /* Normal movements */
 #define KEY_MOVE_N        'j'
 #define KEY_MOVE_N_BABBY  0x102

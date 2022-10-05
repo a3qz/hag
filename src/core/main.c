@@ -6,7 +6,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <time.h>
 
+#include "main.h"
 #include "demo.h"
 #include "args.h"
 #include "player.h"
@@ -21,12 +23,12 @@
 #include "enemy.h"
 #include "gui.h"
 #include "key.h"
-#include "main.h"
 
 #define W 60
 #define H 13
 
 int tick = 0;
+int halloween = 0;
 
 
 
@@ -51,6 +53,11 @@ int main(int argc, char **argv)
     enemy_t *at;
     WINDOW *my_wins[3];
     PANEL *my_panels[3];
+    time_t cur_time;
+    struct tm *tm;
+    cur_time = time(NULL);
+    tm = localtime(&cur_time);
+    halloween = tm->tm_mon == 9 && tm->tm_mday == 31;
     parse_args(argc, argv);
 
     floor_down();
@@ -59,8 +66,6 @@ int main(int argc, char **argv)
     /* getting the size of the terminal */
     /* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
     ioctl(0, TIOCGWINSZ, &w);
-
-
 
     /* Initialize curses */
     initscr();
@@ -334,4 +339,14 @@ void player_attacks(player_t *player, enemy_t *at)
             enemy_hurt(at, damage);
         }
     }
+}
+
+int is_halloween(void)
+{
+    return halloween;
+}
+
+void set_halloween(int h)
+{
+    halloween = h;
 }

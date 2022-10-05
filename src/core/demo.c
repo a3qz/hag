@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "demo.h"
 #include "args.h"
+#include "controls.h"
+#include "main.h"
 
 static void demo_write_header(void);
 static void demo_read_header(void);
@@ -36,6 +38,7 @@ int demo_next(void)
 static void demo_read_header()
 {
     int demo_version;
+    int halloween;
     unsigned long s;
     fread(&demo_version, sizeof(demo_version), 1, read_from);
     fread(&s, sizeof(s), 1, read_from);
@@ -44,6 +47,9 @@ static void demo_read_header()
         exit(1);
     }
     set_seed(s);
+    fread(&halloween, sizeof(halloween), 1, read_from);
+    fread(&halloween, sizeof(halloween), 1, read_from);
+    set_halloween(halloween);
 }
 
 
@@ -51,8 +57,12 @@ static void demo_write_header(void)
 {
     unsigned long s = get_seed();
     int demo_version = DEMO_VERSION;
+    int command_char = COMMAND_CHAR;
+    int one = is_halloween();
     fwrite(&demo_version, sizeof(demo_version), 1, write_to);
     fwrite(&s, sizeof(s), 1, write_to);
+    fwrite(&command_char, sizeof(command_char), 1, write_to);
+    fwrite(&one, sizeof(one), 1, write_to);
 }
 
 void demo_start(int mode, char* fname)

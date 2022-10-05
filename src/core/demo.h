@@ -7,7 +7,7 @@ void demo_header(void);
 #define DEMO_NONE 0
 #define DEMO_REPLAY 1
 #define DEMO_RECORD 2
-#define DEMO_VERSION 0
+#define DEMO_VERSION 1
 #define DEMO_DEFAULT_FILE ".demo.hag"
 /* TODO: do we need a demo_close? */
 #endif
