@@ -302,6 +302,7 @@ int main(int argc, char **argv)
         }
     }
     print_stats(player, my_wins[2], floor_tick_get());
+    mvwprintw(my_wins[0], h0 / 2, w0 / 2, "t");
     gui_prompt("You have died! Press space to exit.", " ");
 
     endwin();
