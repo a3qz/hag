@@ -102,28 +102,28 @@ void print_stats(struct player *p, WINDOW * win2, int floor_tick)
     getmaxyx(win2, y, junk);
 
     sprintf(str, "Current HP: %d/%d\n", p->current_hp, p->max_hp);
-    print_in_window(win2, 1, 1, y, str, 0, false);
+    print_in_window(win2, 1, 1, y, str, 0, 0);
     sprintf(str, "Strength: %d\n", p->strength);
-    print_in_window(win2, 2, 1, y, str, 0, false);
+    print_in_window(win2, 2, 1, y, str, 0, 0);
     sprintf(str, "Dexterity: %d\n", p->dexterity);
-    print_in_window(win2, 3, 1, y, str, 0, false);
+    print_in_window(win2, 3, 1, y, str, 0, 0);
     sprintf(str, "Intelligence: %d\n", p->intelligence);
-    print_in_window(win2, 4, 1, y, str, 0, false);
+    print_in_window(win2, 4, 1, y, str, 0, 0);
     sprintf(str, "Luck: %d\n", p->luck);
-    print_in_window(win2, 5, 1, y, str, 0, false);
+    print_in_window(win2, 5, 1, y, str, 0, 0);
     sprintf(str, "Experience: %d/%d\n", p->current_exp, p->max_exp);
-    print_in_window(win2, 6, 1, y, str, 0, false);
+    print_in_window(win2, 6, 1, y, str, 0, 0);
     sprintf(str, "Current Level: %d\n", p->current_level);
-    print_in_window(win2, 7, 1, y, str, 0, false);
+    print_in_window(win2, 7, 1, y, str, 0, 0);
     sprintf(str, "Current Item: %c %d\n", statslist[item_stat()],
             item_power());
-    print_in_window(win2, 8, 1, y, str, 0, false);
+    print_in_window(win2, 8, 1, y, str, 0, 0);
     sprintf(str, "Turns: %d\n", floor_tick);
-    print_in_window(win2, 9, 1, y, str, 0, false);
+    print_in_window(win2, 9, 1, y, str, 0, 0);
     sprintf(str, "\n");
-    print_in_window(win2, 10, 1, y, str, 0, false);
+    print_in_window(win2, 10, 1, y, str, 0, 0);
     sprintf(str, "Key:\n");
-    print_in_window(win2, 11, 1, y, str, 0, false);
+    print_in_window(win2, 11, 1, y, str, 0, 0);
 
     box(win2, 0, 0);
 }
@@ -137,12 +137,12 @@ void print_action()
     getmaxyx(win, y, junk);
 
     for (i = scrolled; i < nelems && i + scroll_back < HISTORY_LENGTH; i++) {
-        print_in_window(win, i + 1, 1, y, actions[i + scroll_back], 0, false);
+        print_in_window(win, i + 1, 1, y, actions[i + scroll_back], 0, 0);
     }
 
     if (scrolled) {
         sprintf(msg, "You are looking back %d lines.", HISTORY_LENGTH - scroll_back - nelems);
-        print_in_window(win, 1, 1, y, msg, 0, false);
+        print_in_window(win, 1, 1, y, msg, 0, 0);
     }
 
     box(win, 0, 0);
@@ -183,7 +183,7 @@ void set_scroll(int scroll)
 }
 
 void print_in_window(WINDOW * win, int starty, int startx, int width,
-                     char *string, chtype color, bool mid)
+                     char *string, chtype color, int mid)
 {
     int length;
     int x;
