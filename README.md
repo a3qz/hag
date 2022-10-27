@@ -3,7 +3,7 @@ An ncurses procedurally generated dungeon crawler
 
 ## Story and History
 
-In our game, A Hag amongst the Glyphs, you play as a nameless adventurer.
+In A Hag amongst the Glyphs, you play as a nameless adventurer.
 You begin the game with no almost no skill and a sword so blunt it literally 
 does not help you defeat enemies at all.  
 
@@ -11,7 +11,7 @@ You were quite content with you life as a simple farmer, until one day,
 an evil Hag descended upon your village and turned all of the 
 surrounding property into a wasteland, including your farm!
 You are the only one brave (or stupid) enough to try and take
-revenge on the hag.
+revenge on the Hag.
 
 As you progress through the dangerous dungeon, you find and combat 
 enemies of increasing power and ferocity.
@@ -26,12 +26,12 @@ The game Rogue is a dungeon crawler adventure game that was initially released
 in 1980.
 Thematically, it was inspired by classic medieval and dungeon crawling media,
 primarily Dungeons and Dragons and Lord of the Rings.
-Its features that have defined its through into the games of today are
+Its features that have created a genre are
 its mechanic of permadeath, where your character only has one life and you
 must start a new game each time you play,
 and its mechanic of procedurally generating level layouts and enemy and
 item placements.
-Our game includes both of those mechanics.
+A Hag Amongst the Gylphs includes both of those mechanics.
 In addition, Rogue used the curses library and ascii art in order to
 represent its game state to the user.
 Needless to say, the majority of modern roguelikes have eschewed
