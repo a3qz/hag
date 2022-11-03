@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <curses.h>
 #include <unistd.h>
 #include "demo.h"
+#include "curses.h"
 #include "args.h"
 
 static void demo_write_header(void);
@@ -24,7 +24,7 @@ int demo_next(void)
         usleep(1000 /*ms to us*/ * demo_speed /*ms*/);
     }
     if (!move) {
-        move = getch();
+        move = curses_getch();
     }
     if (write_to) {
         fwrite(&move, sizeof(move), 1, write_to);

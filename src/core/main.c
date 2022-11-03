@@ -11,6 +11,7 @@
 #include "args.h"
 #include "player.h"
 #include "colors.h"
+#include "curses.h"
 #include "controls.h"
 #include "map.h"
 #include "item.h"
@@ -28,75 +29,24 @@
 
 int tick = 0;
 
-
-
-
 int main(int argc, char **argv)
 {
     int repeat_act = 0;
     int fight_pre = 0;
     int run_pre = 0;
-    int w0;
-    int h0;
     int xn;
     int yn;
     int xp;
     int yp;
     int ch;
     int moved;
-    int numRows;
-    struct winsize w;
     item_t *item;
     player_t *player;
     enemy_t *at;
-    WINDOW *my_wins[3];
-    PANEL *my_panels[3];
     parse_args(argc, argv);
-
+    curses_init();
     floor_down();
-
-    /*assuming character size is 15 by 15 pixels */
-    /* getting the size of the terminal */
-    /* https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c */
-    ioctl(0, TIOCGWINSZ, &w);
-
-
-
-    /* Initialize curses */
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-    keypad(stdscr, TRUE);
-
-    colors_init();
-
-    init_wins(my_wins, w);
-
-    /* Attach a panel to each window *//* Order is bottom up */
-    my_panels[0] = new_panel(my_wins[0]);   /* Push 0, order: stdscr-0 */
-    my_panels[1] = new_panel(my_wins[1]);   /* Push 1, order: stdscr-0-1 */
-    my_panels[2] = new_panel(my_wins[2]);   /* Push 2, order: stdscr-0-1-2 */
-
-    /* Set up the user pointers to the next panel */
-    set_panel_userptr(my_panels[0], my_panels[1]);
-    set_panel_userptr(my_panels[1], my_panels[2]);
-    set_panel_userptr(my_panels[2], my_panels[0]);
-
-    /*actions strings declaration */
-    numRows = w.ws_row * .25 - 2;
-    initialize_actions(numRows, my_wins[1]);
-
-    /*ALL TEXT MUST BE PLACED BEFORE THE PANEL UPDATE */
-    update_panels();
-
-    /* Show it on the screen */
-    attron(COLOR_PAIR(4));
-    attroff(COLOR_PAIR(4));
-    doupdate();
-
     player = get_player_obj();
-    gui_set_prompt_window(my_wins[1]);
     item_give();
     add_action(flavortext_from_floor());
     map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
@@ -112,19 +62,7 @@ int main(int argc, char **argv)
         moved = 1;
         map_los(yp, xp, 8, (int)'.' | COLORS_BLACK | A_BOLD);
         map_los(player->y, player->x, 8, '.' | A_BOLD | COLORS_WHITE);
-        refresh();
-        werase(my_wins[2]);
-        print_stats(player, my_wins[2], floor_tick_get());
-        key_checker(my_wins[2], player->y, player->x);
-        update_panels();
-        print_action();
-        werase(my_wins[0]);
-        map_print(my_wins[0], player->y, player->x);
-        enemy_draw(my_wins[0], player->y, player->x);
-        item_draw(my_wins[0], player->y, player->x);
-        getmaxyx(my_wins[0], h0, w0);   /*MACRO, changes w and h */
-        mvwprintw(my_wins[0], h0 / 2, w0 / 2, "@");
-        wrefresh(my_wins[0]);
+        curses_update();
         xn = xp = player->x;
         yn = yp = player->y;
         if ((ch = repeat_act) || (ch = demo_next(), ch != ERR)) {
@@ -295,14 +233,12 @@ int main(int argc, char **argv)
                 add_action("You can't walk through walls.");
             }
         }
-        enemy_turn_driver(my_wins[0], player->y, player->x);
-        key_checker(my_wins[2], player->y, player->x);
+        curses_update_enemy();
         if (moved) {
             tick++;
         }
     }
-    print_stats(player, my_wins[2], floor_tick_get());
-    mvwprintw(my_wins[0], h0 / 2, w0 / 2, "t");
+    curses_update_end();
     gui_prompt("You have died! Press space to exit.", " ");
 
     endwin();
