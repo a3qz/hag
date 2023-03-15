@@ -13,8 +13,7 @@ CC       = gcc
 LINKS    =-lncurses -lpanel
 COMMON_FLAGS =-g -Wall -pedantic -Wextra -Werror \
 		  -Wmissing-prototypes -Wstrict-prototypes $(INCLUDE) 
-CC_FLAGS =-std=c89 $(COMMON_FLAGS) $(INCLUDE)\
-		  -D__NEED_USLEEP__
+CC_FLAGS =-std=c89 $(COMMON_FLAGS) $(INCLUDE) $(EXTRA_FLAGS)
 ID       = uncrustify
 ID_FLAGS =-c uncrustify.cfg
 
