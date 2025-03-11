@@ -3,9 +3,10 @@ EXEC     = out/hag
 OUTDIR   = out/
 SRCDIR   = src/
 OBJDIR   = $(OUTDIR)objects/
+INCDIR   = $(OUTDIR)include/
 SOURCES  = $(wildcard $(SRCDIR)*/*.c)
 HEADERS  = $(wildcard $(SRCDIR)*/*.h)
-INCLUDE  = $(addprefix "-I", $(wildcard $(SRCDIR)*))
+INCLUDE  = $(addprefix "-I", $(wildcard $(SRCDIR)*)) -I $(INCDIR)
 OBJECTS  = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
  
 # Declaration of variables
@@ -19,8 +20,12 @@ ID       = uncrustify
 ID_FLAGS =-c uncrustify.cfg
 
 # Main target
-$(EXEC): $(OBJECTS)
+$(EXEC): $(INCDIR)gencontrols.h $(OBJECTS) 
 	$(CC) $^ -o $@ $(LINKS) $(CC_FLAGS)
+
+$(INCDIR)gencontrols.h: $(SRCDIR)core/gencontrols.py
+	mkdir $(INCDIR)
+	$^ > $@
 
 # Obtain object files
 $(OBJDIR)%.o: $(SRCDIR)/*/%.c

@@ -128,71 +128,72 @@ int main(int argc, char **argv)
         xn = xp = player->x;
         yn = yp = player->y;
         if ((ch = repeat_act) || (ch = demo_next(), ch != ERR)) {
+            ch = control_get_key(ch);
             if (rand() % player->luck) {
                 switch (ch) {
-                case KEY_FIGHT:
+                case ACTION_FIGHT:
                     moved = 0;
                     fight_pre = 1;
                     break;
-                case KEY_RUN_N:
-                case KEY_RUN_S:
-                case KEY_RUN_E:
-                case KEY_RUN_W:
-                case KEY_RUN_NE:
-                case KEY_RUN_NW:
-                case KEY_RUN_SE:
-                case KEY_RUN_SW:
+                case ACTION_RUN_N:
+                case ACTION_RUN_S:
+                case ACTION_RUN_E:
+                case ACTION_RUN_W:
+                case ACTION_RUN_NE:
+                case ACTION_RUN_NW:
+                case ACTION_RUN_SE:
+                case ACTION_RUN_SW:
                     moved = 0;
                     run_pre = 1;
                     repeat_act = tolower(ch);
                     break;
-                case KEY_MOVE_N_BABBY:
+                case ACTION_MOVE_N_BABBY:
                     add_action("Hey babby use j");
                 /* fallthrough */
-                case KEY_MOVE_N:
+                case ACTION_MOVE_N:
                     yn++;
                     break;
-                case KEY_MOVE_S_BABBY:
+                case ACTION_MOVE_S_BABBY:
                     add_action("Hey babby use k");
                 /* fallthrough */
-                case KEY_MOVE_S:
+                case ACTION_MOVE_S:
                     yn--;
                     break;
-                case KEY_MOVE_W_BABBY:
+                case ACTION_MOVE_W_BABBY:
                     add_action("Hey babby use h");
                 /* fallthrough */
-                case KEY_MOVE_W:
+                case ACTION_MOVE_W:
                     xn--;
                     break;
-                case KEY_MOVE_E_BABBY:
+                case ACTION_MOVE_E_BABBY:
                     add_action("Hey babby use l");
                 /* fallthrough */
-                case KEY_MOVE_E:
+                case ACTION_MOVE_E:
                     xn++;
                     break;
-                case KEY_MOVE_NW:
+                case ACTION_MOVE_NW:
                     xn--;
                     yn++;
                     break;
-                case KEY_MOVE_NE:
+                case ACTION_MOVE_NE:
                     xn++;
                     yn++;
                     break;
-                case KEY_MOVE_SW:
+                case ACTION_MOVE_SW:
                     xn--;
                     yn--;
                     break;
-                case KEY_MOVE_SE:
+                case ACTION_MOVE_SE:
                     xn++;
                     yn--;
                     break;
-                case KEY_SCROLL_UP:
+                case ACTION_SCROLL_UP:
                     set_scroll(get_scroll() - 1);
                     continue;
-                case KEY_SCROLL_DOWN:
+                case ACTION_SCROLL_DOWN:
                     set_scroll(get_scroll() + 1);
                     continue;
-                case KEY_CLIMB_DOWN:
+                case ACTION_CLIMB_DOWN:
                     if (map_get(player->y, player->x) == '>') {
                         add_action("You climb down the ladder.");
                         floor_down();
@@ -200,39 +201,39 @@ int main(int argc, char **argv)
                         continue;
                     }
                     break;
-                case KEY_CLIMB_UP:
+                case ACTION_CLIMB_UP:
                     if (map_get(player->y, player->x) == '<') {
                         add_action("You climb up the ladder.");
                         floor_up();
                         continue;
                     }
                     break;
-                case KEY_QWARF:
+                case ACTION_QWARF:
                     item = item_at(player->y, player->x);
                     if (item && item->type == POTION) {
                         item_drink(item);
                     }
                     break;
-                case KEY_INSPECT:
+                case ACTION_INSPECT:
                     item = item_at(player->y, player->x);
                     if (item && item->type == POTION) {
                         item_inspect(item);
                     }
                     break;
-                case KEY_EQUIP:
+                case ACTION_EQUIP:
                     item = item_at(player->y, player->x);
                     if (item && item->type == SWORD) {
                         add_action("Picked up a sword");
                         item_swap(item);
                     }
                     break;
-                case KEY_BIDE:
+                case ACTION_BIDE:
                     break;
-                case KEY_QUIT:
+                case ACTION_QUIT:
                     endwin();
                     return 0;
                     break;
-                case KEY_QUESTIONMARK:
+                case ACTION_QUESTIONMARK:
                     add_action("Babby Manual:");
                     add_action("    h|j|k|l -> Left, Down, Up, Right");
                     add_action
