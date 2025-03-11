@@ -47,6 +47,12 @@ import re
 pattern = r'KEY\(\s*([A-Z_]+)\s*,\s*(.*)\s*\)'
 actions = [];
 with open('gencontrols.h', 'w+') as f:
+    print("""
+#include <ncurses.h>
+#ifndef KEY_F
+#define KEY_F(n)        (KEY_F0 + (n))
+#endif
+""")
     for line in keys.split("\n"):
         match = re.match(pattern, line)
         if not match: continue
@@ -54,9 +60,10 @@ with open('gencontrols.h', 'w+') as f:
         print(f"int KEY_{action} = {key};")
         print(f"#define ACTION_{action} ({key})")
         actions.append(action)
-    print("int control_get_key(char ch) {")
+    print("int control_get_key(int ch);")
+    print("int control_get_key(int ch) {")
     for action in actions:
-        print(f"\tif (ch == KEY_{action}) return ACTION_{action}")
+        print(f"\tif (ch == KEY_{action}) return ACTION_{action};")
     print("\treturn 0;\n}")
         
 

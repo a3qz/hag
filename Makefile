@@ -6,7 +6,7 @@ OBJDIR   = $(OUTDIR)objects/
 INCDIR   = $(OUTDIR)include/
 SOURCES  = $(wildcard $(SRCDIR)*/*.c)
 HEADERS  = $(wildcard $(SRCDIR)*/*.h)
-INCLUDE  = $(addprefix "-I", $(wildcard $(SRCDIR)*)) -I $(INCDIR)
+INCLUDE  = $(addprefix "-I", $(wildcard $(SRCDIR)*)) -I"$(INCDIR)"
 OBJECTS  = $(addprefix $(OBJDIR), $(notdir $(SOURCES:.c=.o)))
  
 # Declaration of variables
@@ -24,7 +24,7 @@ $(EXEC): $(INCDIR)gencontrols.h $(OBJECTS)
 	$(CC) $^ -o $@ $(LINKS) $(CC_FLAGS)
 
 $(INCDIR)gencontrols.h: $(SRCDIR)core/gencontrols.py
-	mkdir $(INCDIR)
+	mkdir $(INCDIR) -p
 	$^ > $@
 
 # Obtain object files
