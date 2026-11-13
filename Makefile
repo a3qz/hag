@@ -44,3 +44,18 @@ lint: $(SOURCES:.c=.c~uncrust) $(HEADERS:.h=.h~uncrust)
 # (for local development)
 cheat: CC_FLAGS = $(COMMON_FLAGS) $(INCLUDE)
 cheat: $(EXEC)
+
+# WebAssembly build (Emscripten + browser ncurses shim)
+EMCC     ?= $(shell which emcc 2>/dev/null || echo /tmp/emsdk/upstream/emscripten/emcc)
+WEBDIR    = web/
+WEB_SHIM  = $(WEBDIR)shim/ncurses_shim.c
+WEB_OUT   = $(WEBDIR)hag.js
+EM_FLAGS  = -O2 -I$(WEBDIR)shim $(INCLUDE) -sASYNCIFY -sMODULARIZE=1 \
+            -sSINGLE_FILE=1 -sEXPORT_NAME=createHagModule \
+            -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,HEAPU32
+
+web: $(SOURCES) $(HEADERS) $(WEB_SHIM) $(WEBDIR)shim/ncurses.h $(WEBDIR)shim/panel.h
+	$(EMCC) $(SOURCES) $(WEB_SHIM) $(EM_FLAGS) -o $(WEB_OUT)
+
+serve:
+	python3 -m http.server 8000 --directory $(WEBDIR)
